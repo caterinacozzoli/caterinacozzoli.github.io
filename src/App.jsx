@@ -146,8 +146,8 @@ function AvatarIntro({ onComplete }) {
           : { duration: 0 }}
         onAnimationComplete={() => { if (flying) onComplete(); }}
       >
-        {/* Nuvola — fluida con AnimatePresence */}
-        <div style={{ position: 'absolute', left: '0%', top: '60%', width: '68%', zIndex: 1 }}>
+        {/* Nuvola — più piccola, spostata a sinistra e in alto */}
+        <div style={{ position: 'absolute', left: '-28%', top: '44%', width: '56%', zIndex: 1 }}>
           <ThoughtBubble text={!flying ? currentText : ''} visible={!flying} />
         </div>
 
