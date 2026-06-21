@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import { useLang } from '../contexts/LangContext';
+import { FLAGS, FlagBtn } from './LangNav';
 import './Nav.css';
 
 const NAV_SECTIONS = [
@@ -9,13 +10,11 @@ const NAV_SECTIONS = [
   { id: 'contatti', key: 'contact'  },
 ];
 
-export default function Nav({ onSectionChange, onChiSonoHover }) {
-  const { lang, tr } = useLang();
+export default function Nav({ onSectionChange, onChiSonoHover, menuOpen, onMenuClose }) {
+  const { lang, setLang, tr } = useLang();
   const [activeId, setActiveId] = useState('');
   const [chiSonoHovered, setChiSonoHovered] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef(null);
-  const burgerRef = useRef(null);
 
   useEffect(() => {
     const observers = [];
@@ -49,18 +48,15 @@ export default function Nav({ onSectionChange, onChiSonoHover }) {
     };
   }, []);
 
-  /* Chiudi menu su Escape, gestisci focus trap */
+  /* Escape chiude menu */
   useEffect(() => {
     if (!menuOpen) return;
     const handleKey = (e) => {
-      if (e.key === 'Escape') {
-        setMenuOpen(false);
-        burgerRef.current?.focus();
-      }
+      if (e.key === 'Escape') onMenuClose?.();
     };
     document.addEventListener('keydown', handleKey);
     return () => document.removeEventListener('keydown', handleKey);
-  }, [menuOpen]);
+  }, [menuOpen, onMenuClose]);
 
   /* Blocca scroll body quando menu aperto */
   useEffect(() => {
@@ -70,7 +66,7 @@ export default function Nav({ onSectionChange, onChiSonoHover }) {
 
   const handleNavClick = (id) => {
     setActiveId(id);
-    setMenuOpen(false);
+    onMenuClose?.();
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
   };
 
@@ -81,18 +77,12 @@ export default function Nav({ onSectionChange, onChiSonoHover }) {
     : lang === 'pt' ? 'Navegação principal'
     : 'Main navigation';
 
-  const burgerLabel = menuOpen
-    ? (lang === 'it' ? 'Chiudi menu' : lang === 'pt' ? 'Fechar menu' : 'Close menu')
-    : (lang === 'it' ? 'Apri menu' : lang === 'pt' ? 'Abrir menu' : 'Open menu');
+  const visibleFlags = Object.entries(FLAGS).filter(([code]) => code !== lang);
 
   return (
     <header className="nav-header">
-      {/* Desktop pill nav */}
-      <nav
-        className="nav-pill"
-        aria-label={ariaLabel}
-        aria-hidden={menuOpen ? undefined : undefined}
-      >
+      {/* Desktop pill nav — nascosta su mobile (≤768px) */}
+      <nav className="nav-pill" aria-label={ariaLabel}>
         {NAV_SECTIONS.map(({ id, key }) => {
           const isActive = activeId === id;
           const isAbout = id === 'chi-sono';
@@ -113,22 +103,7 @@ export default function Nav({ onSectionChange, onChiSonoHover }) {
         })}
       </nav>
 
-      {/* Mobile hamburger button */}
-      <button
-        ref={burgerRef}
-        className={`nav-burger${menuOpen ? ' nav-burger--open' : ''}`}
-        aria-label={burgerLabel}
-        aria-expanded={menuOpen}
-        aria-controls="nav-mobile-menu"
-        onClick={() => setMenuOpen(o => !o)}
-        type="button"
-      >
-        <span className="nav-burger__bar" />
-        <span className="nav-burger__bar" />
-        <span className="nav-burger__bar" />
-      </button>
-
-      {/* Mobile overlay menu */}
+      {/* Mobile overlay menu — controllato da LangNav hamburger */}
       {menuOpen && (
         <div
           className="nav-mobile-overlay"
@@ -138,8 +113,8 @@ export default function Nav({ onSectionChange, onChiSonoHover }) {
           id="nav-mobile-menu"
           ref={menuRef}
         >
-          <nav aria-label={ariaLabel}>
-            {NAV_SECTIONS.map(({ id, key }) => {
+          <nav className="nav-mobile-links" aria-label={ariaLabel}>
+            {NAV_SECTIONS.map(({ id, key }, i) => {
               const isActive = activeId === id;
               return (
                 <a
@@ -147,6 +122,7 @@ export default function Nav({ onSectionChange, onChiSonoHover }) {
                   href={`#${id}`}
                   className={`nav-mobile-link${isActive ? ' nav-mobile-link--active' : ''}`}
                   aria-current={isActive ? 'location' : undefined}
+                  style={{ '--i': i }}
                   onClick={(e) => { e.preventDefault(); handleNavClick(id); }}
                 >
                   {tr.nav[key]}
@@ -154,6 +130,18 @@ export default function Nav({ onSectionChange, onChiSonoHover }) {
               );
             })}
           </nav>
+
+          {/* Flags in fondo al menu */}
+          <div className="nav-mobile-flags" aria-label={lang === 'it' ? 'Seleziona lingua' : lang === 'pt' ? 'Selecionar idioma' : 'Select language'}>
+            {visibleFlags.map(([code, config]) => (
+              <FlagBtn
+                key={code}
+                code={code}
+                config={config}
+                onClick={() => { setLang(code); onMenuClose?.(); }}
+              />
+            ))}
+          </div>
         </div>
       )}
     </header>

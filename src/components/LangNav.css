@@ -1,8 +1,7 @@
-/* === MINI NAV LINGUE — top-left, pill compatta e rotonda === */
+/* === MINI NAV LINGUE — top-left, stessa altezza del nav-pill === */
 
 .lang-nav {
   position: fixed;
-  /* Stessa altezza e top del nav-pill → allineamento visivo perfetto */
   top: 32px;
   left: 24px;
   z-index: var(--z-nav);
@@ -17,6 +16,14 @@
   pointer-events: all;
 }
 
+/* === FLAGS CONTAINER === */
+
+.lang-flags {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
 /* === BANDIERA === */
 
 .lang-flag-btn {
@@ -27,6 +34,7 @@
   padding: 4px;
   display: flex;
   align-items: center;
+  justify-content: center;
   border-radius: 4px;
   transition: transform 0.18s ease, filter 0.18s ease;
 }
@@ -55,30 +63,67 @@
   vertical-align: middle;
 }
 
-.lang-flag-btn {
-  display: flex;
+/* === HAMBURGER BUTTON — dentro la pill, nascosto su desktop === */
+
+.lang-burger {
+  display: none; /* visibile solo su mobile via breakpoint */
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  /* 44px touch target */
+  padding: 10px 12px;
+  border-radius: 4px;
 }
 
-/* === MOBILE === */
+.lang-burger__bar {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: #e1dcc6;
+  border-radius: 2px;
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+              opacity   0.2s ease;
+}
+
+/* ✕ quando aperto */
+.lang-burger--open .lang-burger__bar:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.lang-burger--open .lang-burger__bar:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+.lang-burger--open .lang-burger__bar:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+.lang-burger:focus-visible {
+  outline: 2px solid #FED728;
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+/* === MOBILE ≤768px — mostra hamburger, nascondi flags === */
 
 @media (max-width: 768px) {
   .lang-nav {
     height: 64px;
     top: 20px;
-    padding: 0 18px;
-    gap: 10px;
+    /* pill più stretta: solo hamburger */
+    padding: 0 8px;
+    gap: 0;
   }
 
-  .lang-flag {
-    width: 28px;
-    height: 28px;
+  .lang-flags {
+    display: none;
   }
 
-  .lang-flag-btn {
-    /* 28px flag + 8px × 2 = 44px touch target */
-    padding: 8px;
+  .lang-burger {
+    display: flex;
   }
 }
 
@@ -86,4 +131,5 @@
 
 @media (prefers-reduced-motion: reduce) {
   .lang-flag-btn { transition: none; }
+  .lang-burger__bar { transition: none; }
 }

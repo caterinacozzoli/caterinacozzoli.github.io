@@ -24,32 +24,28 @@ const AVATAR = {
   pop:           '/images/avatar-caterina-popcorn.png',
 };
 
-const INTRO_SEQUENCE = [
-  AVATAR.default,
-  AVATAR.frontale,
-  AVATAR.latoSinistra,
-  AVATAR.sottoCentro,
-  AVATAR.inBassoADestra,
-  AVATAR.altoDestra,
+/* === LOADING: 3 fasi, avatar stop-motion === */
+const INTRO_BUBBLES = [
+  {
+    text: 'ci sono quasi...',
+    frames: [AVATAR.default, AVATAR.sottoCentro, AVATAR.latoSinistra, AVATAR.altoDestra],
+  },
+  {
+    text: 'dove ho lasciato il cellulare',
+    frames: [AVATAR.frontale, AVATAR.inBassoADestra, AVATAR.sbatti, AVATAR.frontale],
+  },
+  {
+    text: 'eccomi! 👋',
+    frames: [AVATAR.fischia, AVATAR.frontale, AVATAR.fischia, AVATAR.frontale],
+  },
 ];
-
-// Pensieri durante il caricamento — uno per stato avatar
-const INTRO_THOUGHTS = [
-  'ci sono quasi...',
-  'dove ho lasciato il cellulare',
-  'ho finito i token...',
-  'aspetta aspetta',
-  'quasi quasi...',
-  'eccomi! 👋',
-];
-
 
 const INTRO_SIZE  = 240;
 const FINAL_SIZE  = 140;
 const FINAL_TOP   = 16;
 const FINAL_RIGHT = 24;
-const STEP_MS     = 1500;  // più lento per leggere le nuvolette
-const XFADE_MS    = 700;
+const BUBBLE_MS   = 1800;  // durata di ciascuna nuvola
+const FRAME_MS    = 440;   // stop-motion: cambio frame istantaneo
 
 /* === THOUGHT BUBBLE === */
 let _nuvolettaFailed = false;
@@ -82,25 +78,45 @@ function ThoughtBubble({ text, visible }) {
 }
 
 function AvatarIntro({ onComplete }) {
-  const [step, setStep]     = useState(0);
-  const [flying, setFlying] = useState(false);
+  const [bubbleIdx, setBubbleIdx] = useState(0);
+  const [frameIdx,  setFrameIdx]  = useState(0);
+  const [flying,    setFlying]    = useState(false);
 
-  const cx  = typeof window !== 'undefined' ? window.innerWidth  / 2 - INTRO_SIZE / 2 : 0;
-  const cy  = typeof window !== 'undefined' ? window.innerHeight / 2 - INTRO_SIZE / 2 : 0;
-  const fx  = typeof window !== 'undefined' ? window.innerWidth  - FINAL_SIZE - FINAL_RIGHT : 0;
-  const fy  = FINAL_TOP;
+  const cx = typeof window !== 'undefined' ? window.innerWidth  / 2 - INTRO_SIZE / 2 : 0;
+  const cy = typeof window !== 'undefined' ? window.innerHeight / 2 - INTRO_SIZE / 2 : 0;
+  const fx = typeof window !== 'undefined' ? window.innerWidth  - FINAL_SIZE - FINAL_RIGHT : 0;
+  const fy = FINAL_TOP;
+
+  /* Timer nuvole — avanza ogni BUBBLE_MS, poi lancia il volo */
   useEffect(() => {
     if (flying) return;
     const t = setTimeout(() => {
-      if (step < INTRO_SEQUENCE.length - 1) setStep(s => s + 1);
-      else setFlying(true);
-    }, STEP_MS);
+      if (bubbleIdx < INTRO_BUBBLES.length - 1) {
+        setBubbleIdx(i => i + 1);
+        setFrameIdx(0);
+      } else {
+        setFlying(true);
+      }
+    }, BUBBLE_MS);
     return () => clearTimeout(t);
-  }, [step, flying]);
+  }, [bubbleIdx, flying]);
+
+  /* Timer frame stop-motion — cicla i frame della bolla corrente */
+  useEffect(() => {
+    if (flying) return;
+    const frames = INTRO_BUBBLES[bubbleIdx].frames;
+    const t = setInterval(() => {
+      setFrameIdx(i => (i + 1) % frames.length);
+    }, FRAME_MS);
+    return () => clearInterval(t);
+  }, [bubbleIdx, flying]);
+
+  const currentSrc = INTRO_BUBBLES[bubbleIdx].frames[frameIdx];
+  const currentText = INTRO_BUBBLES[bubbleIdx].text;
 
   return (
     <>
-      {/* Cover carta acquarello — opacity+scale dissolve */}
+      {/* Cover carta acquarello */}
       <motion.div
         style={{
           position: 'fixed', inset: 0, zIndex: 9998,
@@ -114,7 +130,7 @@ function AvatarIntro({ onComplete }) {
         transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
       />
 
-      {/* Avatar — volo ad arco curvo da centro a corner */}
+      {/* Avatar — vola da centro a corner */}
       <motion.div
         style={{ position: 'fixed', zIndex: 9999, top: 0, left: 0, pointerEvents: 'none' }}
         initial={{ x: cx, y: cy, width: INTRO_SIZE }}
@@ -130,29 +146,25 @@ function AvatarIntro({ onComplete }) {
           : { duration: 0 }}
         onAnimationComplete={() => { if (flying) onComplete(); }}
       >
-        {/* Nuvola — al mento/bocca, puntini (alto-dx) puntano al viso */}
+        {/* Nuvola — fluida con AnimatePresence */}
         <div style={{ position: 'absolute', left: '0%', top: '60%', width: '68%', zIndex: 1 }}>
-          <ThoughtBubble text={!flying ? INTRO_THOUGHTS[step] : ''} visible={!flying} />
+          <ThoughtBubble text={!flying ? currentText : ''} visible={!flying} />
         </div>
 
+        {/* Avatar — stop motion: src swap diretto, nessun crossfade */}
         <div style={{ position: 'relative', width: '100%', paddingBottom: '100%', overflow: 'visible' }}>
-          <AnimatePresence>
-            <motion.img
-              key={step}
-              src={INTRO_SEQUENCE[step]}
-              alt=""
-              style={{
-                position: 'absolute', inset: 0,
-                width: '100%', height: '100%',
-                objectFit: 'contain',
-                transformOrigin: 'center bottom',
-              }}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{    opacity: 0 }}
-              transition={{ duration: XFADE_MS / 1000, ease: 'linear' }}
-            />
-          </AnimatePresence>
+          <img
+            src={currentSrc}
+            alt=""
+            style={{
+              position: 'absolute', inset: 0,
+              width: '100%', height: '100%',
+              objectFit: 'contain',
+              transformOrigin: 'center bottom',
+              /* nessuna transition — effetto stop-motion */
+              transition: 'none',
+            }}
+          />
         </div>
       </motion.div>
     </>
@@ -191,7 +203,7 @@ function FloatingAvatar({ mode, onGoHome, bubbleText }) {
 }
 
 function AppInner() {
-  const { announcement } = useLang();
+  const { announcement, tr } = useLang();
   const [activeSection, setActiveSection] = useState('');
   const [chiSonoHovered, setChiSonoHovered] = useState(false);
   const [homeLock, setHomeLock] = useState(false);
@@ -199,6 +211,9 @@ function AppInner() {
   const [carouselScrolling, setCarouselScrolling] = useState(false);
   const [letterBubble, setLetterBubble] = useState(null);
   const [openProject, setOpenProject] = useState(null);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const handleMenuToggle = useCallback(() => setMenuOpen(o => !o), []);
+  const handleMenuClose  = useCallback(() => setMenuOpen(false), []);
   const handleIntroComplete = useCallback(() => setIntroComplete(true), []);
   const handleOpenProject = useCallback((id) => setOpenProject(id), []);
   const handleCloseProject = useCallback(() => setOpenProject(null), []);
@@ -245,9 +260,9 @@ function AppInner() {
   return (
     <>
       <CursorBlob />
-      <LangNav />
+      <LangNav menuOpen={menuOpen} onMenuToggle={handleMenuToggle} />
       <a href="#main-content" className="skip-link">
-        {announcement ? announcement : 'Vai al contenuto principale'}
+        {tr.skipLink}
       </a>
 
       <div aria-live="polite" aria-atomic="true" className="sr-only" role="status">
@@ -257,6 +272,8 @@ function AppInner() {
       <Nav
         onSectionChange={handleSectionChange}
         onChiSonoHover={handleChiSonoHover}
+        menuOpen={menuOpen}
+        onMenuClose={handleMenuClose}
       />
       {!introComplete && <AvatarIntro onComplete={handleIntroComplete} />}
       {introComplete && (
