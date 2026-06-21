@@ -44,8 +44,8 @@ const INTRO_SIZE  = 240;
 const FINAL_SIZE  = 140;
 const FINAL_TOP   = 16;
 const FINAL_RIGHT = 24;
-const BUBBLE_MS   = 1800;  // durata di ciascuna nuvola
-const FRAME_MS    = 440;   // stop-motion: cambio frame istantaneo
+const BUBBLE_MS   = 2000;  // durata di ciascuna nuvola (leggermente più lungo per vedere i frame)
+const FRAME_MS    = 150;   // ~6fps — vero stop-motion
 
 /* === THOUGHT BUBBLE === */
 let _nuvolettaFailed = false;
