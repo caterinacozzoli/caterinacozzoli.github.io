@@ -6,10 +6,36 @@
 
 .about-headline-strip {
   background: #FED728;
-  padding: 48px 56px 16px;
+  padding: 48px 56px 32px;
+  min-height: 180px;
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+}
+
+.about-header-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 16px;
+  z-index: 1;
+}
+
+.about-count {
+  position: absolute;
+  right: 24px;
+  bottom: -8px;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(100px, 20vw, 220px);
+  color: #212529;
+  opacity: 0.08;
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+  pointer-events: none;
+  user-select: none;
 }
 
 .about-headline {
@@ -83,7 +109,8 @@
   overflow: hidden;
   background: transparent;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
+  padding-top: 48px;
 }
 
 /* === TRACK — transforms horizontally via JS === */

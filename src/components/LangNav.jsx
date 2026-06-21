@@ -20,16 +20,16 @@ const SPRITE = '/images/flag-uk.png';
    BG_SIZE: 1584×0.385=610px, 672×0.385=259px
    bgPos-x: PT=548×0.385=211, IT=730×0.385=281, EN=900×0.385=347
    bgPos-y: flag top 420×0.385=162 */
-/* Canvas pixel-sample: Brazil x=555-680, Italy x=730-855, UK x=900-1035, y_start≈455
-   Display: 36×32px → scale = 36/125 = 0.288
-   BG_SIZE: 1584×0.288=456px, 672×0.288=194px
-   bgPos-x: PT=555×0.288=160→-160, IT=730×0.288=210→-210, EN=900×0.288=259→-259
-   bgPos-y: 455×0.288=131→-131 */
-const BG_SIZE = '456px 194px';
+/* Canvas pixel-sample y=520: Brazil x=551-677, Italy x=728-851, UK x=902-1034
+   Display: 36×39px → scale = 36/126 = 0.286
+   BG_SIZE: 1584×0.286=453px, 672×0.286=192px
+   bgPos-x: PT=551×0.286=158→-158, IT=728×0.286=208→-208, EN=902×0.286=258→-258
+   bgPos-y: y_start≈455×0.286=130→-130 */
+const BG_SIZE = '453px 192px';
 const FLAGS = {
-  it: { bgPos: '-210px -131px', label: 'Italiano' },
-  en: { bgPos: '-259px -131px', label: 'English' },
-  pt: { bgPos: '-160px -131px', label: 'Português' },
+  it: { bgPos: '-208px -130px', label: 'Italiano' },
+  en: { bgPos: '-258px -130px', label: 'English' },
+  pt: { bgPos: '-158px -130px', label: 'Português' },
 };
 
 function FlagBtn({ code, config, onClick }) {

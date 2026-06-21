@@ -3,7 +3,7 @@
   height: 100svh;
   overflow: hidden;
   padding: 0;
-  background: rgba(254, 215, 40, 0.07);
+  background: rgba(254, 215, 40, 0.11);
   /* Flex column: tagline top, description+nome bottom */
   display: flex;
   flex-direction: column;
@@ -68,7 +68,7 @@
   z-index: var(--z-base);
   padding: 110px 56px 0;
   flex-shrink: 0;
-  max-width: 600px;
+  max-width: 780px;
   margin-top: clamp(40px, 10vh, 100px);
 }
 
@@ -106,9 +106,9 @@
 .hero-description {
   position: relative;
   font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: clamp(18px, 1.8vw, 24px);
+  font-size: clamp(20px, 2.1vw, 28px);
   font-weight: 400;
-  line-height: 1.6;
+  line-height: 1.55;
   color: var(--ink);
   text-wrap: pretty;
 }
@@ -208,10 +208,10 @@
 }
 
 .scroll-label {
-  font-family: 'Gochi Hand', cursive;
-  font-size: 16px;
+  font-family: var(--font-body);
+  font-size: 13px;
   font-weight: 400;
-  letter-spacing: 0;
+  letter-spacing: 0.04em;
   text-transform: none;
   color: var(--ink-muted);
   writing-mode: vertical-rl;

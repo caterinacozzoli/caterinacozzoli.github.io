@@ -1,32 +1,60 @@
 .workflow {
-  padding: 100px 56px;
+  padding: 112px 56px 96px;
   background: transparent;
-  border-top: 1.5px solid #E6E8EC;
 }
 
-/* === HEADER === */
+/* === HEADER — stesso stile Works/About === */
 
 .workflow-header {
   display: flex;
-  align-items: baseline;
+  align-items: flex-end;
   justify-content: space-between;
-  margin-bottom: 72px;
-  padding-bottom: 24px;
-  border-bottom: 1.5px solid #E6E8EC;
+  position: relative;
+  overflow: hidden;
+  margin: -112px -56px 56px;
+  padding: 48px 56px 32px;
+  min-height: 180px;
+  background: #FED728;
+  border: none;
 }
 
 .workflow-title {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(28px, 4vw, 60px);
+  font-size: clamp(38px, 6vw, 88px);
   text-transform: uppercase;
   color: #212529;
   letter-spacing: -0.01em;
   line-height: 1;
+  position: relative;
+  z-index: 1;
+}
+
+.workflow-header-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+  z-index: 1;
 }
 
 .workflow-count {
-  font-size: 13px;
+  position: absolute;
+  right: 24px;
+  bottom: -8px;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(100px, 20vw, 220px);
+  color: #212529;
+  opacity: 0.08;
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+  pointer-events: none;
+  user-select: none;
+}
+
+.workflow-steps-label {
+  font-size: 12px;
   font-weight: 600;
   color: #8942FE;
   letter-spacing: 0.08em;
@@ -38,6 +66,14 @@
 .workflow-steps {
   list-style: none;
   display: grid;
+  background-color: #D4CDFF;
+  background-image: url('/images/carta acquarello.jpg');
+  background-size: cover;
+  background-position: center;
+  background-blend-mode: multiply;
+  border-radius: 24px;
+  padding: 40px 32px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.04);
   grid-template-columns: repeat(5, 1fr);
   position: relative;
 }

@@ -12,8 +12,8 @@ export const t = {
     hero: {
       tagline:     'UX/UI Designer',
       location:    'Milano · Fortaleza',
-      description: 'UX/UI designer che osserva i bisogni invisibili\ne li trasforma in esperienze intuitive e accessibili.\nAscolto, esploro, sbaglio e riprovo.',
-      scrollHint:  'quanta fretta, ma dove corri?',
+      description: 'UX/UI designer persa nel guardarsi attorno e imparare.\nScoprendo ed esplorando,\nai driven.',
+      scrollHint:  'ma dove corri?',
     },
     langChanged: 'Lingua: Italiano',
     skipLink:    'Vai al contenuto principale',

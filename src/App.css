@@ -1,20 +1,35 @@
 /* App-level styles */
 
-/* === FLOATING AVATAR — fixed top-right, no movement === */
+/* === FLOATING AVATAR — fixed top-right === */
 
 .floating-avatar-wrap {
   position: fixed;
   top: 16px;
   right: 24px;
   z-index: calc(var(--z-nav) - 1);
-  pointer-events: all;
+  pointer-events: none;
   cursor: default;
+}
+
+.floating-avatar-link {
+  display: block;
+  pointer-events: all;
 }
 
 .floating-avatar {
   width: 140px;
   height: auto;
   display: block;
+}
+
+/* Nuvola — bocca/mento, puntini (alto-dx cloud) puntano al viso */
+.floating-avatar-bubble-anchor {
+  position: absolute;
+  left: -24px;
+  top: 60%;
+  width: 172px;
+  pointer-events: none;
+  z-index: 2;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -25,4 +40,57 @@
   .floating-avatar-wrap {
     display: none;
   }
+}
+
+/* === THOUGHT BUBBLE === */
+
+.thought-bubble {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.thought-bubble__img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Testo centrato nel corpo della nuvola.
+   Puntini occupano ~22% destra + ~35% top → area testo = sotto i puntini + tutto sinistra */
+.thought-bubble__text {
+  position: absolute;
+  top: 30%;
+  left: 4%;
+  right: 22%;
+  bottom: 8%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 6px;
+  font-family: 'Gochi Hand', cursive;
+  font-size: clamp(13px, 1.3vw, 16px);
+  font-weight: 400;
+  color: #212529;
+  text-align: center;
+  line-height: 1.25;
+}
+
+/* Fallback CSS quando nuvola.png non disponibile */
+.thought-bubble__text--fallback {
+  position: relative;
+  top: auto;
+  left: auto;
+  right: auto;
+  bottom: auto;
+  padding: 12px 18px;
+  background: white;
+  border: 2.5px solid #212529;
+  border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+  box-shadow: 3px 4px 0 #212529;
+  font-family: 'Gochi Hand', cursive;
+  font-size: clamp(12px, 1.2vw, 15px);
+  color: #212529;
+  text-align: center;
 }

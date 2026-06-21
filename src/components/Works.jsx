@@ -2,6 +2,7 @@ import { useRef, useEffect, useState } from 'react';
 import { useLang } from '../contexts/LangContext';
 import './Works.css';
 
+
 const PROJECTS = [
   {
     id: 'libraccio',
@@ -66,7 +67,7 @@ function useReveal(threshold = 0.15) {
   return [ref, revealed];
 }
 
-export default function Works() {
+export default function Works({ onOpenProject }) {
   const { lang } = useLang();
   const [gridRef, revealed] = useReveal(0.08);
 
@@ -98,10 +99,14 @@ export default function Works() {
                 }}
               >
                 <article aria-labelledby={`pt-${p.id}`}>
-                  <div className="project-frame">
+                  <button
+                    className="project-frame"
+                    onClick={() => onOpenProject?.(p.id)}
+                    aria-label={`Apri case study: ${p.title}`}
+                  >
                     <img
                       src={p.image}
-                      alt={`Anteprima ${p.title}`}
+                      alt={`Copertina folder ${p.title}`}
                       loading="lazy"
                       onError={(e) => {
                         if (p.fallback && e.target.src !== p.fallback) {
@@ -112,7 +117,7 @@ export default function Works() {
                     {p.badge && (
                       <span className="project-badge">{p.badge}</span>
                     )}
-                  </div>
+                  </button>
                   <footer className="project-footer">
                     <h3 id={`pt-${p.id}`} className="project-name">
                       {p.title}

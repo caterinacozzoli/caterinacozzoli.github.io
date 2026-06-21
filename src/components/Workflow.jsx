@@ -26,7 +26,7 @@ const STEPS = {
   ],
 };
 
-const TITLE = { it: 'Come lavoro', en: 'How I work', pt: 'Como trabalho' };
+const TITLE = { it: 'workflow', en: 'workflow', pt: 'workflow' };
 
 /* One-shot IntersectionObserver reveal hook */
 function useReveal(threshold = 0.12) {
@@ -61,7 +61,10 @@ export default function Workflow() {
     <section id="workflow" className="workflow" aria-labelledby="workflow-title">
       <div className="workflow-header">
         <h2 id="workflow-title" className="workflow-title">{TITLE[lang]}</h2>
-        <span className="workflow-count" aria-hidden="true">05 step</span>
+        <div className="workflow-header-right">
+          <span className="workflow-count" aria-hidden="true">04</span>
+          <span className="workflow-steps-label" aria-hidden="true">05 step</span>
+        </div>
       </div>
 
       <ol

@@ -3,7 +3,7 @@
 .lang-nav {
   position: fixed;
   /* Centro verticale = main nav center (32+44=76px) → top = 76 - 28 = 48px */
-  top: 48px;
+  top: 42px;
   left: 24px;
   z-index: var(--z-nav);
   display: flex;
@@ -48,9 +48,16 @@
 .lang-flag {
   display: block;
   width: 36px;
-  height: 32px;
+  height: 36px;
   border-radius: 2px;
   flex-shrink: 0;
+  vertical-align: middle;
+}
+
+.lang-flag-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* === MOBILE === */

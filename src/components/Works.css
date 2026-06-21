@@ -12,9 +12,11 @@
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  /* pull banner full-bleed: margin = -(padding-top) per top, -(56px) per lati */
-  margin: -224px -56px 48px;
+  position: relative;
+  overflow: hidden;
+  margin: -56px -56px 48px;
   padding: 48px 56px 32px;
+  min-height: 180px;
   background: #FED728;
   border-bottom: none;
 }
@@ -27,25 +29,37 @@
   color: #212529;
   line-height: 1;
   letter-spacing: -0.01em;
+  position: relative;
+  z-index: 1;
 }
 
 .works-count {
-  font-family: 'Gochi Hand', cursive;
-  font-size: clamp(32px, 4vw, 56px);
-  font-weight: 400;
+  position: absolute;
+  right: 24px;
+  bottom: -8px;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(100px, 20vw, 220px);
   color: #212529;
-  opacity: 0.35;
-  line-height: 1;
-  letter-spacing: 0;
+  opacity: 0.08;
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+  pointer-events: none;
+  user-select: none;
 }
 
 /* === CORKBOARD — #f5f5f5 bg with radius, danielsun's .framer-13xd1jd === */
 
 .works-board {
-  background: #f5f5f5;
+  background-color: #D4CDFF;
+  background-image: url('/images/carta acquarello.jpg');
+  background-size: cover;
+  background-position: center;
+  background-blend-mode: multiply;
   border-radius: 24px;
   padding: 32px;
   overflow: clip;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.04);
 }
 
 /* === STAGE — fixed-height absolute container (danielsun technique) === */
@@ -54,7 +68,7 @@
   position: relative;
   width: 100%;
   /* Height accommodates 3 projects with stagger + bottom padding */
-  height: 1400px;
+  height: 1180px;
 }
 
 .works-grid {
@@ -111,6 +125,18 @@
   transform: rotate(calc(var(--tilt, -1deg) * 0.5));
   transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
   will-change: transform;
+  /* button reset */
+  padding: 0;
+  display: block;
+  width: 100%;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.project-frame:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 6px;
+  border-radius: 4px;
 }
 
 .project-frame:hover {

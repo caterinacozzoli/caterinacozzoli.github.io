@@ -70,8 +70,8 @@ export default function Contact() {
         <p className="contact-copy">{c.copy}</p>
         <p className="contact-made">
           Designed with{' '}
-          <span aria-label="love" role="img">♥</span>
-          {' '}in Milano · Fortaleza
+          <span aria-label="zampa di Maya" role="img">🐾</span>
+          {' '}Maya in Milano · Fortaleza
         </p>
       </div>
     </footer>

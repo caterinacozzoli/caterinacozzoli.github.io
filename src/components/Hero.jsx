@@ -51,12 +51,29 @@ const LETTER_IMAGES_2 = [
 const EXPO = [0.16, 1, 0.3, 1];
 const QUINT = [0.22, 1, 0.36, 1];
 
-function NameLetter({ char, imgData, isFirst }) {
+// Testi nuvola per hover lettere (15 lettere: C-A-T-E-R-I-N-A + C-O-Z-Z-O-L-I)
+const HOVER_GREETINGS = {
+  //            C        A                  T      E      R              I         N       A               C       O       Z       Z               O        L                      I
+  it: ['ciao!', 'buona giornata!', 'hi!', 'hey!', 'buon lavoro!', 'hola!', 'salve!', 'grazie 🙏', 'olá!', 'ahoy!', 'oi!', 'buenas!', 'alô!', 'hei!', 'hai bevuto acqua oggi?'],
+  en: ['hi!',   'have a great day!', 'ciao!', 'hey!', 'good work!', 'ola!', 'greetings!', 'thank you 🙏', 'olá!', 'hola!', 'oi!', 'ahoy!', 'hey there!', 'hei!', 'drink some water today?'],
+  pt: ['oi!',   'bom dia!', 'olá!', 'hi!', 'bom trabalho!', 'hola!', 'ehi!', 'obrigada 🙏', 'hey!', 'alô!', 'tcho!', 'salve!', 'salut!', 'hei!', 'bebeu água hoje?'],
+};
+
+function NameLetter({ char, imgData, isFirst, greetingText }) {
   const [visible, setVisible] = useState(false);
   const timer = useRef(null);
 
-  const show = useCallback(() => { clearTimeout(timer.current); setVisible(true);  }, []);
-  const hide = useCallback(() => { timer.current = setTimeout(() => setVisible(false), 80); }, []);
+  const show = useCallback(() => {
+    clearTimeout(timer.current);
+    setVisible(true);
+    if (greetingText) window.dispatchEvent(new CustomEvent('letterHover', { detail: greetingText }));
+  }, [greetingText]);
+  const hide = useCallback(() => {
+    timer.current = setTimeout(() => {
+      setVisible(false);
+      window.dispatchEvent(new CustomEvent('letterHover', { detail: null }));
+    }, 80);
+  }, []);
 
   const hasImage = imgData?.src != null;
 
@@ -90,7 +107,7 @@ function NameLetter({ char, imgData, isFirst }) {
 }
 
 export default function Hero() {
-  const { tr } = useLang();
+  const { tr, lang } = useLang();
   const [resetKey, setResetKey] = useState(0);
   const handleKeyDown = useCallback((e) => {
     if (e.key === 'Escape') setResetKey(k => k + 1);
@@ -177,6 +194,7 @@ export default function Hero() {
                   char={char}
                   imgData={LETTER_IMAGES[i]}
                   isFirst={i === 0}
+                  greetingText={HOVER_GREETINGS[lang]?.[i]}
                 />
               ))}
             </motion.div>
@@ -194,6 +212,7 @@ export default function Hero() {
                   char={char}
                   imgData={LETTER_IMAGES_2[i]}
                   isFirst={false}
+                  greetingText={HOVER_GREETINGS[lang]?.[8 + i]}
                 />
               ))}
             </motion.div>

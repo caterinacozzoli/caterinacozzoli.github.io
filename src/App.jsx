@@ -6,10 +6,10 @@ import Hero from './components/Hero';
 import Works from './components/Works';
 import About from './components/About';
 import Workflow from './components/Workflow';
-import Experience from './components/Experience';
 import Contact from './components/Contact';
 import CursorBlob from './components/CursorBlob';
 import LangNav from './components/LangNav';
+import ProjectPage from './components/ProjectPage';
 import './App.css';
 
 const AVATAR = {
@@ -33,12 +33,53 @@ const INTRO_SEQUENCE = [
   AVATAR.altoDestra,
 ];
 
-const INTRO_SIZE  = 240;   // avatar durante loading (grande)
-const FINAL_SIZE  = 140;   // avatar in corner (leggermente più grande)
+// Pensieri durante il caricamento — uno per stato avatar
+const INTRO_THOUGHTS = [
+  'ci sono quasi...',
+  'dove ho lasciato il cellulare',
+  'ho finito i token...',
+  'aspetta aspetta',
+  'quasi quasi...',
+  'eccomi! 👋',
+];
+
+
+const INTRO_SIZE  = 240;
+const FINAL_SIZE  = 140;
 const FINAL_TOP   = 16;
 const FINAL_RIGHT = 24;
-const STEP_MS     = 1000;  // ms per stato → 6×1s = 6s + volo ≈ 7s totali
-const XFADE_MS    = 700;   // crossfade quasi uguale a STEP → sempre sovrapposti, zero gap
+const STEP_MS     = 1500;  // più lento per leggere le nuvolette
+const XFADE_MS    = 700;
+
+/* === THOUGHT BUBBLE === */
+let _nuvolettaFailed = false;
+
+function ThoughtBubble({ text, visible }) {
+  const [imgFailed, setImgFailed] = useState(_nuvolettaFailed);
+  const handleError = useCallback(() => { _nuvolettaFailed = true; setImgFailed(true); }, []);
+
+  return (
+    <AnimatePresence>
+      {visible && text && (
+        <motion.div
+          className="thought-bubble"
+          initial={{ opacity: 0, scale: 0.75, y: 8 }}
+          animate={{ opacity: 1, scale: 1,    y: 0 }}
+          exit={{    opacity: 0, scale: 0.75,  y: 8 }}
+          transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+        >
+          {!imgFailed && (
+            <img src="/images/nuvola.png" className="thought-bubble__img" alt="" aria-hidden="true"
+              onError={handleError} />
+          )}
+          <span className={`thought-bubble__text${imgFailed ? ' thought-bubble__text--fallback' : ''}`}>
+            {text}
+          </span>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+}
 
 function AvatarIntro({ onComplete }) {
   const [step, setStep]     = useState(0);
@@ -89,7 +130,11 @@ function AvatarIntro({ onComplete }) {
           : { duration: 0 }}
         onAnimationComplete={() => { if (flying) onComplete(); }}
       >
-        {/* Scale storytelling: entra dal basso (scale-up), esce verso l'alto (scale-up+fade) */}
+        {/* Nuvola — al mento/bocca, puntini (alto-dx) puntano al viso */}
+        <div style={{ position: 'absolute', left: '0%', top: '60%', width: '68%', zIndex: 1 }}>
+          <ThoughtBubble text={!flying ? INTRO_THOUGHTS[step] : ''} visible={!flying} />
+        </div>
+
         <div style={{ position: 'relative', width: '100%', paddingBottom: '100%', overflow: 'visible' }}>
           <AnimatePresence>
             <motion.img
@@ -114,27 +159,34 @@ function AvatarIntro({ onComplete }) {
   );
 }
 
-function FloatingAvatar({ mode, onGoHome }) {
+function FloatingAvatar({ mode, onGoHome, bubbleText }) {
   const src = AVATAR[mode] ?? AVATAR.default;
 
   return (
-    <a
-      href="#"
-      className="floating-avatar-wrap"
-      aria-label="Torna alla home"
-      onClick={(e) => {
-        e.preventDefault();
-        onGoHome?.();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }}
-    >
-      <img
-        src={src}
-        alt="Caterina Cozzoli — torna in cima"
-        className="floating-avatar"
-        onError={(e) => { e.target.src = AVATAR.default; }}
-      />
-    </a>
+    <div className="floating-avatar-wrap">
+      {bubbleText && (
+        <div className="floating-avatar-bubble-anchor">
+          <ThoughtBubble text={bubbleText} visible={true} />
+        </div>
+      )}
+      <a
+        href="#"
+        className="floating-avatar-link"
+        aria-label="Torna alla home"
+        onClick={(e) => {
+          e.preventDefault();
+          onGoHome?.();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }}
+      >
+        <img
+          src={src}
+          alt="Caterina Cozzoli — torna in cima"
+          className="floating-avatar"
+          onError={(e) => { e.target.src = AVATAR.default; }}
+        />
+      </a>
+    </div>
   );
 }
 
@@ -145,7 +197,17 @@ function AppInner() {
   const [homeLock, setHomeLock] = useState(false);
   const [introComplete, setIntroComplete] = useState(false);
   const [carouselScrolling, setCarouselScrolling] = useState(false);
+  const [letterBubble, setLetterBubble] = useState(null);
+  const [openProject, setOpenProject] = useState(null);
   const handleIntroComplete = useCallback(() => setIntroComplete(true), []);
+  const handleOpenProject = useCallback((id) => setOpenProject(id), []);
+  const handleCloseProject = useCallback(() => setOpenProject(null), []);
+
+  useEffect(() => {
+    const h = (e) => setLetterBubble(e.detail);
+    window.addEventListener('letterHover', h);
+    return () => window.removeEventListener('letterHover', h);
+  }, []);
   const handleCarouselScroll = useCallback((active) => setCarouselScrolling(active), []);
 
   // Rilascia homeLock appena scrollY < 50
@@ -197,16 +259,27 @@ function AppInner() {
         onChiSonoHover={handleChiSonoHover}
       />
       {!introComplete && <AvatarIntro onComplete={handleIntroComplete} />}
-      {introComplete && <FloatingAvatar mode={avatarMode} onGoHome={handleGoHome} />}
+      {introComplete && (
+        <FloatingAvatar mode={avatarMode} onGoHome={handleGoHome} bubbleText={letterBubble} />
+      )}
 
       <main id="main-content">
         <Hero />
-        <Works />
+        <Works onOpenProject={handleOpenProject} />
         <About onCarouselScroll={handleCarouselScroll} />
         <Workflow />
-        <Experience />
         <Contact />
       </main>
+
+      <AnimatePresence>
+        {openProject && (
+          <ProjectPage
+            key={openProject}
+            projectId={openProject}
+            onClose={handleCloseProject}
+          />
+        )}
+      </AnimatePresence>
     </>
   );
 }

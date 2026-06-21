@@ -179,13 +179,16 @@ export default function About({ onCarouselScroll }) {
             <span key={i} className="about-headline-line">{line}</span>
           ))}
         </h2>
-        <button
-          className="skip-recap-btn"
-          onClick={skipRecap}
-          aria-label={SKIP_LABEL[lang]}
-        >
-          {SKIP_LABEL[lang]}
-        </button>
+        <div className="about-header-right">
+          <span className="about-count" aria-hidden="true">03</span>
+          <button
+            className="skip-recap-btn"
+            onClick={skipRecap}
+            aria-label={SKIP_LABEL[lang]}
+          >
+            {SKIP_LABEL[lang]}
+          </button>
+        </div>
       </div>
 
       {/* Horizontal scroll-hijack section */}
