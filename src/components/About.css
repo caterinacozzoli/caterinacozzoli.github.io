@@ -94,11 +94,11 @@
   outline-offset: 3px;
 }
 
-/* Top-right inside yellow banner */
+/* Top-right inside yellow banner — allineato a destra col numero 03 */
 .skip-recap-btn--banner {
   position: absolute;
   top: 20px;
-  right: 56px;
+  right: 24px;
   z-index: 2;
 }
 
