@@ -56,7 +56,9 @@ function PolaroidCard({ date, index }) {
   );
 }
 
-function HorizontalCarousel({ carouselLabel, onCarouselScroll }) {
+const BANNER_H = 180; // same as min-height on about-headline-strip
+
+function HorizontalCarousel({ carouselLabel, onCarouselScroll, aboutRef }) {
   const sectionRef   = useRef(null);
   const trackRef     = useRef(null);
   const isMobileRef  = useRef(false);
@@ -92,26 +94,28 @@ function HorizontalCarousel({ carouselLabel, onCarouselScroll }) {
 
     const ms = computeMaxSlide();
     maxSlideRef.current = ms;
-    if (ms > 0) section.style.height = `calc(100svh + ${ms}px)`;
+    // Extra BANNER_H so horizontal scroll budget starts when banner is in view
+    if (ms > 0) section.style.height = `calc(100svh + ${ms + BANNER_H}px)`;
   }, [computeMaxSlide]);
 
   const onScroll = useCallback(() => {
     if (isMobileRef.current) return;
-    const section = sectionRef.current;
-    const track   = trackRef.current;
-    if (!section || !track) return;
+    const track  = trackRef.current;
+    const parent = aboutRef?.current;
+    if (!track || !parent) return;
 
-    const sectionH = section.offsetHeight;
-    const vh       = window.innerHeight;
-    const top      = section.getBoundingClientRect().top;
-    const progress = Math.max(0, Math.min(1, -top / (sectionH - vh)));
-    const ms       = maxSlideRef.current;
+    const ms  = maxSlideRef.current;
     if (ms <= 0) return;
 
+    // Use about section rect so horizontal scroll starts while banner is visible
+    const top      = parent.getBoundingClientRect().top;
+    const parentH  = parent.offsetHeight;
+    const vh       = window.innerHeight;
+    const progress = Math.max(0, Math.min(1, -top / (parentH - vh)));
+
     track.style.transform = `translateX(-${progress * ms}px)`;
-    // Notifica App quando l'utente sta scrollando le polaroid (progress > 0 e < 1)
     onCarouselScroll?.(progress > 0 && progress < 1);
-  }, []);
+  }, [aboutRef]);
 
   useEffect(() => {
     updateHeight();
@@ -165,13 +169,14 @@ export default function About({ onCarouselScroll }) {
   const { lang } = useLang();
   const lines = HEADLINE[lang] ?? HEADLINE.it;
   const label = CAROUSEL_LABEL[lang] ?? CAROUSEL_LABEL.it;
+  const aboutRef = useRef(null);
 
   const skipRecap = () => {
     document.getElementById('workflow')?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
-    <section id="chi-sono" className="about" aria-labelledby="about-title">
+    <section id="chi-sono" className="about" aria-labelledby="about-title" ref={aboutRef}>
       {/* Yellow strip — normal vertical scroll */}
       <div className="about-headline-strip">
         <h2 id="about-title" className="about-headline">
@@ -190,7 +195,7 @@ export default function About({ onCarouselScroll }) {
       </div>
 
       {/* Horizontal scroll-hijack section */}
-      <HorizontalCarousel carouselLabel={label} onCarouselScroll={onCarouselScroll} />
+      <HorizontalCarousel carouselLabel={label} onCarouselScroll={onCarouselScroll} aboutRef={aboutRef} />
     </section>
   );
 }

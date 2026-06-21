@@ -115,8 +115,8 @@
 
 .about-carousel-sticky {
   position: sticky;
-  top: 0;
-  height: 100svh;
+  top: 180px;          /* banner height — lascia il banner visibile sopra */
+  height: calc(100svh - 180px);
   overflow: hidden;
   background: transparent;
   display: flex;
