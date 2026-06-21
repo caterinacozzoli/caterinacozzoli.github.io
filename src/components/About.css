@@ -94,6 +94,12 @@
   outline-offset: 3px;
 }
 
+/* Su sfondo giallo il focus ring giallo è invisibile (1:1 ratio) — usa scuro */
+.skip-recap-btn--banner:focus-visible {
+  outline: 2px solid #212529;
+  outline-offset: 3px;
+}
+
 /* Top-right inside yellow banner — allineato a destra col numero 03 */
 .skip-recap-btn--banner {
   position: absolute;
@@ -238,6 +244,14 @@
   }
 }
 
+/* === TABLET (769-899px) — strip padding ridotto === */
+
+@media (min-width: 769px) and (max-width: 899px) {
+  .about-headline-strip {
+    padding: 40px 40px 32px;
+  }
+}
+
 /* === MOBILE — native horizontal scroll, no hijack === */
 
 @media (max-width: 899px) {
@@ -270,7 +284,8 @@
   }
 
   .about-headline-strip {
-    padding: 60px 24px 56px;
+    padding: 48px 24px 48px;
+    min-height: 160px;
   }
 
   .polaroid-card {

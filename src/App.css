@@ -38,7 +38,23 @@
 
 @media (max-width: 900px) {
   .floating-avatar-wrap {
-    display: none;
+    top: 12px;
+    right: 72px; /* spazio per hamburger button a destra */
+  }
+
+  .floating-avatar {
+    width: 88px;
+  }
+}
+
+@media (max-width: 600px) {
+  .floating-avatar-wrap {
+    top: 12px;
+    right: 80px;
+  }
+
+  .floating-avatar {
+    width: 72px;
   }
 }
 

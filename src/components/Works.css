@@ -220,6 +220,41 @@
   }
 }
 
+/* === TABLET (769-1024px) — flex layout, riduce padding === */
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .works {
+    padding: 120px 40px 80px;
+  }
+
+  .works-header {
+    margin: -120px -40px 40px;
+    padding: 40px 40px 28px;
+  }
+
+  .works-stage {
+    height: auto;
+  }
+
+  .works-grid {
+    position: static;
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+    padding: 0;
+  }
+
+  .project-item,
+  .project-item--small,
+  .project-item--large {
+    position: static;
+    width: 100%;
+    max-width: 600px;
+    transform: none;
+    margin: 0 auto;
+  }
+}
+
 /* === MOBILE — single column flow === */
 
 @media (max-width: 768px) {

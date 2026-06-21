@@ -2,16 +2,16 @@
 
 .lang-nav {
   position: fixed;
-  /* Centro verticale = main nav center (32+44=76px) → top = 76 - 28 = 48px */
-  top: 42px;
+  /* Stessa altezza e top del nav-pill → allineamento visivo perfetto */
+  top: 32px;
   left: 24px;
   z-index: var(--z-nav);
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 14px;
-  height: 68px;
-  padding: 0 32px;
+  height: 88px;
+  padding: 0 28px;
   background: url('/images/nav-bar-shape-lingue.png') center / 100% 100% no-repeat;
   filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.55));
   pointer-events: all;
@@ -23,7 +23,8 @@
   background: none;
   border: none;
   cursor: pointer;
-  padding: 0;
+  /* 36px flag + 4px × 2 = 44px touch target (WCAG 2.5.8) */
+  padding: 4px;
   display: flex;
   align-items: center;
   border-radius: 4px;
@@ -62,18 +63,22 @@
 
 /* === MOBILE === */
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .lang-nav {
-    height: 48px;
-    top: 16px;
-    padding: 0 16px;
-    gap: 12px;
-    min-width: 0;
+    height: 64px;
+    top: 20px;
+    padding: 0 18px;
+    gap: 10px;
   }
 
   .lang-flag {
-    width: 32px;
-    height: 30px;
+    width: 28px;
+    height: 28px;
+  }
+
+  .lang-flag-btn {
+    /* 28px flag + 8px × 2 = 44px touch target */
+    padding: 8px;
   }
 }
 

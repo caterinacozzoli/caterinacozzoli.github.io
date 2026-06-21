@@ -167,11 +167,47 @@
   max-width: 22ch;
 }
 
-/* === MOBILE — vertical stack === */
+/* === TABLET (641-899px) — 3 colonne invece di 5 → 1 === */
 
-@media (max-width: 900px) {
+@media (min-width: 641px) and (max-width: 899px) {
+  .workflow {
+    padding: 88px 40px 80px;
+  }
+
+  .workflow-header {
+    margin: -88px -40px 48px;
+    padding: 40px 40px 28px;
+  }
+
+  .workflow-steps {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px 24px;
+    padding: 32px 24px;
+  }
+
+  /* Il connector line su tablet: 3 col, riduce span */
+  .workflow-steps::before {
+    top: 28px;
+    left: 8%;
+    right: 8%;
+  }
+
+  .step-desc {
+    max-width: 100%;
+    font-size: clamp(12px, 1.2vw, 14px);
+  }
+}
+
+/* === MOBILE (≤640px) — vertical stack === */
+
+@media (max-width: 640px) {
   .workflow {
     padding: 80px 24px;
+  }
+
+  .workflow-header {
+    margin: -80px -24px 40px;
+    padding: 40px 24px 28px;
   }
 
   .workflow-steps {

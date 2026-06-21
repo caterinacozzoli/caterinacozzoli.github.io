@@ -1,4 +1,5 @@
 import { useLang } from '../contexts/LangContext';
+import { t } from '../i18n/translations';
 import './LangNav.css';
 
 /*
@@ -42,7 +43,6 @@ function FlagBtn({ code, config, onClick }) {
     >
       <span
         className="lang-flag"
-        role="img"
         aria-hidden="true"
         style={{
           backgroundImage: `url('${SPRITE}')`,
@@ -60,7 +60,7 @@ export default function LangNav() {
   const visible = Object.entries(FLAGS).filter(([code]) => code !== lang);
 
   return (
-    <nav className="lang-nav" aria-label="Seleziona lingua">
+    <nav className="lang-nav" aria-label={t[lang].langNav}>
       {visible.map(([code, config]) => (
         <FlagBtn
           key={code}
