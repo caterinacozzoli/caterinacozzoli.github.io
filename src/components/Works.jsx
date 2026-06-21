@@ -12,8 +12,8 @@ const PROJECTS = [
     fallback: '/images/projects/libraccio.svg',
     tags: ['UX Research', 'Wireframing', 'Figma', 'Benchmark'],
     size: 'large',
-    top: 60,
-    left: 28,
+    top: 40,
+    left: 26,
     tilt: -2,
   },
   {
@@ -24,8 +24,8 @@ const PROJECTS = [
     fallback: '/images/projects/abili-city.svg',
     tags: ['UX/UI', 'Mobile App', 'Accessibility', 'Web App'],
     size: 'small',
-    top: 320,
-    left: 76,
+    top: 260,
+    left: 72,
     tilt: 1.5,
     badge: '🏛 Parlamento Europeo',
   },
@@ -37,8 +37,8 @@ const PROJECTS = [
     fallback: '/images/projects/progetto-3.svg',
     tags: ['UX/UI', 'Figma'],
     size: 'small',
-    top: 900,
-    left: 22,
+    top: 520,
+    left: 20,
     tilt: -1.5,
   },
 ];
@@ -75,7 +75,7 @@ export default function Works({ onOpenProject }) {
     <section id="lavori" className="works" aria-labelledby="works-title">
       <div className="works-header">
         <h2 id="works-title" className="works-title">
-          {lang === 'it' ? 'I miei lavori' : lang === 'pt' ? 'Meu trabalho' : 'My work'}
+          {lang === 'it' ? 'I miei progetti' : lang === 'pt' ? 'Meus projetos' : 'My projects'}
         </h2>
         <span className="works-count" aria-hidden="true">02</span>
       </div>

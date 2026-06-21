@@ -48,11 +48,24 @@ export default function Nav({ onSectionChange, onChiSonoHover, menuOpen, onMenuC
     };
   }, []);
 
-  /* Escape chiude menu */
+  /* Escape chiude menu + focus trap dentro l'overlay */
   useEffect(() => {
-    if (!menuOpen) return;
+    if (!menuOpen || !menuRef.current) return;
+
+    const FOCUSABLE = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
+    const els = Array.from(menuRef.current.querySelectorAll(FOCUSABLE));
+    if (els.length) els[0].focus();
+
     const handleKey = (e) => {
-      if (e.key === 'Escape') onMenuClose?.();
+      if (e.key === 'Escape') { onMenuClose?.(); return; }
+      if (e.key !== 'Tab') return;
+      const first = els[0];
+      const last  = els[els.length - 1];
+      if (e.shiftKey) {
+        if (document.activeElement === first) { e.preventDefault(); last.focus(); }
+      } else {
+        if (document.activeElement === last)  { e.preventDefault(); first.focus(); }
+      }
     };
     document.addEventListener('keydown', handleKey);
     return () => document.removeEventListener('keydown', handleKey);

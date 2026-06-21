@@ -68,7 +68,7 @@
   position: relative;
   width: 100%;
   /* Height accommodates 3 projects with stagger + bottom padding */
-  height: 1180px;
+  height: 860px;
 }
 
 .works-grid {
@@ -170,7 +170,7 @@
 /* === FOOTER === */
 
 .project-footer {
-  padding: 14px 2px 0;
+  padding: 12px 0 0;
 }
 
 .project-name {

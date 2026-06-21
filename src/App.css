@@ -22,12 +22,12 @@
   display: block;
 }
 
-/* Nuvola — bocca/mento, puntini (alto-dx cloud) puntano al viso */
+/* Nuvola — sopra la bocca, puntini (alto-dx cloud) puntano al viso */
 .floating-avatar-bubble-anchor {
   position: absolute;
-  left: -24px;
-  top: 60%;
-  width: 172px;
+  left: -70px;
+  top: 8%;
+  width: 120px;
   pointer-events: none;
   z-index: 2;
 }

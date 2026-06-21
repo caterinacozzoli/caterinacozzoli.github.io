@@ -10,8 +10,8 @@
     position: fixed;
     top: 0;
     left: 0;
-    width: 6px;
-    height: 6px;
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
     background: #8942FE;
     pointer-events: none;
@@ -26,8 +26,8 @@
     position: fixed;
     top: 0;
     left: 0;
-    width: 26px;
-    height: 26px;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
     background: rgba(137, 66, 254, 0.42);
     pointer-events: none;

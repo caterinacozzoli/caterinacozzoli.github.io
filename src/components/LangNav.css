@@ -4,7 +4,8 @@
   position: fixed;
   top: 32px;
   left: 24px;
-  z-index: var(--z-nav);
+  /* +1 sopra nav-header: burger resta cliccabile quando overlay è aperto */
+  z-index: calc(var(--z-nav) + 1);
   display: flex;
   align-items: center;
   justify-content: center;

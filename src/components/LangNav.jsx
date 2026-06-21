@@ -1,3 +1,4 @@
+import { useRef, useEffect } from 'react';
 import { useLang } from '../contexts/LangContext';
 import { t } from '../i18n/translations';
 import './LangNav.css';
@@ -35,6 +36,16 @@ export function FlagBtn({ code, config, onClick }) {
 export default function LangNav({ menuOpen, onMenuToggle }) {
   const { lang, setLang } = useLang();
   const visible = Object.entries(FLAGS).filter(([code]) => code !== lang);
+  const burgerRef = useRef(null);
+  const wasOpen = useRef(false);
+
+  /* Ritorna focus al burger quando il menu si chiude */
+  useEffect(() => {
+    if (wasOpen.current && !menuOpen) {
+      setTimeout(() => burgerRef.current?.focus(), 0);
+    }
+    wasOpen.current = menuOpen;
+  }, [menuOpen]);
 
   const burgerLabel = menuOpen
     ? (lang === 'it' ? 'Chiudi menu' : lang === 'pt' ? 'Fechar menu' : 'Close menu')
@@ -44,10 +55,10 @@ export default function LangNav({ menuOpen, onMenuToggle }) {
     <nav className="lang-nav" aria-label={t[lang].langNav}>
       {/* Hamburger — visibile solo su mobile (≤768px via CSS) */}
       <button
+        ref={burgerRef}
         className={`lang-burger${menuOpen ? ' lang-burger--open' : ''}`}
         aria-label={burgerLabel}
         aria-expanded={menuOpen}
-        aria-controls="nav-mobile-menu"
         onClick={onMenuToggle}
         type="button"
       >
