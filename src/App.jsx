@@ -21,8 +21,7 @@ const AVATAR = {
   latoSinistra:  '/images/avatar-caterina-lato-sinistra.png',
   sottoCentro:   '/images/avatar-caterina-sotto-centro.png',
   inBassoADestra:'/images/avatar-caterina-in-basso-a-destra.png',
-  /* rimpiazza il file con avatar-caterina-pop.png quando disponibile */
-  pop:           '/images/avatar-caterina-sotto-centro.png',
+  pop:           '/images/avatar-caterina-popcorn.png',
 };
 
 const INTRO_SEQUENCE = [
@@ -38,8 +37,8 @@ const INTRO_SIZE  = 240;   // avatar durante loading (grande)
 const FINAL_SIZE  = 140;   // avatar in corner (leggermente più grande)
 const FINAL_TOP   = 16;
 const FINAL_RIGHT = 24;
-const STEP_MS     = 700;   // ms per stato → 6×700=4.2s + 0.7s fly ≈ 5s totali
-const XFADE_MS    = 380;   // crossfade overlap — sempre meno di STEP_MS per avere frame puliti
+const STEP_MS     = 1000;  // ms per stato → 6×1s = 6s + volo ≈ 7s totali
+const XFADE_MS    = 700;   // crossfade quasi uguale a STEP → sempre sovrapposti, zero gap
 
 function AvatarIntro({ onComplete }) {
   const [step, setStep]     = useState(0);
@@ -106,7 +105,7 @@ function AvatarIntro({ onComplete }) {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{    opacity: 0 }}
-              transition={{ duration: 0.45, ease: 'easeInOut' }}
+              transition={{ duration: XFADE_MS / 1000, ease: 'linear' }}
             />
           </AnimatePresence>
         </div>
@@ -145,7 +144,9 @@ function AppInner() {
   const [chiSonoHovered, setChiSonoHovered] = useState(false);
   const [homeLock, setHomeLock] = useState(false);
   const [introComplete, setIntroComplete] = useState(false);
+  const [carouselScrolling, setCarouselScrolling] = useState(false);
   const handleIntroComplete = useCallback(() => setIntroComplete(true), []);
+  const handleCarouselScroll = useCallback((active) => setCarouselScrolling(active), []);
 
   // Rilascia homeLock appena scrollY < 50
   useEffect(() => {
@@ -169,13 +170,15 @@ function AppInner() {
     ? 'default'
     : chiSonoHovered
       ? 'sbatti'
-      : activeSection === 'lavori'
-        ? 'fischia'
+      : carouselScrolling
+        ? 'pop'
         : activeSection === 'chi-sono'
-          ? 'pop'
-          : activeSection === 'workflow'
-            ? 'frontale'
-            : 'default';
+          ? 'sbatti'
+          : activeSection === 'lavori'
+            ? 'fischia'
+            : activeSection === 'workflow'
+              ? 'frontale'
+              : 'default';
 
   return (
     <>
@@ -199,7 +202,7 @@ function AppInner() {
       <main id="main-content">
         <Hero />
         <Works />
-        <About />
+        <About onCarouselScroll={handleCarouselScroll} />
         <Workflow />
         <Experience />
         <Contact />

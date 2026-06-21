@@ -1,8 +1,8 @@
 .works {
-  padding: 120px 56px;
+  /* 8pt grid: 224px top (28×8), 56px sides (7×8), 96px bottom (12×8) */
+  padding: 224px 56px 96px;
   position: relative;
-  /* Viola continua dall'hero bottom-right senza interruzione */
-  background: transparent;
+  background: rgba(254, 215, 40, 0.07);
   overflow: hidden;
 }
 
@@ -10,17 +10,19 @@
 
 .works-header {
   display: flex;
-  align-items: baseline;
+  align-items: flex-end;
   justify-content: space-between;
-  margin-bottom: 40px;
-  padding-bottom: 24px;
-  border-bottom: 1.5px solid #E6E8EC;
+  /* pull banner full-bleed: margin = -(padding-top) per top, -(56px) per lati */
+  margin: -224px -56px 48px;
+  padding: 48px 56px 32px;
+  background: #FED728;
+  border-bottom: none;
 }
 
 .works-title {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(28px, 4vw, 60px);
+  font-size: clamp(38px, 6vw, 88px);
   text-transform: uppercase;
   color: #212529;
   line-height: 1;
@@ -28,10 +30,13 @@
 }
 
 .works-count {
-  font-size: 13px;
-  font-weight: 600;
-  color: #8942FE;
-  letter-spacing: 0.08em;
+  font-family: 'Gochi Hand', cursive;
+  font-size: clamp(32px, 4vw, 56px);
+  font-weight: 400;
+  color: #212529;
+  opacity: 0.35;
+  line-height: 1;
+  letter-spacing: 0;
 }
 
 /* === CORKBOARD — #f5f5f5 bg with radius, danielsun's .framer-13xd1jd === */

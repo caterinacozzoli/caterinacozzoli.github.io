@@ -3,9 +3,9 @@ import { useLang } from '../contexts/LangContext';
 import './About.css';
 
 const HEADLINE = {
-  it: ['recap ultime', '24 stagioni'],
-  en: ['recap last', '24 seasons'],
-  pt: ['recap últimas', '24 temporadas'],
+  it: ['recap ultime', '23 stagioni'],
+  en: ['recap last', '23 seasons'],
+  pt: ['recap últimas', '23 temporadas'],
 };
 
 const SKIP_LABEL = {
@@ -56,7 +56,7 @@ function PolaroidCard({ date, index }) {
   );
 }
 
-function HorizontalCarousel({ carouselLabel }) {
+function HorizontalCarousel({ carouselLabel, onCarouselScroll }) {
   const sectionRef   = useRef(null);
   const trackRef     = useRef(null);
   const isMobileRef  = useRef(false);
@@ -109,6 +109,8 @@ function HorizontalCarousel({ carouselLabel }) {
     if (ms <= 0) return;
 
     track.style.transform = `translateX(-${progress * ms}px)`;
+    // Notifica App quando l'utente sta scrollando le polaroid (progress > 0 e < 1)
+    onCarouselScroll?.(progress > 0 && progress < 1);
   }, []);
 
   useEffect(() => {
@@ -159,7 +161,7 @@ function HorizontalCarousel({ carouselLabel }) {
   );
 }
 
-export default function About() {
+export default function About({ onCarouselScroll }) {
   const { lang } = useLang();
   const lines = HEADLINE[lang] ?? HEADLINE.it;
   const label = CAROUSEL_LABEL[lang] ?? CAROUSEL_LABEL.it;
@@ -187,7 +189,7 @@ export default function About() {
       </div>
 
       {/* Horizontal scroll-hijack section */}
-      <HorizontalCarousel carouselLabel={label} />
+      <HorizontalCarousel carouselLabel={label} onCarouselScroll={onCarouselScroll} />
     </section>
   );
 }

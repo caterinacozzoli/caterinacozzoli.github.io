@@ -76,7 +76,7 @@ export default function Works() {
         <h2 id="works-title" className="works-title">
           {lang === 'it' ? 'I miei lavori' : lang === 'pt' ? 'Meu trabalho' : 'My work'}
         </h2>
-        <span className="works-count" aria-hidden="true">0{PROJECTS.length}</span>
+        <span className="works-count" aria-hidden="true">02</span>
       </div>
 
       <div className="works-board">

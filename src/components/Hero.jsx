@@ -3,6 +3,25 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useLang } from '../contexts/LangContext';
 import './Hero.css';
 
+/* Scrittura bustrofedica: ogni carattere pari ruotato 180° */
+function Boustrophedon({ text }) {
+  return (
+    <>
+      {text.split('').map((char, i) => (
+        <span
+          key={i}
+          style={{
+            display: 'inline-block',
+            transform: i % 2 === 1 ? 'rotate(180deg)' : 'none',
+          }}
+        >
+          {char}
+        </span>
+      ))}
+    </>
+  );
+}
+
 /* Per-letter hover images — /public/images/hover letterNN.png
    CATERINA: 01-08
    COZZOLI:  09(C) skip10(O) 11(Z) 12(Z) 13(O) 14(L) 15(I)   */
@@ -191,7 +210,9 @@ export default function Hero() {
         transition={{ duration: 0.6, delay: 1.0 }}
       >
         <span className="scroll-label">{tr.hero.scrollHint}</span>
-        <div className="scroll-line" />
+        <svg className="scroll-line" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M12 5v14M5 12l7 7 7-7"/>
+        </svg>
       </motion.div>
     </section>
   );
