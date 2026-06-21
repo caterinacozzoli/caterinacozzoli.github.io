@@ -1,0 +1,91 @@
+/* === LIQUID CURSOR — only on fine-pointer (mouse/trackpad) === */
+
+@media (pointer: fine) {
+
+  /* Hide system cursor globally */
+  *, *::before, *::after { cursor: none !important; }
+
+  /* === PRECISE DOT — follows exactly, no lag === */
+  .cursor-dot {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #8942FE;
+    pointer-events: none;
+    z-index: 10001;
+    will-change: transform;
+    mix-blend-mode: multiply;
+    /* No transition — instant */
+  }
+
+  /* === ORGANIC BLOB — lags, morphs on context === */
+  .cursor-blob {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: rgba(137, 66, 254, 0.42);
+    pointer-events: none;
+    z-index: 10000;
+    will-change: transform;
+    mix-blend-mode: multiply;
+    filter: url(#cursor-goo);
+    /* Shape transitions */
+    transition:
+      width      0.55s cubic-bezier(0.22, 1, 0.36, 1),
+      height     0.55s cubic-bezier(0.22, 1, 0.36, 1),
+      background 0.35s ease,
+      border-radius 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  /* Hover over links / buttons / cards: expands, lighter */
+  .cursor-blob--hover {
+    width: 56px;
+    height: 56px;
+    background: rgba(137, 66, 254, 0.14);
+    border-radius: 42% 58% 56% 44% / 48% 52% 48% 52%;
+    animation: blob-morph 4s ease-in-out infinite;
+  }
+
+  /* Hover over CATERINA COZZOLI letters: gold, bigger */
+  .cursor-blob--letter {
+    width: 76px;
+    height: 76px;
+    background: rgba(254, 215, 40, 0.52);
+    border-radius: 52% 48% 45% 55% / 42% 58% 42% 58%;
+    animation: blob-morph-gold 3s ease-in-out infinite;
+  }
+}
+
+/* === MORPH KEYFRAMES === */
+
+@keyframes blob-morph {
+  0%, 100% { border-radius: 42% 58% 56% 44% / 48% 52% 48% 52%; }
+  33%       { border-radius: 58% 42% 44% 56% / 55% 45% 55% 45%; }
+  66%       { border-radius: 50% 50% 62% 38% / 42% 58% 42% 58%; }
+}
+
+@keyframes blob-morph-gold {
+  0%, 100% { border-radius: 52% 48% 45% 55% / 42% 58% 42% 58%; }
+  33%       { border-radius: 40% 60% 58% 42% / 55% 45% 55% 45%; }
+  66%       { border-radius: 62% 38% 42% 58% / 50% 50% 50% 50%; }
+}
+
+/* === REDUCED MOTION: stop morphing, keep the dot === */
+
+@media (prefers-reduced-motion: reduce) {
+  .cursor-blob { animation: none !important; }
+}
+
+/* === TOUCH: hide everything, restore cursor === */
+
+@media (pointer: coarse) {
+  .cursor-dot,
+  .cursor-blob { display: none !important; }
+  *, *::before, *::after { cursor: auto; }
+}

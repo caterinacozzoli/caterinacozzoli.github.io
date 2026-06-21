@@ -1,0 +1,77 @@
+/* === MINI NAV LINGUE — top-left, pill compatta e rotonda === */
+
+.lang-nav {
+  position: fixed;
+  /* Centro verticale = main nav center (32+44=76px) → top = 76 - 28 = 48px */
+  top: 48px;
+  left: 24px;
+  z-index: var(--z-nav);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  height: 68px;
+  padding: 0 32px;
+  background: url('/images/nav-bar-shape-lingue.png') center / 100% 100% no-repeat;
+  filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.55));
+  pointer-events: all;
+}
+
+/* === BANDIERA === */
+
+.lang-flag-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  border-radius: 4px;
+  transition: transform 0.18s ease, filter 0.18s ease;
+}
+
+.lang-flag-btn:hover {
+  transform: scale(1.12);
+  filter: brightness(1.15);
+}
+
+.lang-flag-btn:active {
+  transform: scale(0.96);
+}
+
+.lang-flag-btn:focus-visible {
+  outline: 2px solid #FED728;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.lang-flag {
+  display: block;
+  width: 36px;
+  height: 32px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+/* === MOBILE === */
+
+@media (max-width: 600px) {
+  .lang-nav {
+    height: 48px;
+    top: 16px;
+    padding: 0 16px;
+    gap: 12px;
+    min-width: 0;
+  }
+
+  .lang-flag {
+    width: 32px;
+    height: 30px;
+  }
+}
+
+/* === REDUCED MOTION === */
+
+@media (prefers-reduced-motion: reduce) {
+  .lang-flag-btn { transition: none; }
+}

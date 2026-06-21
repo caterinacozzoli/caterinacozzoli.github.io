@@ -1,0 +1,173 @@
+.workflow {
+  padding: 100px 56px;
+  background: transparent;
+  border-top: 1.5px solid #E6E8EC;
+}
+
+/* === HEADER === */
+
+.workflow-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 72px;
+  padding-bottom: 24px;
+  border-bottom: 1.5px solid #E6E8EC;
+}
+
+.workflow-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(28px, 4vw, 60px);
+  text-transform: uppercase;
+  color: #212529;
+  letter-spacing: -0.01em;
+  line-height: 1;
+}
+
+.workflow-count {
+  font-size: 13px;
+  font-weight: 600;
+  color: #8942FE;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* === STEPS — 5-col grid with connector line === */
+
+.workflow-steps {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  position: relative;
+}
+
+/* Gradient connector line — draws left→right on scroll reveal */
+.workflow-steps::before {
+  content: '';
+  position: absolute;
+  top: 30px;
+  left: 6%;
+  right: 6%;
+  height: 1px;
+  background: rgba(137, 66, 254, 0.5);
+  pointer-events: none;
+  z-index: 0;
+  transform-origin: left center;
+  transform: scaleX(0);
+  transition: transform 1.1s cubic-bezier(0.16, 1, 0.3, 1) 0.1s;
+}
+
+.workflow-steps--revealed::before {
+  transform: scaleX(1);
+}
+
+.workflow-step {
+  position: relative;
+  z-index: 1;
+  padding: 0 20px 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  /* Reveal: slide up from below, stagger per step */
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity  0.65s cubic-bezier(0.16, 1, 0.3, 1) calc(var(--i, 0) * 90ms + 0.2s),
+    transform 0.65s cubic-bezier(0.16, 1, 0.3, 1) calc(var(--i, 0) * 90ms + 0.2s);
+}
+
+.workflow-steps--revealed .workflow-step {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .workflow-step { opacity: 1 !important; transform: none !important; transition: none !important; }
+  .workflow-steps::before { transform: scaleX(1) !important; transition: none !important; }
+}
+
+/* === STEP NUMBER — big, violet, bg-white to sit above line === */
+
+.step-num {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 52px;
+  line-height: 1;
+  color: #8942FE;
+  display: block;
+  /* white padding isolates number from connector line */
+  background: transparent;
+  padding-right: 14px;
+  margin-bottom: 28px;
+  letter-spacing: -0.04em;
+}
+
+/* Last step: no right-overflow needed */
+.workflow-step:last-child .step-num {
+  padding-right: 0;
+}
+
+/* === STEP CONTENT === */
+
+.step-title {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: clamp(14px, 1.1vw, 17px);
+  color: #212529;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.step-desc {
+  font-family: var(--font-body);
+  font-size: clamp(13px, 0.95vw, 15px);
+  font-weight: 400;
+  line-height: 1.65;
+  color: rgba(33, 37, 41, 0.60);
+  text-wrap: pretty;
+  max-width: 22ch;
+}
+
+/* === MOBILE — vertical stack === */
+
+@media (max-width: 900px) {
+  .workflow {
+    padding: 80px 24px;
+  }
+
+  .workflow-steps {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .workflow-steps::before {
+    display: none;
+  }
+
+  .workflow-step {
+    padding: 0 0 0 68px;
+    position: relative;
+    min-height: 48px;
+  }
+
+  .step-num {
+    position: absolute;
+    left: 0;
+    top: -4px;
+    font-size: 36px;
+    margin-bottom: 0;
+    padding-right: 0;
+    background: transparent;
+  }
+
+  .step-desc {
+    max-width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* No animations in this section, nothing to suppress */
+}

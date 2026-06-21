@@ -1,0 +1,242 @@
+.about {
+  background: transparent;
+}
+
+/* === YELLOW HEADLINE STRIP — scrolls normally === */
+
+.about-headline-strip {
+  background: #FED728;
+  padding: 80px 56px 72px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.about-headline {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(48px, 8vw, 120px);
+  text-transform: uppercase;
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+  color: #212529;
+  display: flex;
+  flex-direction: column;
+}
+
+.about-headline-line {
+  display: block;
+}
+
+/* === SKIP THE RECAP — stile Netflix === */
+
+.skip-recap-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+  align-self: flex-end;
+  padding: 10px 20px;
+  background: rgba(33, 37, 41, 0.08);
+  border: 2px solid #212529;
+  border-radius: 4px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: #212529;
+  cursor: pointer;
+  transition: background 0.18s ease, color 0.18s ease;
+}
+
+.skip-recap-btn::after {
+  content: '›';
+  font-size: 18px;
+  line-height: 1;
+}
+
+.skip-recap-btn:hover {
+  background: #212529;
+  color: #FED728;
+}
+
+.skip-recap-btn:focus-visible {
+  outline: 2px solid #212529;
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skip-recap-btn { transition: none; }
+}
+
+/* === CAROUSEL SECTION — tall outer + sticky inner === */
+
+.about-carousel-section {
+  position: relative;
+  /* height is set dynamically by JS on desktop */
+}
+
+.about-carousel-sticky {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  overflow: hidden;
+  background: transparent;
+  display: flex;
+  align-items: center;
+}
+
+/* === TRACK — transforms horizontally via JS === */
+
+.about-carousel {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 32px;
+  padding: 0 56px;
+  list-style: none;
+  /* transform applied by JS */
+  will-change: transform;
+}
+
+.about-carousel-item {
+  flex-shrink: 0;
+}
+
+/* === POLAROID CARD ===
+   Show exactly 3 at once: width = (100vw - 2×56px padding - 2×32px gap) / 3  */
+
+.polaroid-card {
+  /* 3 across: (vw - 112px padding - 64px gaps) / 3 */
+  width: clamp(180px, calc((100vw - 176px) / 3), 420px);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  perspective: 1000px;
+  display: block;
+}
+
+.polaroid-inner {
+  width: 100%;
+  /* polaroid aspect ratio ≈ 4:5 */
+  aspect-ratio: 4 / 5;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  filter: drop-shadow(2px 8px 24px rgba(33, 37, 41, 0.16));
+}
+
+/* Static tilts — alternate per card */
+.polaroid-card--left  .polaroid-inner { rotate: -1.8deg; }
+.polaroid-card--right .polaroid-inner { rotate:  1.4deg; }
+
+/* Flipped state preserves tilt */
+.polaroid-card--left.polaroid-card--flipped  .polaroid-inner { transform: rotate(-1.8deg) rotateY(180deg); }
+.polaroid-card--right.polaroid-card--flipped .polaroid-inner { transform: rotate( 1.4deg) rotateY(180deg); }
+
+.polaroid-card:hover .polaroid-inner {
+  filter: drop-shadow(3px 14px 32px rgba(33, 37, 41, 0.26));
+}
+
+/* === FACES === */
+
+.polaroid-front,
+.polaroid-back {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.polaroid-front {
+  background: #f2f2f2;
+}
+
+.polaroid-frame {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.polaroid-back {
+  background: #fefefe;
+  transform: rotateY(180deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(0,0,0,0.06);
+}
+
+.polaroid-date {
+  font-family: 'Caveat', cursive;
+  font-size: clamp(16px, 1.5vw, 22px);
+  font-weight: 700;
+  color: #212529;
+  text-align: center;
+}
+
+/* === FOCUS === */
+
+.polaroid-card:focus-visible {
+  outline: 2px solid #8942FE;
+  outline-offset: 6px;
+  border-radius: 4px;
+}
+
+/* === REDUCED MOTION === */
+
+@media (prefers-reduced-motion: reduce) {
+  .polaroid-inner {
+    transition: none !important;
+  }
+  .polaroid-card--left  .polaroid-inner,
+  .polaroid-card--right .polaroid-inner { rotate: none; }
+  .polaroid-card--left.polaroid-card--flipped  .polaroid-inner,
+  .polaroid-card--right.polaroid-card--flipped .polaroid-inner {
+    transform: rotateY(180deg);
+  }
+}
+
+/* === MOBILE — native horizontal scroll, no hijack === */
+
+@media (max-width: 899px) {
+  .about-carousel-section {
+    height: auto !important;
+  }
+
+  .about-carousel-sticky {
+    position: static;
+    height: auto;
+    overflow: visible;
+    padding: 48px 0 56px;
+  }
+
+  .about-carousel {
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: 24px 24px 40px;
+    gap: 20px;
+    /* reset JS transform */
+    transform: none !important;
+  }
+
+  .about-carousel::-webkit-scrollbar { display: none; }
+
+  .about-carousel-item {
+    scroll-snap-align: start;
+  }
+
+  .about-headline-strip {
+    padding: 60px 24px 56px;
+  }
+
+  .polaroid-card {
+    /* 1.5 visible on mobile */
+    width: clamp(160px, 60vw, 240px);
+  }
+}

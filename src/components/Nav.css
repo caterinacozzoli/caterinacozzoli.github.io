@@ -1,0 +1,146 @@
+.nav-header {
+  position: fixed;
+  top: 32px;
+  left: 0;
+  right: 0;
+  z-index: var(--z-nav);
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+}
+
+/* === PILLOLA TEXTURE ARDESIA — dal design Figma === */
+
+.nav-pill {
+  pointer-events: all;
+  position: relative;
+  display: flex;
+  align-items: center;
+  /* Niente border-radius — la forma è definita dal PNG */
+  height: 88px;
+  padding: 0 40px;
+  gap: 0;
+  justify-content: space-evenly;
+  /* PNG con bordi frastagliati come background — copre l'intera forma */
+  background: url('/images/nav-bar-shape.png') center / 100% 100% no-repeat;
+  /* Ombra senza bordi definiti */
+  filter: drop-shadow(0 6px 20px rgba(0, 0, 0, 0.50));
+}
+
+/* === LINK — Gochi Hand, testo crema, shadow come Figma === */
+
+.nav-link {
+  position: relative;
+  z-index: 1;
+  font-family: 'Gochi Hand', cursive;
+  font-size: clamp(16px, 1.6vw, 24px);
+  font-weight: 400;
+  color: #e1dcc6;
+  text-shadow: 0px 4px 3px rgba(0, 0, 0, 0.52);
+  padding: 6px 28px;
+  white-space: nowrap;
+  transition: color 0.25s ease;
+  text-decoration: none;
+  line-height: 1;
+}
+
+/* Texture pill — centrata sulla nav bar, intera */
+.nav-link::before {
+  content: '';
+  position: absolute;
+  /* centrata verticalmente sull'altezza della nav (88px) */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* aspect ratio pillola Figma ≈ 5:2, altezza = nav bar */
+  height: 64px;
+  width: 100%;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Hover — pillola viola contorno */
+.nav-link:hover {
+  color: #cfc1e1;
+}
+
+.nav-link:hover::before {
+  background-image: url('/images/nav-item-hover.png');
+  opacity: 1;
+}
+
+/* Active — pillola viola piena */
+.nav-link--active {
+  color: #e1dcc6;
+}
+
+.nav-link--active::before {
+  background-image: url('/images/nav-item-active.png');
+  opacity: 1;
+}
+
+.nav-link:focus-visible {
+  outline: 2px solid #FED728;
+  outline-offset: 4px;
+}
+
+/* === LANGUAGE BADGE === */
+
+.nav-lang {
+  position: relative;
+  z-index: 1;
+  font-family: 'Gochi Hand', cursive;
+  font-size: clamp(18px, 1.6vw, 26px);
+  font-weight: 400;
+  color: #e1dcc6;
+  text-shadow: 0px 4px 3px rgba(0, 0, 0, 0.52);
+  background: none;
+  border: 1.5px solid rgba(225, 220, 198, 0.45);
+  border-radius: 9999px;
+  padding: 6px 20px;
+  cursor: pointer;
+  margin-left: 16px;
+  transition: color 0.2s ease, border-color 0.2s ease;
+  white-space: nowrap;
+}
+
+.nav-lang:hover {
+  color: #ffffff;
+  border-color: rgba(225, 220, 198, 0.85);
+}
+
+.nav-lang:focus-visible {
+  outline: 2px solid #FED728;
+  outline-offset: 4px;
+}
+
+/* === MOBILE === */
+
+@media (max-width: 600px) {
+  .nav-pill {
+    height: 64px;
+    padding: 0 16px;
+    gap: 0;
+  }
+
+  .nav-link {
+    display: none;
+  }
+
+  .nav-lang {
+    margin-left: 0;
+    font-size: 18px;
+  }
+}
+
+/* === REDUCED MOTION === */
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-link,
+  .nav-lang { transition: none; }
+}

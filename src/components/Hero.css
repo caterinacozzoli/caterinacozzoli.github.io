@@ -1,0 +1,299 @@
+.hero {
+  position: relative;
+  height: 100svh;
+  overflow: hidden;
+  padding: 0;
+  background: var(--bg);
+  /* Flex column: tagline top, description+nome bottom */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* === BACKGROUND — soft lavender wash, purple brand identity === */
+
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  bottom: -120px;
+  overflow: visible;
+}
+
+/* === ACQUARELLO BLOBS === */
+
+.wc-blob {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* Blob lavender — angolo bottom-right, intenso */
+.wc-blob--lavender {
+  width: 70%;
+  aspect-ratio: 1.3;
+  bottom: -20%;
+  right: -15%;
+  background: transparent;
+  filter: url(#watercolor);
+}
+
+/* Blob oro — top-left, più intenso */
+.wc-blob--gold {
+  width: 55%;
+  aspect-ratio: 1.4;
+  top: -10%;
+  left: -8%;
+  background: transparent;
+  filter: url(#watercolor-sm);
+}
+
+/* Blob lavender secondario — bottom-right rinforzo */
+.wc-blob--lavender-sm {
+  width: 38%;
+  aspect-ratio: 1;
+  bottom: 5%;
+  right: -5%;
+  background: transparent;
+  filter: url(#watercolor-sm);
+  opacity: 0.90;
+}
+
+/* === CONTENT === */
+
+/* Top zone: manifesto description — spinto più in basso */
+.hero-top {
+  position: relative;
+  z-index: var(--z-base);
+  padding: 110px 56px 0;
+  flex-shrink: 0;
+  max-width: 600px;
+  margin-top: clamp(40px, 10vh, 100px);
+}
+
+.hero-meta {
+  position: relative;
+  z-index: var(--z-base);
+}
+
+.hero-tagline {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--primary);               /* #8942FE purple */
+}
+
+.hero-location {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--ink-muted);
+  margin-top: 5px;
+}
+
+/* Bottom zone: description + nome raggruppati (prologue → firma) */
+.hero-bottom {
+  position: relative;
+  z-index: var(--z-base);
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 0 0 24px 52px;
+}
+
+.hero-description {
+  position: relative;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: clamp(15px, 1.3vw, 18px);
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--ink);
+  text-wrap: pretty;
+}
+
+/* "UX/UI designer" in viola palette */
+.desc-role {
+  font-weight: 700;
+  color: var(--primary);
+}
+
+/* === NAME — ALL CAPS, single line, per-letter hover === */
+
+.hero-name-container {
+  position: relative;
+  z-index: var(--z-base);
+  left: -4px;
+}
+
+.hero-name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  /* 18vw: "CATERINA" 8 caps × ~0.65 ratio × 259px ≈ 1347px — fills viewport */
+  font-size: clamp(44px, 13.5vw, 200px);
+  line-height: 0.92;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  text-transform: uppercase;
+  display: block;
+  user-select: none;
+  outline: none;
+}
+
+.name-line {
+  display: block;
+  white-space: nowrap;
+}
+
+.hero-name:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 8px;
+  border-radius: 4px;
+}
+
+/* === PER-LETTER HOVER — image COVERS the letter === */
+
+.letter-wrap {
+  position: relative;
+  display: inline-block;
+  cursor: default;
+  /* Extend hit area so pointer can reach image without losing hover */
+  padding: 0.6em 0.1em;
+  margin: -0.6em -0.1em;
+}
+
+.letter-first {
+  color: inherit;                      /* stesso colore delle altre lettere */
+}
+
+/* Ogni lettera diventa viola on hover */
+.letter-wrap:hover {
+  color: var(--primary);
+}
+
+.letter-wrap:focus-within {
+  color: var(--primary);
+}
+
+.letter-space {
+  display: inline-block;
+  width: 0.28em;
+}
+
+/* Magnet COVERS the letter — centered on it */
+.letter-magnet {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  width: clamp(70px, 9vw, 130px);
+  height: auto;
+  pointer-events: all;                 /* hoverable — SC 1.4.13b */
+  filter: drop-shadow(0 4px 16px rgba(33, 37, 41, 0.22));
+  z-index: var(--z-overlay);
+}
+
+/* === SCROLL INDICATOR === */
+
+.hero-scroll {
+  position: absolute;
+  right: 48px;
+  bottom: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  z-index: var(--z-base);
+}
+
+.scroll-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-decorative);
+  writing-mode: vertical-rl;
+}
+
+.scroll-line {
+  width: 1px;
+  height: 44px;
+  background: var(--primary);
+  animation: scroll-pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes scroll-pulse {
+  0%, 100% { opacity: 0.3; transform: scaleY(1); }
+  50%       { opacity: 0.9; transform: scaleY(1.15); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-line { animation: none; opacity: 0.5; }
+  .letter-magnet { transition: none !important; }
+}
+
+/* === MOBILE === */
+
+@media (max-width: 768px) {
+  .hero {
+    height: auto !important;
+    overflow: visible !important;
+    display: flex !important;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 0;
+  }
+
+  .hero-top {
+    padding: 80px 24px 0;
+  }
+
+  .hero-bottom {
+    padding: 24px 24px 40px;
+    gap: 14px;
+    margin-top: auto;
+  }
+
+  .hero-bg {
+    background: transparent;
+  }
+
+  .hero-description {
+    max-width: 100%;
+    font-size: 15px;
+    padding: 0;
+  }
+
+  .hero-name-container {
+    position: relative !important;
+    bottom: auto !important;
+    left: auto;
+    flex-shrink: 0;
+    margin-top: auto;
+    overflow: hidden;
+  }
+
+  .hero-name {
+    font-size: clamp(44px, 17vw, 120px);
+    line-height: 0.92;
+  }
+
+  .name-line {
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  .letter-wrap {
+    padding: 0.4em 0.05em;
+    margin: -0.4em -0.05em;
+  }
+
+  .letter-magnet {
+    width: clamp(50px, 14vw, 80px);
+  }
+
+  .hero-scroll {
+    display: none;
+  }
+}

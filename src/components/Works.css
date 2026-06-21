@@ -1,0 +1,224 @@
+.works {
+  padding: 120px 56px;
+  position: relative;
+  /* Viola continua dall'hero bottom-right senza interruzione */
+  background: transparent;
+  overflow: hidden;
+}
+
+/* === HEADER === */
+
+.works-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 40px;
+  padding-bottom: 24px;
+  border-bottom: 1.5px solid #E6E8EC;
+}
+
+.works-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(28px, 4vw, 60px);
+  text-transform: uppercase;
+  color: #212529;
+  line-height: 1;
+  letter-spacing: -0.01em;
+}
+
+.works-count {
+  font-size: 13px;
+  font-weight: 600;
+  color: #8942FE;
+  letter-spacing: 0.08em;
+}
+
+/* === CORKBOARD — #f5f5f5 bg with radius, danielsun's .framer-13xd1jd === */
+
+.works-board {
+  background: #f5f5f5;
+  border-radius: 24px;
+  padding: 32px;
+  overflow: clip;
+}
+
+/* === STAGE — fixed-height absolute container (danielsun technique) === */
+
+.works-stage {
+  position: relative;
+  width: 100%;
+  /* Height accommodates 3 projects with stagger + bottom padding */
+  height: 1400px;
+}
+
+.works-grid {
+  list-style: none;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+/* === CARD — absolutely positioned, centered on left: X% anchor === */
+
+.project-item {
+  position: absolute;
+  transform: translateX(-50%);  /* center on the left: anchor */
+
+  /* Reveal: hidden by default, shown when parent gets --revealed class */
+  opacity: 0;
+  transition:
+    opacity 0.7s var(--ease-out-expo, cubic-bezier(0.16,1,0.3,1))
+    calc(var(--i, 0) * 130ms + 0.05s);
+}
+
+.works-grid--revealed .project-item {
+  opacity: 1;
+}
+
+/* Reduced motion: always visible */
+@media (prefers-reduced-motion: reduce) {
+  .project-item { opacity: 1 !important; transition: none !important; }
+}
+
+/* Small cards — 35% width (like danielsun's 32%) */
+.project-item--small {
+  width: 35%;
+}
+
+/* Large cards — 52% width (like danielsun's 55%) */
+.project-item--large {
+  width: 52%;
+}
+
+/* === FRAME — white border + static tilt, like danielsun's .framer-3pqp8l ===
+   Static slight rotation always present; hover amplifies it */
+
+.project-frame {
+  position: relative;
+  overflow: visible;
+  border-radius: 0;
+  border: none;
+  box-shadow: none;
+  background: transparent;
+  aspect-ratio: 4/3;
+  cursor: pointer;
+  transform: rotate(calc(var(--tilt, -1deg) * 0.5));
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform;
+}
+
+.project-frame:hover {
+  /* Full tilt on hover */
+  transform: rotate(var(--tilt, -1.5deg)) scale(1.03);
+}
+
+.project-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: bottom center;
+  display: block;
+  pointer-events: none;
+}
+
+.project-badge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  background: #FED728;
+  color: #212529;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 5px 12px;
+  border-radius: 999px;
+  letter-spacing: 0.02em;
+  pointer-events: none;
+}
+
+/* === FOOTER === */
+
+.project-footer {
+  padding: 14px 2px 0;
+}
+
+.project-name {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: clamp(15px, 1.3vw, 19px);
+  color: #212529;
+  margin-bottom: 10px;
+}
+
+.project-name span {
+  color: #8942FE;
+  font-size: 0.85em;
+  transition: transform 0.2s ease;
+  display: inline-block;
+}
+
+.project-frame:hover ~ .project-footer .project-name span {
+  transform: translate(4px, -2px);
+}
+
+.project-chips {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.chip {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: #E6E8EC;
+  color: #212529;
+  cursor: default;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .project-frame {
+    transition: none;
+  }
+  .project-frame:hover {
+    transform: scale(1.02);
+  }
+}
+
+/* === MOBILE — single column flow === */
+
+@media (max-width: 768px) {
+  .works {
+    padding: 80px 0 0;
+  }
+
+  .works-header {
+    padding: 0 24px 24px;
+  }
+
+  .works-stage {
+    height: auto;
+  }
+
+  .works-grid {
+    position: static;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    padding: 32px 24px 60px;
+  }
+
+  .project-item,
+  .project-item--small,
+  .project-item--large {
+    position: static;
+    width: 100%;
+    transform: none;
+    top: auto;
+    left: auto;
+  }
+}
