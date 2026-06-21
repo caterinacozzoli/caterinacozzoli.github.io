@@ -165,26 +165,13 @@ export default function About({ onCarouselScroll }) {
   const { lang } = useLang();
   const lines = HEADLINE[lang] ?? HEADLINE.it;
   const label = CAROUSEL_LABEL[lang] ?? CAROUSEL_LABEL.it;
-  const sectionRef = useRef(null);
-  const [skipVisible, setSkipVisible] = useState(false);
-
-  useEffect(() => {
-    const el = sectionRef.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(
-      ([entry]) => setSkipVisible(entry.isIntersecting),
-      { threshold: 0.05 }
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, []);
 
   const skipRecap = () => {
     document.getElementById('workflow')?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
-    <section id="chi-sono" className="about" aria-labelledby="about-title" ref={sectionRef}>
+    <section id="chi-sono" className="about" aria-labelledby="about-title">
       {/* Yellow strip — normal vertical scroll */}
       <div className="about-headline-strip">
         <h2 id="about-title" className="about-headline">
@@ -192,24 +179,18 @@ export default function About({ onCarouselScroll }) {
             <span key={i} className="about-headline-line">{line}</span>
           ))}
         </h2>
-        <div className="about-header-right">
-          <span className="about-count" aria-hidden="true">03</span>
-        </div>
-      </div>
-
-      {/* Horizontal scroll-hijack section */}
-      <HorizontalCarousel carouselLabel={label} onCarouselScroll={onCarouselScroll} />
-
-      {/* Skip recap — fixed top-right, Netflix style */}
-      {skipVisible && (
+        <span className="about-count" aria-hidden="true">03</span>
         <button
-          className="skip-recap-btn skip-recap-btn--fixed"
+          className="skip-recap-btn skip-recap-btn--banner"
           onClick={skipRecap}
           aria-label={SKIP_LABEL[lang]}
         >
           {SKIP_LABEL[lang]}
         </button>
-      )}
+      </div>
+
+      {/* Horizontal scroll-hijack section */}
+      <HorizontalCarousel carouselLabel={label} onCarouselScroll={onCarouselScroll} />
     </section>
   );
 }

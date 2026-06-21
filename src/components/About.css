@@ -41,13 +41,15 @@
 .about-headline {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(48px, 8vw, 120px);
+  font-size: clamp(38px, 6vw, 88px);
   text-transform: uppercase;
-  line-height: 0.92;
-  letter-spacing: -0.02em;
+  line-height: 1;
+  letter-spacing: -0.01em;
   color: #212529;
   display: flex;
   flex-direction: column;
+  position: relative;
+  z-index: 1;
 }
 
 .about-headline-line {
@@ -92,19 +94,12 @@
   outline-offset: 3px;
 }
 
-/* Fixed top-right position — Netflix Skip Intro style */
-.skip-recap-btn--fixed {
-  position: fixed;
-  top: 80px;
-  right: 24px;
-  z-index: calc(var(--z-nav) - 2);
-  box-shadow: 0 4px 16px rgba(0,0,0,0.25);
-  animation: skip-fadein 0.3s var(--ease-out-expo) both;
-}
-
-@keyframes skip-fadein {
-  from { opacity: 0; transform: translateY(-8px); }
-  to   { opacity: 1; transform: translateY(0); }
+/* Top-right inside yellow banner */
+.skip-recap-btn--banner {
+  position: absolute;
+  top: 20px;
+  right: 56px;
+  z-index: 2;
 }
 
 @media (prefers-reduced-motion: reduce) {
