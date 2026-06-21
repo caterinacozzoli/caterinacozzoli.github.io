@@ -32,11 +32,11 @@ const INTRO_BUBBLES = [
   },
   {
     text: 'dove ho lasciato il cellulare',
-    frames: [AVATAR.frontale, AVATAR.inBassoADestra, AVATAR.sbatti, AVATAR.frontale],
+    frames: [AVATAR.frontale, AVATAR.inBassoADestra, AVATAR.sottoCentro, AVATAR.altoDestra],
   },
   {
     text: 'eccomi! 👋',
-    frames: [AVATAR.fischia, AVATAR.frontale, AVATAR.fischia, AVATAR.frontale],
+    frames: [AVATAR.frontale, AVATAR.default, AVATAR.latoSinistra, AVATAR.frontale],
   },
 ];
 
@@ -171,20 +171,25 @@ function AvatarIntro({ onComplete }) {
   );
 }
 
-function FloatingAvatar({ mode, onGoHome, bubbleText }) {
+function FloatingAvatar({ mode, onGoHome }) {
   const src = AVATAR[mode] ?? AVATAR.default;
+  const [hovered, setHovered] = useState(false);
 
   return (
     <div className="floating-avatar-wrap">
-      {bubbleText && (
-        <div className="floating-avatar-bubble-anchor">
-          <ThoughtBubble text={bubbleText} visible={true} />
+      {hovered && (
+        <div className="floating-avatar-bubble-anchor" aria-hidden="true">
+          <ThoughtBubble text="Ciao! 👋" visible={true} />
         </div>
       )}
       <a
         href="#"
         className="floating-avatar-link"
         aria-label="Torna alla home"
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+        onFocus={() => setHovered(true)}
+        onBlur={() => setHovered(false)}
         onClick={(e) => {
           e.preventDefault();
           onGoHome?.();
@@ -209,7 +214,6 @@ function AppInner() {
   const [homeLock, setHomeLock] = useState(false);
   const [introComplete, setIntroComplete] = useState(false);
   const [carouselScrolling, setCarouselScrolling] = useState(false);
-  const [letterBubble, setLetterBubble] = useState(null);
   const [openProject, setOpenProject] = useState(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const handleMenuToggle = useCallback(() => setMenuOpen(o => !o), []);
@@ -217,12 +221,6 @@ function AppInner() {
   const handleIntroComplete = useCallback(() => setIntroComplete(true), []);
   const handleOpenProject = useCallback((id) => setOpenProject(id), []);
   const handleCloseProject = useCallback(() => setOpenProject(null), []);
-
-  useEffect(() => {
-    const h = (e) => setLetterBubble(e.detail);
-    window.addEventListener('letterHover', h);
-    return () => window.removeEventListener('letterHover', h);
-  }, []);
   const handleCarouselScroll = useCallback((active) => setCarouselScrolling(active), []);
 
   // Rilascia homeLock appena scrollY < 50
@@ -277,7 +275,7 @@ function AppInner() {
       />
       {!introComplete && <AvatarIntro onComplete={handleIntroComplete} />}
       {introComplete && (
-        <FloatingAvatar mode={avatarMode} onGoHome={handleGoHome} bubbleText={letterBubble} />
+        <FloatingAvatar mode={avatarMode} onGoHome={handleGoHome} />
       )}
 
       <main id="main-content">
