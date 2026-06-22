@@ -171,17 +171,34 @@ function AvatarIntro({ onComplete }) {
   );
 }
 
-function FloatingAvatar({ mode, onGoHome }) {
+const BUBBLE_TEXTS = {
+  hover: {
+    it: 'ciao, cm va?',
+    en: "hi, how's it going?",
+    pt: 'olá, tudo bem?',
+  },
+  contact: {
+    it: 'restiamo in contatto',
+    en: "let's keep in touch",
+    pt: 'vamos manter contato',
+  }
+};
+
+function FloatingAvatar({ mode, activeSection, onGoHome }) {
+  const { lang } = useLang();
   const src = AVATAR[mode] ?? AVATAR.default;
   const [hovered, setHovered] = useState(false);
 
+  const isContactSection = activeSection === 'contatti';
+  const bubbleVisible = hovered || isContactSection;
+  const textDict = BUBBLE_TEXTS[isContactSection ? 'contact' : 'hover'];
+  const bubbleText = textDict[lang] ?? textDict.it;
+
   return (
     <div className="floating-avatar-wrap">
-      {hovered && (
-        <div className="floating-avatar-bubble-anchor" aria-hidden="true">
-          <ThoughtBubble text="ciao!" visible={true} />
-        </div>
-      )}
+      <div className="floating-avatar-bubble-anchor" aria-hidden="true">
+        <ThoughtBubble text={bubbleText} visible={bubbleVisible} />
+      </div>
       <a
         href="#"
         className="floating-avatar-link"
@@ -275,7 +292,7 @@ function AppInner() {
       />
       {!introComplete && <AvatarIntro onComplete={handleIntroComplete} />}
       {introComplete && (
-        <FloatingAvatar mode={avatarMode} onGoHome={handleGoHome} />
+        <FloatingAvatar mode={avatarMode} activeSection={activeSection} onGoHome={handleGoHome} />
       )}
 
       <main id="main-content">

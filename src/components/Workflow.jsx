@@ -84,6 +84,16 @@ export default function Workflow() {
           </li>
         ))}
       </ol>
+
+      {/* Sezione Strumenti (sotto alla sezione viola) */}
+      <div className="workflow-tools-section">
+        <h3 className="workflow-tools-title">{TOOLS_TITLE[lang]}</h3>
+        <div className="workflow-tools-list">
+          {TOOLS.map((tool) => (
+            <ToolIcon key={tool.key} name={tool.name} imgKey={tool.key} label={tool.label} />
+          ))}
+        </div>
+      </div>
     </section>
   );
 }
