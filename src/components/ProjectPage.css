@@ -382,9 +382,9 @@
 .pp-highlight {
   margin-top: 24px;
   padding: 16px 20px;
-  border-left: 3px solid;
-  background: rgba(255, 255, 255, 0.55);
-  border-radius: 0 var(--r-md) var(--r-md) 0;
+  border: 1.5px solid;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: var(--r-md);
   font-family: 'Gochi Hand', cursive;
   font-size: clamp(15px, 1.2vw, 18px);
   color: var(--ink);
@@ -575,8 +575,7 @@
 .pp-callout {
   margin-top: 24px;
   padding: 20px 24px;
-  border-left: 4px solid;
-  border-radius: 0 var(--r-lg) var(--r-lg) 0;
+  border-radius: var(--r-lg);
   font-family: var(--font-body);
   font-size: clamp(15px, 1.2vw, 18px);
   font-weight: 500;
