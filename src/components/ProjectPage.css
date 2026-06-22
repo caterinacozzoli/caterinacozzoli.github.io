@@ -266,6 +266,34 @@
   color: var(--ink);
 }
 
+.pp-info-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 4px;
+}
+
+.pp-info-link {
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  transition: opacity 0.2s ease, filter 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+}
+
+.pp-info-link:hover {
+  filter: brightness(0.85);
+  text-decoration: underline;
+}
+
+.pp-info-link:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
 .pp-tags {
   list-style: none;
   display: flex;

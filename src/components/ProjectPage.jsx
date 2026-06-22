@@ -21,6 +21,9 @@ const PROJECTS = {
     ],
     accent: '#1a7a3c',
     accentLight: '#d4f0df',
+    links: [
+      { label: 'Prototipo Figma', url: 'https://www.figma.com/proto/72QyZ6zBlCHX6Hdlef9N6T/Libraccio-scolastica?page-id=2910%3A20566&node-id=4132-33231&viewport=-15048%2C37%2C0.44&t=ajf2YquIi7PveT8Q-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=3698%3A44057' }
+    ],
     sections: [
       {
         type: 'opening-quote',
@@ -64,6 +67,13 @@ const PROJECTS = {
         body: "Abbiamo riprogettato l'acquisto scolastico come un percorso a sé: carica o cerca l'elenco testi, seleziona nuovo o usato libro per libro, checkout unificato. Una lista scolastica salvata permette di riprendere da qualsiasi dispositivo. Niente più tab aperte, niente più appunti su carta.",
         callout: "Nei test di usabilità, il tempo medio di completamento è sceso da 12 a 4 minuti.",
       },
+      {
+        type: 'prototype',
+        label: '05 / Prototipo',
+        title: "Esplora il prototipo interattivo",
+        url: "https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2F72QyZ6zBlCHX6Hdlef9N6T%2FLibraccio-scolastica%3Fpage-id%3D2910%253A20566%26node-id%3D4132-33231%26viewport%3D-15048%252C37%252C0.44%26t%3Dajf2YquIi7PveT8Q-1%26scaling%3Dscale-down%26content-scaling%3Dfixed%26starting-point-node-id%3D3698%253A44057",
+        link: "https://www.figma.com/proto/72QyZ6zBlCHX6Hdlef9N6T/Libraccio-scolastica?page-id=2910%3A20566&node-id=4132-33231&viewport=-15048%2C37%2C0.44&t=ajf2YquIi7PveT8Q-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=3698%3A44057"
+      },
     ],
   },
 
@@ -82,6 +92,10 @@ const PROJECTS = {
     ],
     accent: '#3f68ff',
     accentLight: '#e8eeff',
+    links: [
+      { label: 'Sito attuale', url: 'https://www.abilicity.com/' },
+      { label: 'Primo prototipo', url: 'https://www.figma.com/proto/jhC381DC6WyEdSeG070svr/AbiliCity?node-id=66-1881&starting-point-node-id=366%3A93' }
+    ],
     sections: [
       {
         type: 'opening-quote',
@@ -118,6 +132,13 @@ const PROJECTS = {
         ],
       },
       {
+        type: 'prototype',
+        label: '04 / Prototipo',
+        title: "Esplora il prototipo dell'applicazione",
+        url: "https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FjhC381DC6WyEdSeG070svr%2FAbiliCity%3Fnode-id%3D66-1881%26starting-point-node-id%3D366%253A93",
+        link: "https://www.figma.com/proto/jhC381DC6WyEdSeG070svr/AbiliCity?node-id=66-1881&starting-point-node-id=366%3A93"
+      },
+      {
         type: 'callout-quote',
         quote: "«Crediamo in una comunità in cui ogni voce conta, ogni barriera può essere superata, e ogni incontro può generare cambiamento.»",
         label: 'Mission AbiliCity',
@@ -140,6 +161,9 @@ const PROJECTS = {
     ],
     accent: '#c2410c',
     accentLight: '#ffedd5',
+    links: [
+      { label: 'GitHub', url: 'https://github.com/caterinacozzoli/qualia' }
+    ],
     sections: [
       {
         type: 'opening-quote',
@@ -191,6 +215,13 @@ const PROJECTS = {
           { src: '/images/projects/qualia/clothes-scanner-result-expanded-2.png', caption: 'Scansione vestito - Suggerimenti di abbinamento e contrasto' },
           { src: '/images/projects/qualia/scan-history.png', caption: 'Cronologia delle scansioni per consultazione futura' }
         ],
+      },
+      {
+        type: 'prototype',
+        label: '05 / Prototipo',
+        title: "Repository e codice sorgente",
+        body: "Il progetto Qualia è stato sviluppato come prototipo funzionale. Puoi esplorare l'intero codice sorgente e la documentazione del software direttamente su GitHub.",
+        link: "https://github.com/caterinacozzoli/qualia"
       },
       {
         type: 'callout-quote',
@@ -367,6 +398,73 @@ function SectionCalloutQuote({ s }) {
   );
 }
 
+function SectionPrototype({ s, accent }) {
+  if (s.url) {
+    return (
+      <section className="pp-section pp-section--prototype">
+        <span className="pp-label">{s.label}</span>
+        <h3 className="pp-section-title">{s.title}</h3>
+        {s.body && <p className="pp-body">{s.body}</p>}
+        
+        <div className="pp-iframe-wrapper">
+          <iframe
+            className="pp-iframe"
+            title={s.title}
+            src={s.url}
+            allowFullScreen
+            loading="lazy"
+          />
+        </div>
+        
+        {s.link && (
+          <div className="pp-prototype-link-container">
+            <a
+              href={s.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="pp-prototype-btn"
+              style={{ '--btn-accent': accent }}
+            >
+              Apri prototipo su Figma ↗
+            </a>
+          </div>
+        )}
+      </section>
+    );
+  }
+
+  return (
+    <section className="pp-section pp-section--prototype">
+      <span className="pp-label">{s.label}</span>
+      <h3 className="pp-section-title">{s.title}</h3>
+      {s.body && <p className="pp-body">{s.body}</p>}
+      
+      <div className="pp-github-card" style={{ borderColor: `${accent}33` }}>
+        <div className="pp-github-header">
+          <div className="pp-github-icon" style={{ backgroundColor: `${accent}15`, color: accent }}>
+            <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+            </svg>
+          </div>
+          <div className="pp-github-info">
+            <h4 className="pp-github-repo-title">caterinacozzoli / qualia</h4>
+            <p className="pp-github-repo-desc">Repository GitHub del codice sorgente e del prototipo funzionale di Qualia.</p>
+          </div>
+        </div>
+        <a
+          href={s.link}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="pp-prototype-btn"
+          style={{ '--btn-accent': accent }}
+        >
+          Apri repository GitHub ↗
+        </a>
+      </div>
+    </section>
+  );
+}
+
 function renderSection(s, accent, accentLight) {
   switch (s.type) {
     case 'opening-quote': return <SectionOpeningQuote key={s.quote} s={s} />;
@@ -378,6 +476,7 @@ function renderSection(s, accent, accentLight) {
     case 'solution':      return <SectionSolution key={s.label} s={s} accent={accent} accentLight={accentLight} />;
     case 'impact':        return <SectionImpact key={s.label} s={s} accent={accent} accentLight={accentLight} />;
     case 'callout-quote': return <SectionCalloutQuote key={s.label} s={s} />;
+    case 'prototype':     return <SectionPrototype key={s.label} s={s} accent={accent} />;
     default:              return null;
   }
 }
@@ -496,6 +595,25 @@ export default function ProjectPage({ projectId, onClose }) {
                   <span className="pp-info-label">Team</span>
                   <span className="pp-info-value">{data.team}</span>
                 </div>
+                {data.links && (
+                  <div className="pp-info-row" style={{ marginTop: '12px' }}>
+                    <span className="pp-info-label">Link</span>
+                    <div className="pp-info-links">
+                      {data.links.map((link, idx) => (
+                        <a
+                          key={idx}
+                          href={link.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="pp-info-link"
+                          style={{ color: accent }}
+                        >
+                          {link.label} ↗
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
             {/* Stickers decorativi nel hero — cliccabili se hanno link */}
