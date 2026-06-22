@@ -48,16 +48,45 @@
   }
 
   .floating-avatar-bubble-anchor {
-    width: 80px;
+    width: 100px;
     right: 44%;
     top: 57%;
+  }
+
+  .floating-avatar-wrap .thought-bubble__text {
+    font-size: 12px;
+    transform: translate(8px, 3px);
+  }
+}
+
+@media (max-width: 768px) {
+  .floating-avatar-wrap {
+    right: auto;
+    left: 24px;
+  }
+
+  .floating-avatar-bubble-anchor {
+    right: auto;
+    left: 44%;
+    width: 100px;
+  }
+
+  .floating-avatar-wrap .thought-bubble__img {
+    transform: scaleX(-1);
+  }
+
+  .floating-avatar-wrap .thought-bubble__text {
+    left: 24%;
+    right: 2%;
+    font-size: 12px;
+    transform: translate(-8px, 3px);
   }
 }
 
 @media (max-width: 600px) {
   .floating-avatar-wrap {
-    top: 12px;
-    right: 80px;
+    right: auto;
+    left: 16px;
   }
 
   .floating-avatar {
@@ -65,9 +94,17 @@
   }
 
   .floating-avatar-bubble-anchor {
-    width: 64px;
-    right: 44%;
+    right: auto;
+    left: 44%;
+    width: 88px;
     top: 57%;
+  }
+
+  .floating-avatar-wrap .thought-bubble__text {
+    left: 24%;
+    right: 2%;
+    font-size: 10px;
+    transform: translate(-7px, 2px);
   }
 }
 

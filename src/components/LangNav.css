@@ -188,9 +188,11 @@
   }
 }
 
-/* === MOBILE ≤768px — mostra hamburger + a11y trigger === */
+/* === MOBILE ≤768px — mostra hamburger + a11y trigger a destra === */
 @media (max-width: 768px) {
   .lang-nav {
+    left: auto;
+    right: 24px;
     padding: 0 12px;
     gap: 8px;
   }
@@ -208,10 +210,12 @@
   }
 }
 
-/* === MOBILE ≤600px — scompare === */
+/* === MOBILE ≤600px — resta visibile a destra === */
 @media (max-width: 600px) {
   .lang-nav {
-    display: none;
+    display: flex;
+    left: auto;
+    right: 16px;
   }
 }
 

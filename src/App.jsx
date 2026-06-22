@@ -84,10 +84,47 @@ function AvatarIntro({ onComplete }) {
   const [frameIdx,  setFrameIdx]  = useState(0);
   const [flying,    setFlying]    = useState(false);
 
-  const cx = typeof window !== 'undefined' ? window.innerWidth  / 2 - INTRO_SIZE / 2 : 0;
-  const cy = typeof window !== 'undefined' ? window.innerHeight / 2 - INTRO_SIZE / 2 : 0;
-  const fx = typeof window !== 'undefined' ? window.innerWidth  - FINAL_SIZE - FINAL_RIGHT : 0;
-  const fy = FINAL_TOP;
+  const getInitialDimensions = () => {
+    if (typeof window === 'undefined') {
+      return { width: FINAL_SIZE, x: 0, y: FINAL_TOP, cx: 0, cy: 0 };
+    }
+    const w = window.innerWidth;
+    const h = window.innerHeight;
+    const cxVal = w / 2 - INTRO_SIZE / 2;
+    const cyVal = h / 2 - INTRO_SIZE / 2;
+
+    let finalW = FINAL_SIZE;
+    let finalX = w - FINAL_SIZE - FINAL_RIGHT;
+    let finalY = FINAL_TOP;
+
+    if (w <= 600) {
+      finalW = 72;
+      finalX = 16;
+      finalY = 12;
+    } else if (w <= 768) {
+      finalW = 88;
+      finalX = 24;
+      finalY = 12;
+    } else if (w <= 900) {
+      finalW = 88;
+      finalX = w - 88 - 72;
+      finalY = 12;
+    }
+
+    return { width: finalW, x: finalX, y: finalY, cx: cxVal, cy: cyVal };
+  };
+
+  const [dimensions, setDimensions] = useState(getInitialDimensions);
+
+  useEffect(() => {
+    const updateDimensions = () => {
+      setDimensions(getInitialDimensions());
+    };
+    window.addEventListener('resize', updateDimensions);
+    return () => window.removeEventListener('resize', updateDimensions);
+  }, []);
+
+  const { cx, cy, x: fx, y: fy, width: finalSize } = dimensions;
 
   /* Timer nuvole — avanza ogni BUBBLE_MS, poi lancia il volo */
   useEffect(() => {
@@ -137,7 +174,7 @@ function AvatarIntro({ onComplete }) {
         style={{ position: 'fixed', zIndex: 9999, top: 0, left: 0, pointerEvents: 'none' }}
         initial={{ x: cx, y: cy, width: INTRO_SIZE }}
         animate={flying
-          ? { x: fx, y: fy, width: FINAL_SIZE }
+          ? { x: fx, y: fy, width: finalSize }
           : { x: cx, y: cy, width: INTRO_SIZE }}
         transition={flying
           ? {
