@@ -25,9 +25,9 @@
 /* Nuvola — in basso a sinistra, puntini puntano al viso */
 .floating-avatar-bubble-anchor {
   position: absolute;
-  right: 65%;
-  top: 32%;
-  width: 155px;
+  right: 52%;
+  top: 52%;
+  width: 125px;
   pointer-events: none;
   z-index: 2;
 }
@@ -47,9 +47,9 @@
   }
 
   .floating-avatar-bubble-anchor {
-    width: 100px;
-    right: 65%;
-    top: 32%;
+    width: 80px;
+    right: 52%;
+    top: 52%;
   }
 }
 
@@ -64,9 +64,9 @@
   }
 
   .floating-avatar-bubble-anchor {
-    width: 80px;
-    right: 65%;
-    top: 32%;
+    width: 65px;
+    right: 52%;
+    top: 52%;
   }
 }
 
