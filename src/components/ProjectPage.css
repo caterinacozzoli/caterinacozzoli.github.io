@@ -737,6 +737,154 @@
   line-height: 1.4;
 }
 
+/* ─── PROTOTYPE EMBED ────────────────────────────────────────────────────────── */
+
+.pp-section--prototype {
+  padding: 48px 56px;
+}
+
+.pp-iframe-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  margin-top: 24px;
+  border-radius: var(--r-xl);
+  overflow: hidden;
+  border: 1px solid rgba(33, 37, 41, 0.08);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+  background: #f8f9fa;
+}
+
+.pp-iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.pp-prototype-link-container {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.pp-prototype-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 28px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--btn-accent, #212529);
+  background: transparent;
+  border: 2px solid var(--btn-accent, #212529);
+  border-radius: var(--r-pill);
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.15s ease;
+}
+
+.pp-prototype-btn:hover {
+  background: var(--btn-accent, #212529);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+.pp-prototype-btn:focus-visible {
+  outline: 2px solid var(--btn-accent, #212529);
+  outline-offset: 3px;
+}
+
+/* ─── GITHUB CARD ────────────────────────────────────────────────────────────── */
+
+.pp-github-card {
+  margin-top: 24px;
+  padding: 28px 32px;
+  border-radius: var(--r-xl);
+  border: 1px solid rgba(33, 37, 41, 0.08);
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.pp-github-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.pp-github-icon {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--r-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pp-github-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.pp-github-repo-title {
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0 0 4px;
+  letter-spacing: -0.01em;
+}
+
+.pp-github-repo-desc {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 400;
+  color: rgba(33, 37, 41, 0.65);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ─── PROTOTYPE MOBILE ───────────────────────────────────────────────────────── */
+
+@media (max-width: 768px) {
+  .pp-section--prototype {
+    padding: 36px 24px;
+  }
+
+  .pp-iframe-wrapper {
+    aspect-ratio: 4 / 3;
+    border-radius: var(--r-lg);
+  }
+
+  .pp-github-card {
+    padding: 20px;
+  }
+
+  .pp-github-header {
+    gap: 12px;
+  }
+
+  .pp-github-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .pp-prototype-btn {
+    width: 100%;
+    justify-content: center;
+    padding: 14px 24px;
+  }
+}
+
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   .pp-sheet,
