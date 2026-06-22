@@ -101,9 +101,9 @@
   .project-item { opacity: 1 !important; transition: none !important; }
 }
 
-/* Small cards — 35% width (like danielsun's 32%) */
+/* Small cards — 38% width */
 .project-item--small {
-  width: 35%;
+  width: 38%;
 }
 
 /* Large cards — 46% width */
