@@ -187,7 +187,7 @@
   top: 50%;
   left: 50%;
   translate: -50% -50%;
-  width: clamp(70px, 9vw, 130px);
+  width: clamp(100px, 13vw, 180px);
   height: auto;
   pointer-events: all;                 /* hoverable — SC 1.4.13b */
   filter: drop-shadow(0 4px 16px rgba(33, 37, 41, 0.22));
@@ -213,9 +213,9 @@
   font-weight: 400;
   letter-spacing: 0.04em;
   text-transform: none;
-  color: var(--ink-muted);
+  /* #595d63 su bg chiaro: ~4.6:1 — passa WCAG AA senza opacity */
+  color: #595d63;
   writing-mode: vertical-rl;
-  opacity: 0.7;
 }
 
 .scroll-line {
@@ -235,6 +235,25 @@
 @media (prefers-reduced-motion: reduce) {
   .scroll-line { animation: none; opacity: 0.5; }
   .letter-magnet { transition: none !important; }
+}
+
+/* === TABLET (769-1024px) === */
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .hero-top {
+    padding: 88px 40px 0;
+    margin-top: clamp(32px, 6vh, 64px);
+  }
+
+  .hero-bottom {
+    padding: 0 0 24px 40px;
+    gap: 16px;
+  }
+
+  .hero-scroll {
+    right: 32px;
+    bottom: 32px;
+  }
 }
 
 /* === MOBILE === */
@@ -265,7 +284,7 @@
 
   .hero-description {
     max-width: 100%;
-    font-size: 15px;
+    font-size: clamp(15px, 4.5vw, 20px);
     padding: 0;
   }
 
@@ -294,7 +313,7 @@
   }
 
   .letter-magnet {
-    width: clamp(50px, 14vw, 80px);
+    width: clamp(70px, 22vw, 110px);
   }
 
   .hero-scroll {

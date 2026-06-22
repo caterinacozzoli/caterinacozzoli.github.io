@@ -27,24 +27,24 @@ function Boustrophedon({ text }) {
    COZZOLI:  09(C) skip10(O) 11(Z) 12(Z) 13(O) 14(L) 15(I)   */
 
 const LETTER_IMAGES = [
-  { src: '/images/hover letter01.png', rotate: -14 }, // C
-  { src: '/images/hover letter02.png', rotate:   8 }, // A
-  { src: '/images/hover letter03.png', rotate: -10 }, // T
-  { src: '/images/hover letter04.png', rotate:  12 }, // E
-  { src: '/images/hover letter05.png', rotate:  -8 }, // R
-  { src: '/images/hover letter06.png', rotate:  11 }, // I
-  { src: '/images/hover letter07.png', rotate: -13 }, // N
-  { src: '/images/hover letter08.png', rotate:   7 }, // A
+  { src: '/images/hover letter05.png', rotate: -14 }, // C
+  { src: '/images/hover letter08.png', rotate:   8 }, // A
+  { src: '/images/hover letter02.png', rotate: -10 }, // T
+  { src: '/images/hover letter07.png', rotate:  12 }, // E
+  { src: '/images/hover letter03.png', rotate:  -8 }, // R
+  { src: '/images/hover letter01.png', rotate:  11 }, // I
+  { src: '/images/hover letter06.png', rotate: -13 }, // N
+  { src: '/images/hover letter04.png', rotate:   7 }, // A
 ];
 
 const LETTER_IMAGES_2 = [
-  { src: '/images/hover letter09.png', rotate:  -9 }, // C
+  { src: '/images/hover letter13.png', rotate:  -9 }, // C
   { src: null,                          rotate:   0 }, // O — no image
-  { src: '/images/hover letter11.png', rotate:  13 }, // Z
-  { src: '/images/hover letter12.png', rotate:  -7 }, // Z
-  { src: '/images/hover letter13.png', rotate:  10 }, // O
+  { src: '/images/hover letter15.png', rotate:  13 }, // Z
+  { src: '/images/hover letter09.png', rotate:  -7 }, // Z
+  { src: '/images/hover letter11.png', rotate:  10 }, // O
   { src: '/images/hover letter14.png', rotate: -12 }, // L
-  { src: '/images/hover letter15.png', rotate:   9 }, // I
+  { src: '/images/hover letter12.png', rotate:   9 }, // I
 ];
 
 /* Shared easing — decisive, no bounce */

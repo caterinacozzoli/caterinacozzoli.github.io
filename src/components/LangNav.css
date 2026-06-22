@@ -1,20 +1,28 @@
-/* === MINI NAV LINGUE — top-left, pill compatta e rotonda === */
+/* === MINI NAV LINGUE — top-left, stessa altezza del nav-pill === */
 
 .lang-nav {
   position: fixed;
-  /* Centro verticale = main nav center (32+44=76px) → top = 76 - 28 = 48px */
-  top: 42px;
+  top: 32px;
   left: 24px;
-  z-index: var(--z-nav);
+  /* +1 sopra nav-header: burger resta cliccabile quando overlay è aperto */
+  z-index: calc(var(--z-nav) + 1);
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 14px;
-  height: 68px;
-  padding: 0 32px;
+  height: 88px;
+  padding: 0 28px;
   background: url('/images/nav-bar-shape-lingue.png') center / 100% 100% no-repeat;
   filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.55));
   pointer-events: all;
+}
+
+/* === FLAGS CONTAINER === */
+
+.lang-flags {
+  display: flex;
+  align-items: center;
+  gap: 14px;
 }
 
 /* === BANDIERA === */
@@ -23,9 +31,11 @@
   background: none;
   border: none;
   cursor: pointer;
-  padding: 0;
+  /* 36px flag + 4px × 2 = 44px touch target (WCAG 2.5.8) */
+  padding: 4px;
   display: flex;
   align-items: center;
+  justify-content: center;
   border-radius: 4px;
   transition: transform 0.18s ease, filter 0.18s ease;
 }
@@ -54,26 +64,67 @@
   vertical-align: middle;
 }
 
-.lang-flag-btn {
-  display: flex;
+/* === HAMBURGER BUTTON — dentro la pill, nascosto su desktop === */
+
+.lang-burger {
+  display: none; /* visibile solo su mobile via breakpoint */
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  /* 44px touch target */
+  padding: 10px 12px;
+  border-radius: 4px;
 }
 
-/* === MOBILE === */
+.lang-burger__bar {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: #e1dcc6;
+  border-radius: 2px;
+  transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+              opacity   0.2s ease;
+}
 
-@media (max-width: 600px) {
+/* ✕ quando aperto */
+.lang-burger--open .lang-burger__bar:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.lang-burger--open .lang-burger__bar:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+.lang-burger--open .lang-burger__bar:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+.lang-burger:focus-visible {
+  outline: 2px solid #FED728;
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+/* === MOBILE ≤768px — mostra hamburger, nascondi flags === */
+
+@media (max-width: 768px) {
   .lang-nav {
-    height: 48px;
-    top: 16px;
-    padding: 0 16px;
-    gap: 12px;
-    min-width: 0;
+    height: 64px;
+    top: 20px;
+    /* pill più stretta: solo hamburger */
+    padding: 0 8px;
+    gap: 0;
   }
 
-  .lang-flag {
-    width: 32px;
-    height: 30px;
+  .lang-flags {
+    display: none;
+  }
+
+  .lang-burger {
+    display: flex;
   }
 }
 
@@ -81,4 +132,5 @@
 
 @media (prefers-reduced-motion: reduce) {
   .lang-flag-btn { transition: none; }
+  .lang-burger__bar { transition: none; }
 }

@@ -22,12 +22,12 @@
   display: block;
 }
 
-/* Nuvola — bocca/mento, puntini (alto-dx cloud) puntano al viso */
+/* Nuvola — sopra la bocca, puntini (alto-dx cloud) puntano al viso */
 .floating-avatar-bubble-anchor {
   position: absolute;
-  left: -24px;
-  top: 60%;
-  width: 172px;
+  left: -70px;
+  top: 8%;
+  width: 120px;
   pointer-events: none;
   z-index: 2;
 }
@@ -38,7 +38,23 @@
 
 @media (max-width: 900px) {
   .floating-avatar-wrap {
-    display: none;
+    top: 12px;
+    right: 72px; /* spazio per hamburger button a destra */
+  }
+
+  .floating-avatar {
+    width: 88px;
+  }
+}
+
+@media (max-width: 600px) {
+  .floating-avatar-wrap {
+    top: 12px;
+    right: 80px;
+  }
+
+  .floating-avatar {
+    width: 72px;
   }
 }
 
