@@ -13,7 +13,8 @@ const PROJECTS = {
     year: '2025',
     role: "UX Research · Wireframing · Prototipazione",
     team: "Caterina Cozzoli, Simone Ragnoli, Erica Marchetti, Lorenzo Lepera, Yash",
-    tags: ['UX Research', 'Benchmark', 'Wireframing', 'Figma'],
+    tags: ['UX Research', 'Figma', 'Usabilità', 'Benchmark', 'Website'],
+    mockup: '/images/projects/mockup-libraccio.png',
     image: '/images/folders/folder-libraccio.png',
     stickers: [
       { src: '/images/sticker/sticker tag.png', link: 'https://students.talentgarden.com/talents/recaSrSfzZxkuRi1X', style: { bottom: '-5%', right: '4%', width: '200px', transform: 'rotate(8deg)' } },
@@ -73,7 +74,7 @@ const PROJECTS = {
     year: '2023–',
     role: "Co-founder · UX/UI Design · Product Strategy",
     team: "Caterina Cozzoli, Camilla Lurani Cernuschi",
-    tags: ['UX/UI', 'Mobile App', 'Web App', 'Accessibility'],
+    tags: ['UI', 'Figma', 'Lovable', 'Mobile App', 'Accessibilità'],
     image: '/images/folders/folder-abilicity.png',
     stickers: [
       { src: '/images/sticker/sticker abilicity.png', link: 'https://www.abilicity.com/', style: { bottom: '-5%', right: '6%', width: '200px', transform: 'rotate(6deg)' } },
@@ -131,7 +132,8 @@ const PROJECTS = {
     year: '2026',
     role: "UX Research · Concept Design · Prototipazione",
     team: "Caterina Cozzoli + team",
-    tags: ['UX Research', 'UX/UI', 'Mobile', 'Figma'],
+    tags: ['XR', 'Figma', 'Antigravity', 'Claude Code', 'UX Research', 'Accessibilità'],
+    mockup: '/images/projects/qualia/clothes-scanner-result.png',
     image: '/images/folders/folder-qualia.png',
     stickers: [
       { src: '/images/sticker/sticker tag.png', link: 'https://students.talentgarden.com/talents/recaSrSfzZxkuRi1X', style: { bottom: '-5%', right: '4%', width: '200px', transform: 'rotate(-7deg)' } },
@@ -182,6 +184,12 @@ const PROJECTS = {
           { name: 'Scheda decisionale', desc: "HEX + contesto categoria + almeno una verifica non-cromatica alternativa." },
           { name: '4 categorie MVP', desc: "Vestiario · Cibo e cucina · Casa ed elettronica · Lavoro e dati" },
           { name: 'Confidence dichiarata', desc: "L'app non finge certezza. Tre stati: alta / media / bassa — con suggerimento di rifare in luce migliore." },
+        ],
+        mockups: [
+          { src: '/images/projects/qualia/dashboard.png', caption: 'Dashboard principale con cronologia e shortcut rapide' },
+          { src: '/images/projects/qualia/clothes-scanner-result-expanded.png', caption: 'Scansione vestito - Dettagli e corrispondenza colore' },
+          { src: '/images/projects/qualia/clothes-scanner-result-expanded-2.png', caption: 'Scansione vestito - Suggerimenti di abbinamento e contrasto' },
+          { src: '/images/projects/qualia/scan-history.png', caption: 'Cronologia delle scansioni per consultazione futura' }
         ],
       },
       {
@@ -304,6 +312,16 @@ function SectionSolution({ s, accent, accentLight }) {
       {s.callout && (
         <div className="pp-callout" style={{ background: accentLight, borderColor: accent }}>
           {s.callout}
+        </div>
+      )}
+      {s.mockups && (
+        <div className="pp-solution-mockups">
+          {s.mockups.map((m, i) => (
+            <div key={i} className="pp-solution-mockup-card">
+              <img src={m.src} alt={m.caption} className="pp-solution-mockup-img" />
+              {m.caption && <span className="pp-solution-mockup-caption">{m.caption}</span>}
+            </div>
+          ))}
         </div>
       )}
     </section>
@@ -505,7 +523,15 @@ export default function ProjectPage({ projectId, onClose }) {
               )
             ))}
             {/* pp-hero-mockup: NO focusable elements mai dentro (aria-hidden) */}
-            <div className="pp-hero-mockup" aria-hidden="true" />
+            <div className="pp-hero-mockup" aria-hidden="true">
+              {data.mockup && (
+                <img 
+                  src={data.mockup} 
+                  alt="" 
+                  className="pp-hero-mockup-img" 
+                />
+              )}
+            </div>
           </header>
 
           {/* Content */}
