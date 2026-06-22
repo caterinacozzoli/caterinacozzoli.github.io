@@ -68,34 +68,9 @@ function ToolIcon({ name, imgKey, label }) {
   );
 }
 
-/* One-shot IntersectionObserver reveal hook */
-function useReveal(threshold = 0.12) {
-  const ref = useRef(null);
-  const [revealed, setRevealed] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setRevealed(true);
-          obs.unobserve(el);
-        }
-      },
-      { threshold }
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, [threshold]);
-
-  return [ref, revealed];
-}
-
 export default function Workflow() {
   const { lang } = useLang();
   const steps = STEPS[lang] ?? STEPS.it;
-  const [stepsRef, revealed] = useReveal(0.12);
 
   return (
     <section id="workflow" className="workflow" aria-labelledby="workflow-title">
@@ -108,15 +83,13 @@ export default function Workflow() {
       </div>
 
       <ol
-        ref={stepsRef}
-        className={`workflow-steps${revealed ? ' workflow-steps--revealed' : ''}`}
+        className="workflow-steps"
         aria-label={TITLE[lang]}
       >
-        {steps.map((step, i) => (
+        {steps.map((step) => (
           <li
             key={step.num}
             className="workflow-step"
-            style={{ '--i': i }}
           >
             <span className="step-num" aria-hidden="true">{step.num}</span>
             <h3 className="step-title">{step.title}</h3>

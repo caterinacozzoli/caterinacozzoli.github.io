@@ -87,18 +87,6 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-
-  /* Reveal: slide up from below, stagger per step */
-  opacity: 0;
-  transform: translateY(28px);
-  transition:
-    opacity  0.65s cubic-bezier(0.16, 1, 0.3, 1) calc(var(--i, 0) * 90ms + 0.2s),
-    transform 0.65s cubic-bezier(0.16, 1, 0.3, 1) calc(var(--i, 0) * 90ms + 0.2s);
-}
-
-.workflow-steps--revealed .workflow-step {
-  opacity: 1;
-  transform: translateY(0);
 }
 
 @media (prefers-reduced-motion: reduce) {
