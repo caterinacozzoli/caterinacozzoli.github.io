@@ -17,39 +17,44 @@ const SKIP_LABEL = {
 const CAROUSEL_LABEL = { it: 'Foto personali', en: 'Personal photos', pt: 'Fotos pessoais' };
 
 const POLAROIDS = [
-  { id: 1, date: 'Fortaleza, 2022' },
-  { id: 2, date: 'Milano, 2023' },
-  { id: 3, date: 'Estate, 2023' },
-  { id: 4, date: 'Milano, 2024' },
-  { id: 5, date: 'Fortaleza, 2024' },
-  { id: 6, date: 'Primavera, 2024' },
-  { id: 7, date: 'Estate, 2024' },
-  { id: 8, date: 'Inverno, 2023' },
+  { id: 1, front: '/images/polaroid/polaroid-cate-piccola.png',      back: '/images/polaroid/polaroid-retro-cate-piccola.png',       alt: 'Caterina da piccola',    tilt: -2.2 },
+  { id: 2, front: '/images/polaroid/polaroid-cate-brasile.png',      back: '/images/polaroid/polaroid-retro-cate-brasile.png',      alt: 'Caterina in Brasile',     tilt:  1.6 },
+  { id: 3, front: '/images/polaroid/polaroid-cate-banda.png',        back: '/images/polaroid/polaroid-retro-cate-banda.png',         alt: 'Caterina in banda',      tilt: -1.0 },
+  { id: 4, front: '/images/polaroid/polaroid-cate-volontariato.png', back: '/images/polaroid/polaroid-retro-cate-volontariato.png',  alt: 'Caterina volontariato',   tilt:  2.4 },
+  { id: 5, front: '/images/polaroid/polaroid-amore.png',             back: '/images/polaroid/polaroid-retro-amore.png',              alt: 'Amore',                  tilt: -1.8 },
+  { id: 6, front: '/images/polaroid/polaroid-parlamento.png',        back: '/images/polaroid/polaroid-retro-parlamento.png',         alt: 'Parlamento',              tilt:  0.8 },
+  { id: 7, front: '/images/polaroid/polaroid-laurea.png',            back: '/images/polaroid/polaroid-retro-laurea.png',             alt: 'Laurea',                 tilt: -2.6 },
+  { id: 8, front: '/images/polaroid/polaroid-master.png',            back: '/images/polaroid/polaroid-retro-master.png',             alt: 'Master',                  tilt:  1.2 },
 ];
 
-function PolaroidCard({ date, index }) {
+function PolaroidCard({ front, back, alt, tilt }) {
   const [flipped, setFlipped] = useState(false);
-  const side = index % 2 === 0 ? 'left' : 'right';
 
   return (
     <button
-      className={`polaroid-card polaroid-card--${side}${flipped ? ' polaroid-card--flipped' : ''}`}
+      className={`polaroid-card${flipped ? ' polaroid-card--flipped' : ''}`}
       onClick={() => setFlipped(f => !f)}
       aria-pressed={flipped}
-      aria-label={`Foto: ${date}. Clicca per ${flipped ? 'tornare al fronte' : 'vedere il retro'}.`}
+      aria-label={`Foto: ${alt}. Clicca per ${flipped ? 'tornare al fronte' : 'vedere il retro'}.`}
       type="button"
+      style={{ '--tilt': `${tilt}deg` }}
     >
       <div className="polaroid-inner">
         <div className="polaroid-front" aria-hidden={flipped ? 'true' : undefined}>
           <img
-            src="/images/cornice-polaroid.png"
-            alt=""
-            aria-hidden="true"
+            src={front}
+            alt={alt}
             className="polaroid-frame"
+            loading="lazy"
           />
         </div>
         <div className="polaroid-back" aria-hidden={!flipped ? 'true' : undefined}>
-          <time className="polaroid-date">{date}</time>
+          <img
+            src={back}
+            alt={`Retro: ${alt}`}
+            className="polaroid-frame"
+            loading="lazy"
+          />
         </div>
       </div>
     </button>
@@ -156,7 +161,7 @@ function HorizontalCarousel({ carouselLabel, onCarouselScroll, aboutRef }) {
         >
           {POLAROIDS.map((p, i) => (
             <li key={p.id} className="about-carousel-item">
-              <PolaroidCard date={p.date} index={i} />
+              <PolaroidCard front={p.front} back={p.back} alt={p.alt} tilt={p.tilt} />
             </li>
           ))}
         </ul>

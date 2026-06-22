@@ -115,13 +115,15 @@
 
 .about-carousel-sticky {
   position: sticky;
-  top: 180px;          /* banner height — lascia il banner visibile sopra */
-  height: calc(100svh - 180px);
+  top: 0;
+  height: 100svh;
   overflow: hidden;
   background: transparent;
   display: flex;
-  align-items: flex-start;
-  padding-top: 48px;
+  align-items: center;
+  /* 36px from nav bottom (~120px) and 36px from viewport bottom */
+  padding: calc(120px + 36px) 0 36px;
+  box-sizing: border-box;
 }
 
 /* === TRACK — transforms horizontally via JS === */
@@ -129,7 +131,7 @@
 .about-carousel {
   display: flex;
   flex-wrap: nowrap;
-  gap: 32px;
+  gap: 40px;
   padding: 0 56px;
   list-style: none;
   /* transform applied by JS */
@@ -141,17 +143,24 @@
 }
 
 /* === POLAROID CARD ===
-   Show exactly 3 at once: width = (100vw - 2×56px padding - 2×32px gap) / 3  */
+   Desktop: ~4 visible at once */
 
 .polaroid-card {
-  /* 3 across: (vw - 112px padding - 64px gaps) / 3 */
-  width: clamp(180px, calc((100vw - 176px) / 3), 420px);
+  width: clamp(180px, calc((100vw - 260px) / 4), 320px);
   background: none;
   border: none;
   cursor: pointer;
   padding: 0;
   perspective: 1000px;
   display: block;
+  /* drop-shadow MUST be on the card, NOT on .polaroid-inner.
+     filter on the same element as transform-style:preserve-3d
+     forces it to 'flat', which breaks backface-visibility. */
+  filter: drop-shadow(2px 8px 24px rgba(33, 37, 41, 0.16));
+}
+
+.polaroid-card:hover {
+  filter: drop-shadow(3px 14px 32px rgba(33, 37, 41, 0.26));
 }
 
 .polaroid-inner {
@@ -161,19 +170,13 @@
   position: relative;
   transform-style: preserve-3d;
   transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
-  filter: drop-shadow(2px 8px 24px rgba(33, 37, 41, 0.16));
+  /* Each card has a unique tilt via --tilt custom property */
+  rotate: var(--tilt, 0deg);
 }
 
-/* Static tilts — alternate per card */
-.polaroid-card--left  .polaroid-inner { rotate: -1.8deg; }
-.polaroid-card--right .polaroid-inner { rotate:  1.4deg; }
-
 /* Flipped state preserves tilt */
-.polaroid-card--left.polaroid-card--flipped  .polaroid-inner { transform: rotate(-1.8deg) rotateY(180deg); }
-.polaroid-card--right.polaroid-card--flipped .polaroid-inner { transform: rotate( 1.4deg) rotateY(180deg); }
-
-.polaroid-card:hover .polaroid-inner {
-  filter: drop-shadow(3px 14px 32px rgba(33, 37, 41, 0.26));
+.polaroid-card--flipped .polaroid-inner {
+  transform: rotate(var(--tilt, 0deg)) rotateY(180deg);
 }
 
 /* === FACES === */
@@ -184,36 +187,22 @@
   inset: 0;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
-  border-radius: 3px;
-  overflow: hidden;
 }
 
 .polaroid-front {
-  background: #f2f2f2;
+  z-index: 2;
 }
 
 .polaroid-frame {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
   display: block;
 }
 
 .polaroid-back {
-  background: #fefefe;
   transform: rotateY(180deg);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid rgba(0,0,0,0.06);
-}
-
-.polaroid-date {
-  font-family: 'Caveat', cursive;
-  font-size: clamp(16px, 1.5vw, 22px);
-  font-weight: 700;
-  color: #212529;
-  text-align: center;
+  z-index: 1;
 }
 
 /* === FOCUS === */
@@ -229,18 +218,16 @@
 @media (prefers-reduced-motion: reduce) {
   .polaroid-inner {
     transition: none !important;
+    rotate: none !important;
   }
-  .polaroid-card--left  .polaroid-inner,
-  .polaroid-card--right .polaroid-inner { rotate: none; }
-  .polaroid-card--left.polaroid-card--flipped  .polaroid-inner,
-  .polaroid-card--right.polaroid-card--flipped .polaroid-inner {
+  .polaroid-card--flipped .polaroid-inner {
     transform: rotateY(180deg);
   }
 }
 
-/* === MOBILE — native horizontal scroll, no hijack === */
+/* === TABLET LANDSCAPE — ≤ 900px === */
 
-@media (max-width: 899px) {
+@media (max-width: 900px) {
   .about-carousel-section {
     height: auto !important;
   }
@@ -249,7 +236,7 @@
     position: static;
     height: auto;
     overflow: visible;
-    padding: 48px 0 56px;
+    padding: 40px 0 48px;
   }
 
   .about-carousel {
@@ -257,7 +244,7 @@
     scroll-snap-type: x proximity;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
-    padding: 24px 24px 40px;
+    padding: 24px 32px 40px;
     gap: 20px;
     /* reset JS transform */
     transform: none !important;
@@ -270,11 +257,62 @@
   }
 
   .about-headline-strip {
-    padding: 60px 24px 56px;
+    padding: 48px 32px 40px;
   }
 
   .polaroid-card {
-    /* 1.5 visible on mobile */
-    width: clamp(160px, 60vw, 240px);
+    width: clamp(150px, 38vw, 220px);
+  }
+}
+
+/* === TABLET PORTRAIT — ≤ 768px === */
+
+@media (max-width: 768px) {
+  .about-carousel {
+    padding: 20px 24px 36px;
+    gap: 16px;
+  }
+
+  .about-headline-strip {
+    padding: 48px 24px 40px;
+  }
+
+  .polaroid-card {
+    width: clamp(140px, 42vw, 200px);
+  }
+
+  .about-headline {
+    font-size: clamp(32px, 8vw, 56px);
+  }
+}
+
+/* === MOBILE — ≤ 600px === */
+
+@media (max-width: 600px) {
+  .about-carousel {
+    padding: 16px 16px 32px;
+    gap: 12px;
+  }
+
+  .about-headline-strip {
+    padding: 40px 16px 32px;
+  }
+
+  .polaroid-card {
+    width: clamp(120px, 40vw, 170px);
+  }
+
+  .about-headline {
+    font-size: clamp(28px, 8vw, 42px);
+  }
+
+  .skip-recap-btn--banner {
+    top: 12px;
+    right: 16px;
+  }
+
+  .skip-recap-btn {
+    font-size: 12px;
+    padding: 8px 14px;
   }
 }
