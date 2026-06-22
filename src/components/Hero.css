@@ -207,32 +207,21 @@
   display: block;
   text-decoration: none;
   cursor: pointer;
-  animation: scroll-bounce 2s ease-in-out infinite;
+  transition: opacity 0.2s ease;
+}
+
+.hero-scroll-link:hover {
+  opacity: 0.75;
 }
 
 .hero-scroll-img {
   width: clamp(70px, 8vw, 110px);
   height: auto;
   display: block;
-  transform-origin: center bottom;
-  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), filter 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-  filter: drop-shadow(2px 3px 0px rgba(33, 37, 41, 0.3));
-}
-
-/* Hover: simula lo scollamento dello sticker dalla parte superiore con rotazione 3D e ombra staccata */
-.hero-scroll-link:hover .hero-scroll-img {
-  transform: perspective(300px) rotateX(-22deg) translateY(-2px);
-  filter: drop-shadow(0px 18px 14px rgba(33, 37, 41, 0.35));
-}
-
-@keyframes scroll-bounce {
-  0%, 100% { transform: translateY(0); }
-  50%       { transform: translateY(8px); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .hero-scroll-link { animation: none; }
-  .hero-scroll-img { transition: none !important; }
+  .hero-scroll-link { transition: none; }
 }
 
 /* === TABLET (769-1024px) === */

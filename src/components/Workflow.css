@@ -293,28 +293,20 @@
 .workflow-tool-card-inner {
   width: 80px;
   height: 80px;
-  background-color: #f8f9fa;
-  background-image: url('/images/textures/carta acquarello.jpg');
-  background-size: cover;
-  background-blend-mode: multiply;
-  border: 2px solid #212529;
-  border-radius: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
-  box-shadow: 2px 3px 0 #212529;
-  transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+  overflow: visible;
+  transition: transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .workflow-tool-card:hover .workflow-tool-card-inner {
   transform: translateY(-4px);
-  box-shadow: 4px 7px 0 #212529;
 }
 
 .workflow-tool-icon-img {
-  width: 48px;
-  height: 48px;
+  width: 72px;
+  height: 72px;
   object-fit: contain;
 }
 
@@ -355,11 +347,10 @@
   .workflow-tool-card-inner {
     width: 68px;
     height: 68px;
-    border-radius: 12px;
   }
   .workflow-tool-icon-img {
-    width: 36px;
-    height: 36px;
+    width: 56px;
+    height: 56px;
   }
   .workflow-tool-icon-fallback {
     font-size: 20px;

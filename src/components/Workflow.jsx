@@ -36,16 +36,16 @@ const TOOLS_TITLE = {
 
 const TOOLS = [
   { name: 'Figma',        key: 'figma',        label: 'Fi' },
-  { name: 'Antigravity',  key: 'antigravity',  label: 'An' },
+  { name: 'Antigravity',  key: 'anigravity',   label: 'An' },
   { name: 'Canva',        key: 'canva',        label: 'Ca' },
   { name: 'Gemini',       key: 'gemini',       label: 'Ge' },
   { name: 'Claude',       key: 'claude',       label: 'Cl' },
-  { name: 'Suite Adobe',  key: 'suite-adobe',  label: 'Ad' },
+  { name: 'Suite Adobe',  key: 'adobe',        label: 'Ad' },
 ];
 
 function ToolIcon({ name, imgKey, label }) {
   const [imgFailed, setImgFailed] = useState(false);
-  const src = `/images/icons/${imgKey}.png`;
+  const src = `/images/logo-${imgKey}.png`;
 
   return (
     <div className="workflow-tool-card" title={name}>
