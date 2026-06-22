@@ -113,6 +113,11 @@ export default function Hero() {
     if (e.key === 'Escape') setResetKey(k => k + 1);
   }, []);
 
+  const scrollToWorks = useCallback((e) => {
+    e.preventDefault();
+    document.getElementById('lavori')?.scrollIntoView({ behavior: 'smooth' });
+  }, []);
+
   return (
     <section className="hero" aria-labelledby="hero-name">
       {/* SVG watercolor filters */}
@@ -230,15 +235,22 @@ export default function Hero() {
       {/* Scroll indicator */}
       <motion.div
         className="hero-scroll"
-        aria-hidden="true"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6, delay: 1.0 }}
       >
-        <span className="scroll-label">{tr.hero.scrollHint}</span>
-        <svg className="scroll-line" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-          <path d="M12 5v14M5 12l7 7 7-7"/>
-        </svg>
+        <a
+          href="#lavori"
+          className="hero-scroll-link"
+          onClick={scrollToWorks}
+          aria-label="Vai ai miei progetti"
+        >
+          <img
+            src="/images/freccia-giu.png"
+            className="hero-scroll-img"
+            alt=""
+          />
+        </a>
       </motion.div>
     </section>
   );
