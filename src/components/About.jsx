@@ -17,44 +17,145 @@ const SKIP_LABEL = {
 const CAROUSEL_LABEL = { it: 'Foto personali', en: 'Personal photos', pt: 'Fotos pessoais' };
 
 const POLAROIDS = [
-  { id: 1, front: '/images/polaroid/polaroid-cate-piccola.png',      back: '/images/polaroid/polaroid-retro-cate-piccola.png',       alt: 'Caterina da piccola',    tilt: -2.2 },
-  { id: 2, front: '/images/polaroid/polaroid-cate-brasile.png',      back: '/images/polaroid/polaroid-retro-cate-brasile.png',      alt: 'Caterina in Brasile',     tilt:  1.6 },
-  { id: 3, front: '/images/polaroid/polaroid-cate-banda.png',        back: '/images/polaroid/polaroid-retro-cate-banda.png',         alt: 'Caterina in banda',      tilt: -1.0 },
-  { id: 4, front: '/images/polaroid/polaroid-cate-volontariato.png', back: '/images/polaroid/polaroid-retro-cate-volontariato.png',  alt: 'Caterina volontariato',   tilt:  2.4 },
-  { id: 5, front: '/images/polaroid/polaroid-amore.png',             back: '/images/polaroid/polaroid-retro-amore.png',              alt: 'Amore',                  tilt: -1.8 },
-  { id: 6, front: '/images/polaroid/polaroid-parlamento.png',        back: '/images/polaroid/polaroid-retro-parlamento.png',         alt: 'Parlamento',              tilt:  0.8 },
-  { id: 7, front: '/images/polaroid/polaroid-laurea.png',            back: '/images/polaroid/polaroid-retro-laurea.png',             alt: 'Laurea',                 tilt: -2.6 },
-  { id: 8, front: '/images/polaroid/polaroid-master.png',            back: '/images/polaroid/polaroid-retro-master.png',             alt: 'Master',                  tilt:  1.2 },
+  {
+    id: 1,
+    src:   '/images/polaroid/polaroid-cate-piccola.png',
+    retro: '/images/polaroid/polaroid-retro-cate-piccola.png',
+    tilt: -2.2,
+    caption: null, description: null,
+    date: { it: 'Infanzia', en: 'Childhood', pt: 'Infância' },
+  },
+  {
+    id: 2,
+    src:   '/images/polaroid/polaroid-cate-brasile.png',
+    retro: '/images/polaroid/polaroid-retro-cate-brasile.png',
+    tilt: 1.6,
+    caption: null, description: null,
+    date: { it: 'Fortaleza, 2022', en: 'Fortaleza, 2022', pt: 'Fortaleza, 2022' },
+  },
+  {
+    id: 3,
+    src:   '/images/polaroid/polaroid-cate-banda.png',
+    retro: '/images/polaroid/polaroid-retro-cate-banda.png',
+    tilt: -1.0,
+    caption: null, description: null,
+    date: { it: 'Milano, 2023', en: 'Milan, 2023', pt: 'Milão, 2023' },
+  },
+  {
+    id: 4,
+    src:   '/images/polaroid/polaroid-cate-volontariato.png',
+    retro: '/images/polaroid/polaroid-retro-cate-volontariato.png',
+    tilt: 2.4,
+    caption: null, description: null,
+    date: { it: 'Estate, 2023', en: 'Summer, 2023', pt: 'Verão, 2023' },
+  },
+  {
+    id: 5,
+    src:   '/images/polaroid/polaroid-amore.png',
+    retro: '/images/polaroid/polaroid-retro-amore.png',
+    tilt: -1.8,
+    caption: null, description: null,
+    date: { it: 'Milano, 2024', en: 'Milan, 2024', pt: 'Milão, 2024' },
+  },
+  {
+    id: 6,
+    src:   '/images/polaroid/polaroid-parlamento.png',
+    retro: '/images/polaroid/polaroid-retro-parlamento.png',
+    tilt: 0.8,
+    caption: { it: 'Parlamento europeo', en: 'European Parliament', pt: 'Parlamento europeu' },
+    description: {
+      it: 'Bruxelles. In quelle sale enormi ho capito che il design non decora — decide.',
+      en: 'Brussels. Walking those vast halls I understood: design doesn\'t decorate — it decides.',
+      pt: 'Bruxelas. Naquelas salas imensas entendi que o design não decora — decide.',
+    },
+    date: { it: 'Bruxelles, 2023', en: 'Brussels, 2023', pt: 'Bruxelas, 2023' },
+  },
+  {
+    id: 7,
+    src:   '/images/polaroid/polaroid-laurea.png',
+    retro: '/images/polaroid/polaroid-retro-laurea.png',
+    tilt: -2.6,
+    caption: null, description: null,
+    date: { it: 'Primavera, 2024', en: 'Spring, 2024', pt: 'Primavera, 2024' },
+  },
+  {
+    id: 8,
+    src:   '/images/polaroid/polaroid-master.png',
+    retro: '/images/polaroid/polaroid-retro-master.png',
+    tilt: 1.2,
+    caption: null, description: null,
+    date: { it: 'Estate, 2024', en: 'Summer, 2024', pt: 'Verão, 2024' },
+  },
 ];
 
-function PolaroidCard({ front, back, alt, tilt }) {
+const FLIP_LABEL = {
+  it: (date, flipped, caption, description) => {
+    const cap = caption ? `${caption}. ` : '';
+    const desc = description ? `${description} ` : '';
+    return flipped
+      ? `${cap}${desc}${date}. Premi per tornare al fronte`
+      : `Foto: ${cap}${date}. Premi per vedere il retro`;
+  },
+  en: (date, flipped, caption, description) => {
+    const cap = caption ? `${caption}. ` : '';
+    const desc = description ? `${description} ` : '';
+    return flipped
+      ? `${cap}${desc}${date}. Press to flip to front`
+      : `Photo: ${cap}${date}. Press to flip to back`;
+  },
+  pt: (date, flipped, caption, description) => {
+    const cap = caption ? `${caption}. ` : '';
+    const desc = description ? `${description} ` : '';
+    return flipped
+      ? `${cap}${desc}${date}. Pressione para voltar à frente`
+      : `Foto: ${cap}${date}. Pressione para ver o verso`;
+  },
+};
+
+function PolaroidCard({ src, retro, caption, description, date, tilt, index, lang }) {
   const [flipped, setFlipped] = useState(false);
+  const dateStr    = date[lang]        ?? date.it;
+  const captionStr = caption?.[lang]   ?? caption?.it ?? null;
+  const descStr    = description?.[lang] ?? description?.it ?? null;
+  const labelFn    = FLIP_LABEL[lang]  ?? FLIP_LABEL.en;
 
   return (
     <button
       className={`polaroid-card${flipped ? ' polaroid-card--flipped' : ''}`}
       onClick={() => setFlipped(f => !f)}
-      aria-pressed={flipped}
-      aria-label={`Foto: ${alt}. Clicca per ${flipped ? 'tornare al fronte' : 'vedere il retro'}.`}
+      aria-label={labelFn(dateStr, flipped, captionStr, descStr)}
       type="button"
       style={{ '--tilt': `${tilt}deg` }}
     >
       <div className="polaroid-inner">
-        <div className="polaroid-front" aria-hidden={flipped ? 'true' : undefined}>
+        <div className="polaroid-front" aria-hidden="true">
+          {src && (
+            <img
+              src={src}
+              alt=""
+              aria-hidden="true"
+              className="polaroid-photo"
+            />
+          )}
           <img
-            src={front}
-            alt={alt}
+            src="/images/polaroid/cornice-polaroid.png"
+            alt=""
+            aria-hidden="true"
             className="polaroid-frame"
-            loading="lazy"
           />
+          {captionStr && (
+            <span className="polaroid-caption" aria-hidden="true">{captionStr}</span>
+          )}
         </div>
-        <div className="polaroid-back" aria-hidden={!flipped ? 'true' : undefined}>
-          <img
-            src={back}
-            alt={`Retro: ${alt}`}
-            className="polaroid-frame"
-            loading="lazy"
-          />
+        <div className="polaroid-back" aria-hidden="true">
+          {retro && (
+            <img
+              src={retro}
+              alt=""
+              aria-hidden="true"
+              className="polaroid-frame"
+            />
+          )}
         </div>
       </div>
     </button>
@@ -63,11 +164,12 @@ function PolaroidCard({ front, back, alt, tilt }) {
 
 const BANNER_H = 180; // same as min-height on about-headline-strip
 
-function HorizontalCarousel({ carouselLabel, onCarouselScroll, aboutRef }) {
-  const sectionRef   = useRef(null);
-  const trackRef     = useRef(null);
-  const isMobileRef  = useRef(false);
-  const maxSlideRef  = useRef(0);
+function HorizontalCarousel({ carouselLabel, onCarouselScroll, aboutRef, lang }) {
+  const sectionRef     = useRef(null);
+  const trackRef       = useRef(null);
+  const isMobileRef    = useRef(false);
+  const maxSlideRef    = useRef(0);
+  const currentSlideRef = useRef(0); // tracks current translateX for focusin handler
 
   /* Compute how many px the track must shift so the LAST polaroid's
      right edge lands at (viewport - 56px padding).
@@ -118,24 +220,52 @@ function HorizontalCarousel({ carouselLabel, onCarouselScroll, aboutRef }) {
     const vh       = window.innerHeight;
     const progress = Math.max(0, Math.min(1, -top / (parentH - vh)));
 
-    track.style.transform = `translateX(-${progress * ms}px)`;
+    const tx = progress * ms;
+    currentSlideRef.current = tx;
+    track.style.transform = `translateX(-${tx}px)`;
     onCarouselScroll?.(progress > 0 && progress < 1);
   }, [aboutRef]);
+
+  /* Bring keyboard-focused polaroid into the horizontal view window */
+  const onFocusIn = useCallback((e) => {
+    if (isMobileRef.current) return;
+    const item  = e.target.closest('.about-carousel-item');
+    const track = trackRef.current;
+    if (!item || !track) return;
+
+    const PAD       = 56;
+    const current   = currentSlideRef.current;
+    const cardLeft  = item.offsetLeft;
+    const cardRight = cardLeft + item.offsetWidth;
+    const viewStart = current + PAD;
+    const viewEnd   = current + window.innerWidth - PAD;
+
+    let next = current;
+    if (cardLeft < viewStart)   next = cardLeft - PAD;
+    else if (cardRight > viewEnd) next = cardRight - (window.innerWidth - PAD);
+    next = Math.max(0, Math.min(maxSlideRef.current, next));
+
+    if (Math.abs(next - current) > 1) {
+      currentSlideRef.current = next;
+      track.style.transform = `translateX(-${next}px)`;
+    }
+  }, []);
 
   useEffect(() => {
     updateHeight();
     onScroll();
 
-    // Re-measure after full layout paint and all assets
     const onLoad = () => { updateHeight(); onScroll(); };
     window.addEventListener('load', onLoad);
 
-    // ResizeObserver: catches CSS-driven dimension changes after mount
     let ro;
     if (window.ResizeObserver && trackRef.current) {
       ro = new ResizeObserver(() => { updateHeight(); onScroll(); });
       ro.observe(trackRef.current);
     }
+
+    const track = trackRef.current;
+    track?.addEventListener('focusin', onFocusIn);
 
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', updateHeight);
@@ -144,9 +274,10 @@ function HorizontalCarousel({ carouselLabel, onCarouselScroll, aboutRef }) {
       window.removeEventListener('load', onLoad);
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('resize', updateHeight);
+      track?.removeEventListener('focusin', onFocusIn);
       ro?.disconnect();
     };
-  }, [updateHeight, onScroll]);
+  }, [updateHeight, onScroll, onFocusIn]);
 
   return (
     /* Tall outer container captures vertical scroll budget */
@@ -161,7 +292,7 @@ function HorizontalCarousel({ carouselLabel, onCarouselScroll, aboutRef }) {
         >
           {POLAROIDS.map((p, i) => (
             <li key={p.id} className="about-carousel-item">
-              <PolaroidCard front={p.front} back={p.back} alt={p.alt} tilt={p.tilt} />
+              <PolaroidCard src={p.src} retro={p.retro} caption={p.caption} description={p.description} date={p.date} tilt={p.tilt} index={i} lang={lang} />
             </li>
           ))}
         </ul>
@@ -174,16 +305,39 @@ export default function About({ onCarouselScroll }) {
   const { lang } = useLang();
   const lines = HEADLINE[lang] ?? HEADLINE.it;
   const label = CAROUSEL_LABEL[lang] ?? CAROUSEL_LABEL.it;
-  const aboutRef = useRef(null);
+  const aboutRef  = useRef(null);
+  const bannerRef = useRef(null);
+  const [activated, setActivated] = useState(false);
+
+  useEffect(() => {
+    const banner = bannerRef.current;
+    if (!banner) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (!reducedMotion) setActivated(true);
+        obs.disconnect();
+      },
+      { threshold: 0.4 }
+    );
+    obs.observe(banner);
+    return () => obs.disconnect();
+  }, []);
 
   const skipRecap = () => {
     document.getElementById('workflow')?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
-    <section id="chi-sono" className="about" aria-labelledby="about-title" ref={aboutRef}>
+    <section
+      id="chi-sono"
+      className={`about${activated ? ' about--activated' : ''}`}
+      aria-labelledby="about-title"
+      ref={aboutRef}
+    >
       {/* Yellow strip — normal vertical scroll */}
-      <div className="about-headline-strip">
+      <div className="about-headline-strip" ref={bannerRef}>
         <h2 id="about-title" className="about-headline">
           {lines.map((line, i) => (
             <span key={i} className="about-headline-line">{line}</span>
@@ -200,7 +354,7 @@ export default function About({ onCarouselScroll }) {
       </div>
 
       {/* Horizontal scroll-hijack section */}
-      <HorizontalCarousel carouselLabel={label} onCarouselScroll={onCarouselScroll} aboutRef={aboutRef} />
+      <HorizontalCarousel carouselLabel={label} onCarouselScroll={onCarouselScroll} aboutRef={aboutRef} lang={lang} />
     </section>
   );
 }

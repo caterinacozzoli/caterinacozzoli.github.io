@@ -22,11 +22,21 @@ const CONTENT = {
     cta: 'Get in touch',
     copy: '© 2026 Caterina Maria Cozzoli',
   },
+  pt: {
+    headline: ['Vamos conversar.'],
+    sub: 'Sempre aberta a novos projetos, colaborações e cafés virtuais.',
+    email: 'cate.cozzoli@gmail.com',
+    emailLabel: 'Enviar email para Caterina Cozzoli',
+    linkedin: 'linkedin.com/in/caterina-cozzoli',
+    linkedinLabel: 'Perfil do LinkedIn de Caterina Cozzoli',
+    cta: 'Fale comigo',
+    copy: '© 2026 Caterina Maria Cozzoli',
+  },
 };
 
 export default function Contact() {
   const { lang } = useLang();
-  const c = CONTENT[lang];
+  const c = CONTENT[lang] ?? CONTENT.en;
 
   return (
     <footer id="contatti" className="contact" role="contentinfo" aria-labelledby="contact-title">

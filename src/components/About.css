@@ -2,12 +2,38 @@
   background: transparent;
 }
 
+/* === SCREEN-ON FLASH — fires once when banner enters viewport === */
+
+.about--activated::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  background: #ffffff;
+  animation: screen-flash 0.8s ease-out forwards;
+}
+
+@keyframes screen-flash {
+  0%   { opacity: 0; }
+  20%  { opacity: 0.2; }
+  100% { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about--activated::before { display: none; }
+}
+
+@media (forced-colors: active) {
+  .about--activated::before { display: none; }
+}
+
 /* === YELLOW HEADLINE STRIP — scrolls normally === */
 
 .about-headline-strip {
   background: #FED728;
   padding: 48px 56px 32px;
-  min-height: 180px;
+  min-height: 176px; /* 22×8px grid */
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
@@ -193,22 +219,71 @@
   inset: 0;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
+  border-radius: 3px;
 }
 
 .polaroid-front {
+  background: transparent;
   z-index: 2;
 }
 
-.polaroid-frame {
+.polaroid-photo {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
+}
+
+.polaroid-frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
   display: block;
 }
 
 .polaroid-back {
   transform: rotateY(180deg);
   z-index: 1;
+}
+
+.polaroid-caption {
+  position: absolute;
+  bottom: 4%;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-family: 'Gochi Hand', cursive;
+  font-size: clamp(11px, 1.1vw, 16px);
+  color: #212529;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.polaroid-description {
+  display: block;
+  font-family: 'Gochi Hand', cursive;
+  font-size: clamp(12px, 1.1vw, 15px);
+  color: #212529;
+  text-align: center;
+  line-height: 1.55;
+  background-color: rgba(245, 240, 232, 0.82);
+  border-radius: 3px;
+  padding: 4px 8px;
+}
+
+.polaroid-date {
+  font-family: 'Caveat', cursive;
+  font-size: clamp(16px, 1.5vw, 22px);
+  font-weight: 700;
+  color: #212529;
+  text-align: center;
+  background-color: rgba(245, 240, 232, 0.82);
+  border-radius: 3px;
+  padding: 2px 8px;
 }
 
 /* === FOCUS === */
@@ -231,36 +306,40 @@
   }
 }
 
-/* === TABLET (769-899px) — strip padding ridotto === */
+/* === DESKTOP ≥900px — focus clearance (WCAG 2.4.11) === */
 
-@media (min-width: 769px) and (max-width: 899px) {
-  .about-headline-strip {
-    padding: 40px 40px 32px;
+@media (min-width: 900px) {
+  .polaroid-card:focus-visible {
+    scroll-margin-top: 24px;
   }
 }
 
-/* === TABLET LANDSCAPE — ≤ 900px === */
+/* === MOBILE + TABLET — native horizontal scroll, no JS hijack === */
 
-@media (max-width: 900px) {
+@media (max-width: 899px) {
   .about-carousel-section {
     height: auto !important;
   }
 
   .about-carousel-sticky {
     position: static;
+    width: 100%;
     height: auto;
     overflow: visible;
-    padding: 40px 0 48px;
+    padding: 24px 0 24px;
   }
 
   .about-carousel {
+    width: 100%;
     overflow-x: auto;
+    /* contain prevents page from hijacking horizontal drag */
+    overscroll-behavior-x: contain;
     scroll-snap-type: x proximity;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
-    padding: 24px 32px 40px;
+    padding: 16px 24px 20px;
     gap: 20px;
-    /* reset JS transform */
+    /* neutralise JS transform */
     transform: none !important;
   }
 
@@ -270,64 +349,87 @@
     scroll-snap-align: start;
   }
 
-  .about-headline-strip {
-    padding: 48px 24px 48px;
-    min-height: 160px;
-  }
+}
 
+/* === TABLET 769–899px — 2 card visibili con peek della terza === */
+
+@media (min-width: 769px) and (max-width: 899px) {
   .polaroid-card {
-    width: clamp(150px, 38vw, 220px);
+    /* ~2 card + peek: (vw - 48px padding - 20px gap) / 2 */
+    width: clamp(200px, calc((100vw - 68px) / 2), 320px);
   }
 }
 
-/* === TABLET PORTRAIT — ≤ 768px === */
+/* === MOBILE 481–768px — 1.5 card visibili === */
 
 @media (max-width: 768px) {
-  .about-carousel {
-    padding: 20px 24px 36px;
-    gap: 16px;
-  }
-
-  .about-headline-strip {
-    padding: 48px 24px 40px;
-  }
-
   .polaroid-card {
-    width: clamp(140px, 42vw, 200px);
-  }
-
-  .about-headline {
-    font-size: clamp(32px, 8vw, 56px);
+    width: clamp(160px, 60vw, 260px);
   }
 }
 
-/* === MOBILE — ≤ 600px === */
+/* === SMALL MOBILE ≤480px — card leggermente più stretta === */
 
-@media (max-width: 600px) {
+@media (max-width: 480px) {
   .about-carousel {
-    padding: 16px 16px 32px;
-    gap: 12px;
-  }
-
-  .about-headline-strip {
-    padding: 40px 16px 32px;
+    gap: 14px;
+    padding: 20px 16px 36px;
   }
 
   .polaroid-card {
-    width: clamp(120px, 40vw, 170px);
+    width: clamp(140px, 72vw, 210px);
   }
 
-  .about-headline {
-    font-size: clamp(28px, 8vw, 42px);
+  /* Bottone "Salta il recap" — torna nel flusso flex per non sovrapporsi al titolo */
+  .about-headline-strip {
+    flex-wrap: wrap;
+    gap: 8px 0;
   }
 
   .skip-recap-btn--banner {
-    top: 12px;
-    right: 16px;
+    position: static;
+    margin-left: auto;
+    align-self: flex-start;
   }
+}
 
-  .skip-recap-btn {
-    font-size: 12px;
-    padding: 8px 14px;
+/* === VERY SMALL ≤360px === */
+
+@media (max-width: 360px) {
+  .polaroid-card {
+    width: clamp(130px, 80vw, 180px);
+  }
+}
+
+/* === HEADER SCALE — 8px grid, consistent with Works + Workflow ===
+   ONLY this header stays sticky (≥900px, for horizontal carousel). */
+
+@media (max-width: 900px) {
+  .about-headline-strip {
+    min-height: 160px;
+    padding: 40px 40px 24px;
+  }
+  .about-headline {
+    font-size: clamp(32px, 5.5vw, 72px);
+  }
+}
+
+@media (max-width: 768px) {
+  .about-headline-strip {
+    min-height: 144px;
+    padding: 32px 24px 24px;
+  }
+  .about-headline {
+    font-size: clamp(28px, 7.5vw, 56px);
+  }
+}
+
+@media (max-width: 480px) {
+  .about-headline-strip {
+    min-height: 128px;
+    padding: 24px 16px 16px;
+  }
+  .about-headline {
+    font-size: clamp(24px, 8vw, 48px);
   }
 }

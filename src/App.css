@@ -22,11 +22,11 @@
   display: block;
 }
 
-/* Nuvola — sopra la bocca, puntini (alto-dx cloud) puntano al viso */
+/* Nuvola — in basso a sinistra, puntini puntano al viso */
 .floating-avatar-bubble-anchor {
   position: absolute;
-  left: -70px;
-  top: 8%;
+  right: 60%;
+  top: 40%;
   width: 120px;
   pointer-events: none;
   z-index: 2;
@@ -73,24 +73,25 @@
   display: block;
 }
 
-/* Testo centrato nel corpo della nuvola.
-   Puntini occupano ~22% destra + ~35% top → area testo = sotto i puntini + tutto sinistra */
+/* Testo centrato nel corpo della nuvola */
 .thought-bubble__text {
   position: absolute;
-  top: 30%;
-  left: 4%;
-  right: 22%;
-  bottom: 8%;
+  top: 12%;
+  left: 12%;
+  right: 12%;
+  bottom: 22%;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 4px 6px;
   font-family: 'Gochi Hand', cursive;
-  font-size: clamp(13px, 1.3vw, 16px);
+  font-size: clamp(11px, 1.4vw, 17px);
   font-weight: 400;
   color: #212529;
   text-align: center;
-  line-height: 1.25;
+  line-height: 1.2;
+  word-break: break-word;
+  overflow: hidden;
 }
 
 /* Fallback CSS quando nuvola.png non disponibile */

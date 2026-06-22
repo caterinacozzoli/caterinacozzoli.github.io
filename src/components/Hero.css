@@ -273,7 +273,8 @@
   }
 
   .hero-bottom {
-    padding: 24px 24px 40px;
+    /* left padding solo — il nome occupa tutto lo spazio fino al bordo */
+    padding: 24px 0 40px 24px;
     gap: 14px;
     margin-top: auto;
   }
@@ -286,6 +287,8 @@
     max-width: 100%;
     font-size: clamp(15px, 4.5vw, 20px);
     padding: 0;
+    /* mantieni padding destro solo sul testo, non sul nome */
+    padding-right: 24px;
   }
 
   .hero-name-container {
@@ -294,17 +297,20 @@
     left: auto;
     flex-shrink: 0;
     margin-top: auto;
-    overflow: hidden;
+    /* Permette overflow leggero — body overflow-x:clip lo gestisce */
+    overflow: visible;
   }
 
   .hero-name {
-    font-size: clamp(44px, 17vw, 120px);
+    /* 14vw: "CATERINA" (8 chars × ~0.7 ratio × 14vw) ≈ viewport-24px ✓ */
+    font-size: clamp(40px, 14vw, 120px);
     line-height: 0.92;
   }
 
   .name-line {
     white-space: nowrap;
-    overflow: hidden;
+    /* visible: testo non viene mozzato, body clips al viewport */
+    overflow: visible;
   }
 
   .letter-wrap {
@@ -318,5 +324,21 @@
 
   .hero-scroll {
     display: none;
+  }
+}
+
+/* === SMALL MOBILE ≤480px — schermi molto stretti === */
+
+@media (max-width: 480px) {
+  .hero-name {
+    font-size: clamp(36px, 13vw, 80px);
+  }
+}
+
+/* === VERY SMALL ≤360px === */
+
+@media (max-width: 360px) {
+  .hero-name {
+    font-size: clamp(32px, 12vw, 70px);
   }
 }

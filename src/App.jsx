@@ -13,15 +13,15 @@ import ProjectPage from './components/ProjectPage';
 import './App.css';
 
 const AVATAR = {
-  default:       '/images/avatar-caterina-default.png',
-  fischia:       '/images/avatar-caterina-fischia.png',
-  sbatti:        '/images/avatar-caterina-sbatti.png',
-  frontale:      '/images/avatar-caterina-frontale.png',
-  altoDestra:    '/images/avatar-caterina-alto-destra.png',
-  latoSinistra:  '/images/avatar-caterina-lato-sinistra.png',
-  sottoCentro:   '/images/avatar-caterina-sotto-centro.png',
-  inBassoADestra:'/images/avatar-caterina-in-basso-a-destra.png',
-  pop:           '/images/avatar-caterina-popcorn.png',
+  default:       '/images/avatar/avatar-caterina-default.png',
+  fischia:       '/images/avatar/avatar-caterina-fischia.png',
+  sbatti:        '/images/avatar/avatar-caterina-sbatti.png',
+  frontale:      '/images/avatar/avatar-caterina-frontale.png',
+  altoDestra:    '/images/avatar/avatar-caterina-alto-destra.png',
+  latoSinistra:  '/images/avatar/avatar-caterina-lato-sinistra.png',
+  sottoCentro:   '/images/avatar/avatar-caterina-sotto-centro.png',
+  inBassoADestra:'/images/avatar/avatar-caterina-in-basso-a-destra.png',
+  pop:           '/images/avatar/avatar-caterina-popcorn.png',
 };
 
 /* === LOADING: 3 fasi, avatar stop-motion === */
@@ -44,8 +44,8 @@ const INTRO_SIZE  = 240;
 const FINAL_SIZE  = 140;
 const FINAL_TOP   = 16;
 const FINAL_RIGHT = 24;
-const BUBBLE_MS   = 2000;  // durata di ciascuna nuvola (leggermente più lungo per vedere i frame)
-const FRAME_MS    = 150;   // ~6fps — vero stop-motion
+const BUBBLE_MS   = 2000;  // durata di ciascuna nuvola
+const FRAME_MS    = 280;   // ~3.5fps — stop-motion lento
 
 /* === THOUGHT BUBBLE === */
 let _nuvolettaFailed = false;
@@ -120,7 +120,7 @@ function AvatarIntro({ onComplete }) {
       <motion.div
         style={{
           position: 'fixed', inset: 0, zIndex: 9998,
-          backgroundImage: "url('/images/carta acquarello.jpg')",
+          backgroundImage: "url('/images/textures/carta acquarello.jpg')",
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           pointerEvents: flying ? 'none' : 'all',
@@ -146,8 +146,8 @@ function AvatarIntro({ onComplete }) {
           : { duration: 0 }}
         onAnimationComplete={() => { if (flying) onComplete(); }}
       >
-        {/* Nuvola — più piccola, spostata a sinistra e in alto */}
-        <div style={{ position: 'absolute', left: '-28%', top: '44%', width: '56%', zIndex: 1 }}>
+        {/* Nuvola — in basso a sinistra, puntini puntano al viso */}
+        <div style={{ position: 'absolute', left: '-30%', bottom: '-5%', width: '75%', zIndex: 1 }}>
           <ThoughtBubble text={!flying ? currentText : ''} visible={!flying} />
         </div>
 
@@ -179,7 +179,7 @@ function FloatingAvatar({ mode, onGoHome }) {
     <div className="floating-avatar-wrap">
       {hovered && (
         <div className="floating-avatar-bubble-anchor" aria-hidden="true">
-          <ThoughtBubble text="Ciao! 👋" visible={true} />
+          <ThoughtBubble text="ciao! 👋" visible={true} />
         </div>
       )}
       <a

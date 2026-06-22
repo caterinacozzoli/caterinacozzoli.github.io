@@ -8,7 +8,7 @@ const PROJECTS = [
     id: 'libraccio',
     title: 'Libraccio',
     year: '2026',
-    image: '/images/folder-libraccio.png',
+    image: '/images/folders/folder-libraccio.png',
     fallback: '/images/projects/libraccio.svg',
     tags: ['UX Research', 'Wireframing', 'Figma', 'Benchmark'],
     size: 'large',
@@ -20,7 +20,7 @@ const PROJECTS = [
     id: 'abili-city',
     title: 'AbiliCity',
     year: '2023–',
-    image: '/images/folder-abilicity.png',
+    image: '/images/folders/folder-abilicity.png',
     fallback: '/images/projects/abili-city.svg',
     tags: ['UX/UI', 'Mobile App', 'Accessibility', 'Web App'],
     size: 'small',
@@ -33,7 +33,7 @@ const PROJECTS = [
     id: 'qualia',
     title: 'Qualia',
     year: '—',
-    image: '/images/folder-qualia.png',
+    image: '/images/folders/folder-qualia.png',
     fallback: '/images/projects/progetto-3.svg',
     tags: ['UX/UI', 'Figma'],
     size: 'small',
@@ -66,6 +66,17 @@ function useReveal(threshold = 0.15) {
 
   return [ref, revealed];
 }
+
+const OPEN_LABEL = {
+  it: (title) => `Apri case study: ${title}`,
+  en: (title) => `Open case study: ${title}`,
+  pt: (title) => `Abrir case study: ${title}`,
+};
+const FOLDER_ALT = {
+  it: (title) => `Cartella progetto ${title}`,
+  en: (title) => `Project folder for ${title}`,
+  pt: (title) => `Pasta do projeto ${title}`,
+};
 
 export default function Works({ onOpenProject }) {
   const { lang } = useLang();
@@ -102,11 +113,11 @@ export default function Works({ onOpenProject }) {
                   <button
                     className="project-frame"
                     onClick={() => onOpenProject?.(p.id)}
-                    aria-label={`Apri case study: ${p.title}`}
+                    aria-label={(OPEN_LABEL[lang] ?? OPEN_LABEL.en)(p.title)}
                   >
                     <img
                       src={p.image}
-                      alt={`Copertina folder ${p.title}`}
+                      alt={(FOLDER_ALT[lang] ?? FOLDER_ALT.en)(p.title)}
                       loading="lazy"
                       onError={(e) => {
                         if (p.fallback && e.target.src !== p.fallback) {
