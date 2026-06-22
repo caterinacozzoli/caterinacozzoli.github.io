@@ -27,24 +27,24 @@ function Boustrophedon({ text }) {
    COZZOLI:  09(C) skip10(O) 11(Z) 12(Z) 13(O) 14(L) 15(I)   */
 
 const LETTER_IMAGES = [
-  { src: '/images/hover-letters/hover letter05.png', rotate: -14 }, // C
-  { src: '/images/hover-letters/hover letter08.png', rotate:   8 }, // A
-  { src: '/images/hover-letters/hover letter02.png', rotate: -10 }, // T
-  { src: '/images/hover-letters/hover letter07.png', rotate:  12 }, // E
-  { src: '/images/hover-letters/hover letter03.png', rotate:  -8 }, // R
-  { src: '/images/hover-letters/hover letter01.png', rotate:  11 }, // I
-  { src: '/images/hover-letters/hover letter06.png', rotate: -13 }, // N
-  { src: '/images/hover-letters/hover letter04.png', rotate:   7 }, // A
+  { src: '/images/hover-letters/hover letter15.png', rotate: -14, scale: 1.3 }, // C (H)
+  { src: '/images/hover-letters/hover letter08.png', rotate:   8 },             // A (V)
+  { src: '/images/hover-letters/hover letter04.png', rotate: -10, scale: 1.2 },  // T (H)
+  { src: '/images/hover-letters/hover letter03.png', rotate:  12 },             // E (V)
+  { src: '/images/hover-letters/hover letter11.png', rotate:  -8, scale: 1.2 },  // R (H)
+  { src: '/images/hover-letters/hover letter12.png', rotate:  11 },             // I (V)
+  { src: '/images/hover-letters/hover letter01.png', rotate: -13, scale: 1.4 },  // N (H)
+  { src: '/images/hover-letters/hover letter06.png', rotate:   7 },             // A (V)
 ];
 
 const LETTER_IMAGES_2 = [
-  { src: '/images/hover-letters/hover letter13.png', rotate:  -9 }, // C
-  { src: null,                          rotate:   0 }, // O — no image
-  { src: '/images/hover-letters/hover letter15.png', rotate:  13 }, // Z
-  { src: '/images/hover-letters/hover letter09.png', rotate:  -7 }, // Z
-  { src: '/images/hover-letters/hover letter11.png', rotate:  10 }, // O
-  { src: '/images/hover-letters/hover letter14.png', rotate: -12 }, // L
-  { src: '/images/hover-letters/hover letter12.png', rotate:   9 }, // I
+  { src: '/images/hover-letters/hover letter13.png', rotate:  -9, scale: 1.15 }, // C (H)
+  { src: '/images/hover-letters/hover letter09.png', rotate:   6 },             // O (V)
+  { src: '/images/hover-letters/hover letter14.png', rotate:  -7, scale: 1.2 },  // Z (H)
+  { src: '/images/hover-letters/hover letter02.png', rotate:  10 },             // Z (V)
+  { src: '/images/hover-letters/hover letter15.png', rotate:  -5, scale: 1.3 },  // O (H) - repeat of 15
+  { src: '/images/hover-letters/hover letter07.png', rotate: -12 },             // L (V)
+  { src: '/images/hover-letters/hover letter05.png', rotate:   9, scale: 1.15 }, // I (H)
 ];
 
 /* Shared easing — decisive, no bounce */
@@ -95,7 +95,7 @@ function NameLetter({ char, imgData, isFirst, greetingText }) {
               onMouseEnter={show}
               onMouseLeave={hide}
               initial={{ opacity: 0, scale: 0.65, y: 16 }}
-              animate={{ opacity: 1, scale: 1,    y: 0, rotate: imgData.rotate }}
+              animate={{ opacity: 1, scale: imgData.scale ?? 1, y: 0, rotate: imgData.rotate }}
               exit={{    opacity: 0, scale: 0.75,  y: 8 }}
               transition={{ duration: 0.28, ease: QUINT }}
             />
@@ -161,14 +161,20 @@ export default function Hero() {
         transition={{ duration: 0.7, ease: QUINT, delay: 0.2 }}
       >
         <p className="hero-description">
-          {(() => {
-            const [first, mid, last] = tr.hero.description.split('\n');
-            const roleMatch = first.match(/^(UX\/UI designer|Designer UX\/UI)/i);
-            const firstPart = roleMatch
-              ? <><strong className="desc-role">{roleMatch[0]}</strong>{first.slice(roleMatch[0].length)}</>
-              : first;
-            return <>{firstPart}<br />{mid}{last ? <><br />{last}</> : null}</>;
-          })()}
+          {tr.hero.description.split('\n').map((line, i, arr) => {
+            const parts = line.split(/(UX\/UI)/i);
+            return (
+              <span key={i}>
+                {parts.map((part, idx) => {
+                  if (part.toLowerCase() === 'ux/ui') {
+                    return <span key={idx} className="desc-role">UX/UI</span>;
+                  }
+                  return part;
+                })}
+                {i < arr.length - 1 && <br />}
+              </span>
+            );
+          })}
         </p>
       </motion.div>
 

@@ -45,7 +45,15 @@
      Ripristina cursore visibile (freccia gialla palette) sugli elementi
      dove cursor: none lo renderebbe invisibile e disorientante. */
 
-  /* Cursore giallo su tutta la superficie delle pill e del pannello a11y */
+  /* Cursore giallo su tutta la superficie degli elementi cliccabili */
+  a,
+  button,
+  [role="button"],
+  input[type="button"],
+  input[type="submit"],
+  .project-frame-container,
+  .project-footer,
+  .chip,
   .nav-pill,
   .lang-nav,
   .nav-link,

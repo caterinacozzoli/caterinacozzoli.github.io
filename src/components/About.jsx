@@ -189,6 +189,27 @@ export default function About({ onCarouselScroll }) {
     };
   }, []);
 
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+
+    const handleWheel = (e) => {
+      if (e.deltaY !== 0) {
+        const canScrollLeft = track.scrollLeft > 0;
+        const canScrollRight = track.scrollLeft < (track.scrollWidth - track.clientWidth - 1);
+        if ((e.deltaY < 0 && canScrollLeft) || (e.deltaY > 0 && canScrollRight)) {
+          e.preventDefault();
+          track.scrollLeft += e.deltaY;
+        }
+      }
+    };
+
+    track.addEventListener('wheel', handleWheel, { passive: false });
+    return () => {
+      track.removeEventListener('wheel', handleWheel);
+    };
+  }, []);
+
   const skipRecap = () => {
     document.getElementById('workflow')?.scrollIntoView({ behavior: 'smooth' });
   };

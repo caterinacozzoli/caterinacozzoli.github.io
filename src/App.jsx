@@ -27,11 +27,11 @@ const AVATAR = {
 /* === LOADING: 3 fasi, avatar stop-motion === */
 const INTRO_BUBBLES = [
   {
-    text: 'ci sono quasi...',
+    text: 'scusa.. non ti avevo visto',
     frames: [AVATAR.default, AVATAR.sottoCentro, AVATAR.latoSinistra, AVATAR.altoDestra],
   },
   {
-    text: 'dove ho lasciato il cellulare',
+    text: 'sto finendo i token',
     frames: [AVATAR.frontale, AVATAR.inBassoADestra, AVATAR.sottoCentro, AVATAR.altoDestra],
   },
   {
@@ -50,7 +50,7 @@ const FRAME_MS    = 280;   // ~3.5fps — stop-motion lento
 /* === THOUGHT BUBBLE === */
 let _nuvolettaFailed = false;
 
-function ThoughtBubble({ text, visible }) {
+function ThoughtBubble({ text, visible, className = "" }) {
   const [imgFailed, setImgFailed] = useState(_nuvolettaFailed);
   const handleError = useCallback(() => { _nuvolettaFailed = true; setImgFailed(true); }, []);
 
@@ -60,7 +60,7 @@ function ThoughtBubble({ text, visible }) {
     <AnimatePresence>
       {visible && text && (
         <motion.div
-          className="thought-bubble"
+          className={`thought-bubble ${className}`}
           initial={{ opacity: 0, scale: 0.75, y: 8 }}
           animate={{ opacity: 1, scale: 1,    y: 0 }}
           exit={{    opacity: 0, scale: 0.75,  y: 8 }}
@@ -149,8 +149,8 @@ function AvatarIntro({ onComplete }) {
         onAnimationComplete={() => { if (flying) onComplete(); }}
       >
         {/* Nuvola — in basso a sinistra, puntini puntano al viso */}
-        <div style={{ position: 'absolute', left: '-24%', bottom: '-10%', width: '82%', zIndex: 1 }}>
-          <ThoughtBubble text={!flying ? currentText : ''} visible={!flying} />
+        <div style={{ position: 'absolute', left: '-42px', bottom: '-14px', width: '184px', zIndex: 1 }}>
+          <ThoughtBubble text={!flying ? currentText : ''} visible={!flying} className="thought-bubble--intro" />
         </div>
 
         {/* Avatar — stop motion: src swap diretto, nessun crossfade */}

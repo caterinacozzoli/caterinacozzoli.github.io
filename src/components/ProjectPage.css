@@ -66,6 +66,12 @@
   display: flex;
   align-items: stretch;
   gap: 0;
+
+  /* Folder background */
+  background-image: var(--folder-bg);
+  background-size: 180% auto;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 /* Slot destra — placeholder mockup, riempito con PNG in futuro */
@@ -118,6 +124,54 @@
 }
 
 .pp-hero--collapsed .pp-hero-mockup {
+  display: none;
+}
+
+.pp-hero--collapsed .pp-hero-sticker {
+  display: none;
+}
+
+/* Sticker decorativi nel hero */
+.pp-hero-sticker {
+  position: absolute;
+  pointer-events: none;
+  object-fit: contain;
+  z-index: 2;
+  width: 100%;
+  height: auto;
+}
+
+/* Sticker cliccabile — wrapper <a> nel hero */
+.pp-hero-sticker-link {
+  position: absolute;
+  display: block;
+  z-index: 2;
+  cursor: pointer;
+}
+
+.pp-hero-sticker-link:hover {
+  z-index: 3; /* Bring hovered sticker to the front */
+}
+
+/* The actual sticker image inside the hero link */
+.pp-hero-sticker-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.pp-hero-sticker-link:hover .pp-hero-sticker-img {
+  transform: scale(1.1);
+}
+
+.pp-hero-sticker-link:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 4px;
+  border-radius: 4px;
+}
+
+.pp-hero--collapsed .pp-hero-sticker-link {
   display: none;
 }
 
@@ -274,6 +328,14 @@
   flex-direction: column;
   gap: 0;
   padding: 0;
+}
+
+/* Accessibility overrides */
+[data-a11y-contrast="high"] .pp-hero {
+  background-image: none !important;
+}
+[data-a11y-layout="simplified"] .pp-hero {
+  background-image: none !important;
 }
 
 /* ─── SECTIONS ──────────────────────────────────────────────────────────────── */

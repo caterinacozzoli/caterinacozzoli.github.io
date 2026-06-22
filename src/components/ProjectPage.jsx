@@ -14,6 +14,10 @@ const PROJECTS = {
     role: "UX Research · Wireframing · Prototipazione",
     team: "Caterina Cozzoli, Simone Ragnoli, Erica Marchetti",
     tags: ['UX Research', 'Benchmark', 'Wireframing', 'Figma'],
+    image: '/images/folders/folder-libraccio.png',
+    stickers: [
+      { src: '/images/sticker/sticker tag.png', link: 'https://students.talentgarden.com/talents/recaSrSfzZxkuRi1X', style: { bottom: '-5%', right: '4%', width: '200px', transform: 'rotate(8deg)' } },
+    ],
     accent: '#1a7a3c',
     accentLight: '#d4f0df',
     sections: [
@@ -71,6 +75,11 @@ const PROJECTS = {
     team: "Caterina Cozzoli, Camilla Lurani Cernuschi",
     tags: ['UX/UI', 'Mobile App', 'Web App', 'Accessibility'],
     badge: '🏛 Parlamento Europeo',
+    image: '/images/folders/folder-abilicity.png',
+    stickers: [
+      { src: '/images/sticker/sticker abilicity.png', link: 'https://www.abilicity.com/', style: { bottom: '-5%', right: '6%', width: '200px', transform: 'rotate(6deg)' } },
+      { src: '/images/sticker/sticker parlameneto.png', link: 'https://psicologia.unimib.it/it/news/abilicity-lapplicazione-tutti-nata-bicocca-e-sbarcata-al-parlamento-europeo', style: { top: '10%', right: '2%', width: '180px', transform: 'rotate(-5deg)' } },
+    ],
     accent: '#3f68ff',
     accentLight: '#e8eeff',
     sections: [
@@ -124,6 +133,10 @@ const PROJECTS = {
     role: "UX Research · Concept Design · Prototipazione",
     team: "Caterina Cozzoli + team",
     tags: ['UX Research', 'UX/UI', 'Mobile', 'Figma'],
+    image: '/images/folders/folder-qualia.png',
+    stickers: [
+      { src: '/images/sticker/sticker tag.png', link: 'https://students.talentgarden.com/talents/recaSrSfzZxkuRi1X', style: { bottom: '-5%', right: '4%', width: '200px', transform: 'rotate(-7deg)' } },
+    ],
     accent: '#c2410c',
     accentLight: '#ffedd5',
     sections: [
@@ -427,9 +440,13 @@ export default function ProjectPage({ projectId, onClose }) {
           </button>
 
           {/* Hero banner — tinta chiara accent, testo charcoal */}
-          <header className={`pp-hero${collapsed ? ' pp-hero--collapsed' : ''}`} style={{ background: accentLight }}>
-            {/* pp-hero-mockup: NO focusable elements mai dentro (aria-hidden) */}
-            <div className="pp-hero-mockup" aria-hidden="true" />
+          <header 
+            className={`pp-hero${collapsed ? ' pp-hero--collapsed' : ''}`} 
+            style={{ 
+              '--folder-bg': `url('${data.image}')`,
+              backgroundColor: accentLight,
+            }}
+          >
             <div className="pp-hero-inner">
               {/* Titolo + Sub — sempre visibili */}
               <h2 className="pp-title">{data.title}</h2>
@@ -464,6 +481,32 @@ export default function ProjectPage({ projectId, onClose }) {
                 </div>
               </div>
             </div>
+            {/* Stickers decorativi nel hero — cliccabili se hanno link */}
+            {data.stickers?.map((s, i) => (
+              s.link ? (
+                <a
+                  key={i}
+                  href={s.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="pp-hero-sticker-link"
+                  style={s.style}
+                  aria-label={`Apri link sticker ${i + 1}`}
+                >
+                  <img src={s.src} aria-hidden="true" className="pp-hero-sticker-img" />
+                </a>
+              ) : (
+                <img
+                  key={i}
+                  src={s.src}
+                  aria-hidden="true"
+                  className="pp-hero-sticker"
+                  style={s.style}
+                />
+              )
+            ))}
+            {/* pp-hero-mockup: NO focusable elements mai dentro (aria-hidden) */}
+            <div className="pp-hero-mockup" aria-hidden="true" />
           </header>
 
           {/* Content */}

@@ -26,8 +26,9 @@
 .floating-avatar-bubble-anchor {
   position: absolute;
   right: 44%;
-  top: 50%;
-  width: 120px;
+  top: 57%;
+  margin-top: -2px;
+  width: 124px;
   pointer-events: none;
   z-index: 2;
 }
@@ -49,7 +50,7 @@
   .floating-avatar-bubble-anchor {
     width: 80px;
     right: 44%;
-    top: 50%;
+    top: 57%;
   }
 }
 
@@ -66,7 +67,7 @@
   .floating-avatar-bubble-anchor {
     width: 64px;
     right: 44%;
-    top: 50%;
+    top: 57%;
   }
 }
 
@@ -85,30 +86,43 @@
   display: block;
 }
 
-/* Testo centrato nel corpo della nuvola */
+/* Testo centrato nel corpo della nuvola — site bubble (120px) */
 .thought-bubble__text {
   position: absolute;
-  top: 25%;
-  left: 10%;
-  right: 16%;
-  bottom: 12%;
+  top: 22%;
+  left: 2%;
+  right: 24%;
+  bottom: 10%;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 4px 6px;
   font-family: 'Gochi Hand', cursive;
-  font-size: clamp(13px, 1.7vw, 21px);
+  font-size: clamp(12px, 1.6vw, 16px);
   font-weight: 400;
   color: #212529;
   text-align: center;
   line-height: 1.1;
-  word-break: break-word;
+  white-space: nowrap;
   overflow: hidden;
+  transform: translate(10px, 4px);
 }
 
 .thought-bubble__text--long {
-  font-size: clamp(10px, 1.4vw, 16px);
+  font-size: clamp(12px, 1.5vw, 16px);
   line-height: 1.05;
+  white-space: normal;
+  word-break: break-word;
+}
+
+/* Intro/preview bubble — testo più grande */
+.thought-bubble--intro .thought-bubble__text {
+  font-size: clamp(18px, 2.2vw, 22px);
+  transform: translate(16px, 4px);
+}
+
+.thought-bubble--intro .thought-bubble__text--long {
+  font-size: clamp(17px, 2.0vw, 20px);
 }
 
 /* Fallback CSS quando nuvola.png non disponibile */
