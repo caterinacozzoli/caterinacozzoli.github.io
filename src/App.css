@@ -26,8 +26,8 @@
 .floating-avatar-bubble-anchor {
   position: absolute;
   right: 44%;
-  top: 48%;
-  width: 110px;
+  top: 50%;
+  width: 120px;
   pointer-events: none;
   z-index: 2;
 }
@@ -47,9 +47,9 @@
   }
 
   .floating-avatar-bubble-anchor {
-    width: 74px;
+    width: 80px;
     right: 44%;
-    top: 48%;
+    top: 50%;
   }
 }
 
@@ -64,9 +64,9 @@
   }
 
   .floating-avatar-bubble-anchor {
-    width: 60px;
+    width: 64px;
     right: 44%;
-    top: 48%;
+    top: 50%;
   }
 }
 
