@@ -106,7 +106,8 @@
 .hero-description {
   position: relative;
   font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: clamp(20px, 2.1vw, 28px);
+  /* 2.15vw ≈ 16% di 13.5vw (nome) — proporzione costante a tutti i breakpoint */
+  font-size: clamp(16px, 2.15vw, 30px);
   font-weight: 400;
   line-height: 1.55;
   color: var(--ink);
@@ -272,10 +273,9 @@
 
   .hero-description {
     max-width: 100%;
-    font-size: clamp(15px, 4.5vw, 20px);
+    /* font-size segue il clamp globale (2.15vw) — nessun override mobile */
     padding: 0;
-    /* mantieni padding destro solo sul testo, non sul nome */
-    padding-right: 24px;
+    padding-right: 24px; /* mantieni padding destro, il nome va a bordo */
   }
 
   .hero-name-container {

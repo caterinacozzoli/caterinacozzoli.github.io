@@ -12,7 +12,7 @@ const PROJECTS = {
     subtitle: "Settembre. Stessa lista. Stesso caos. Ogni anno.",
     year: '2025',
     role: "UX Research · Wireframing · Prototipazione",
-    team: "Caterina Cozzoli, Simone Ragnoli, Erica Marchetti",
+    team: "Caterina Cozzoli, Simone Ragnoli, Erica Marchetti, Lorenzo Lepera, Yash",
     tags: ['UX Research', 'Benchmark', 'Wireframing', 'Figma'],
     image: '/images/folders/folder-libraccio.png',
     stickers: [
