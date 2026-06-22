@@ -74,7 +74,6 @@ const PROJECTS = {
     role: "Co-founder · UX/UI Design · Product Strategy",
     team: "Caterina Cozzoli, Camilla Lurani Cernuschi",
     tags: ['UX/UI', 'Mobile App', 'Web App', 'Accessibility'],
-    badge: '🏛 Parlamento Europeo',
     image: '/images/folders/folder-abilicity.png',
     stickers: [
       { src: '/images/sticker/sticker abilicity.png', link: 'https://www.abilicity.com/', style: { bottom: '-5%', right: '6%', width: '200px', transform: 'rotate(6deg)' } },
