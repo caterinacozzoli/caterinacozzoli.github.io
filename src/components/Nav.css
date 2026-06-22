@@ -124,7 +124,8 @@
 .nav-mobile-overlay {
   position: fixed;
   inset: 0;
-  z-index: var(--z-nav);
+  /* +2 sopra LangNav (z-nav+1) — blocca interazioni con pill sinistra */
+  z-index: calc(var(--z-nav) + 2);
   /* Sfondo solido — no glass */
   background: #212529;
   display: flex;

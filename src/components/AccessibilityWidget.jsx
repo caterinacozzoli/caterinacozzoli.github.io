@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
+import { lockScroll, unlockScroll } from '../utils/scrollLock';
 import { createPortal } from 'react-dom';
 import { useLang } from '../contexts/LangContext';
 import './AccessibilityWidget.css';
@@ -186,6 +187,13 @@ export default function AccessibilityWidget() {
     applyPrefs(prefs);
     try { localStorage.setItem(STORAGE_KEY, JSON.stringify(prefs)); } catch {}
   }, [prefs]);
+
+  /* Blocca scroll quando il pannello è aperto */
+  useEffect(() => {
+    if (open) lockScroll();
+    else unlockScroll();
+    return () => { if (open) unlockScroll(); };
+  }, [open]);
 
   /* Keyboard: Escape closes, focus returns to trigger */
   useEffect(() => {

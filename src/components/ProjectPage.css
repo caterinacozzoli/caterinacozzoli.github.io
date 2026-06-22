@@ -28,7 +28,7 @@
 .pp-close {
   position: absolute;
   top: 20px;
-  left: 24px;
+  right: 24px;
   z-index: 10;
   display: flex;
   align-items: center;
@@ -63,6 +63,62 @@
   padding: 56px 56px 40px;
   position: relative;
   overflow: hidden;
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+}
+
+/* Slot destra — placeholder mockup, riempito con PNG in futuro */
+.pp-hero-mockup {
+  /* No focusable elements allowed inside — aria-hidden="true" */
+  flex-shrink: 0;
+  width: clamp(200px, 32%, 440px);
+  align-self: flex-end;
+  pointer-events: none;
+}
+
+.pp-hero-inner {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Collapsible wrapper — max-height transition */
+.pp-hero-collapsible {
+  max-height: 300px;
+  overflow: hidden;
+  transition: max-height 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+              visibility 0.35s;
+  visibility: visible;
+  margin-top: 16px;
+}
+
+/* Hero collapsed — solo titolo + sub + chiudi */
+.pp-hero--collapsed {
+  padding-top: 20px;
+  padding-bottom: 16px;
+  transition: padding 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.pp-hero--collapsed .pp-title {
+  font-size: clamp(20px, 2.5vw, 32px);
+  margin-bottom: 4px;
+  transition: font-size 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.pp-hero--collapsed .pp-subtitle {
+  font-size: 13px;
+  opacity: 0.65;
+  margin-bottom: 0;
+  transition: font-size 0.35s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.35s;
+}
+
+.pp-hero--collapsed .pp-hero-collapsible {
+  max-height: 0;
+  visibility: hidden;
+}
+
+.pp-hero--collapsed .pp-hero-mockup {
+  display: none;
 }
 
 .pp-hero::after {
@@ -125,7 +181,7 @@
   opacity: 0.75;
   max-width: 60ch;
   line-height: 1.45;
-  margin-bottom: 28px;
+  margin-bottom: 20px;
 }
 
 .pp-hero-footer {
@@ -161,7 +217,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
-  margin-left: auto;
+  margin-left: 0;
 }
 
 .pp-tag {
@@ -170,6 +226,42 @@
   padding: 4px 12px;
   border-radius: var(--r-pill);
   letter-spacing: 0.04em;
+}
+
+/* ─── OPENING QUOTE ─────────────────────────────────────────────────────────── */
+
+.pp-section--opening-quote {
+  padding: 48px 56px 40px;
+  border-top: none;
+}
+
+.pp-opening-quote {
+  font-family: 'Gochi Hand', cursive;
+  font-size: clamp(22px, 2vw, 30px);
+  line-height: 1.5;
+  color: var(--ink);
+  max-width: 64ch;
+}
+
+.pp-opening-cite {
+  display: block;
+  margin-top: 12px;
+  font-style: italic;
+  font-size: 0.82em;
+  color: var(--ink-muted); /* 4.56:1 — NO opacity aggiuntiva */
+  font-family: var(--font-body);
+}
+
+.pp-callout-cite {
+  display: block;
+  margin-top: 10px;
+  font-style: normal;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--primary-light);
+  font-family: var(--font-body);
 }
 
 /* ─── CONTENT ───────────────────────────────────────────────────────────────── */
@@ -494,7 +586,7 @@
 
   .pp-close {
     top: 12px;
-    left: 16px;
+    right: 16px;
     padding: 6px 12px;
     font-size: 12px;
   }
@@ -502,7 +594,11 @@
 
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
-  .pp-sheet {
+  .pp-sheet,
+  .pp-hero,
+  .pp-hero-collapsible,
+  .pp-hero--collapsed .pp-title,
+  .pp-hero--collapsed .pp-subtitle {
     transition: none !important;
   }
 }

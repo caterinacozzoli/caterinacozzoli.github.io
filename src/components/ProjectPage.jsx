@@ -1,4 +1,5 @@
-import { useEffect, useCallback } from 'react';
+import { useEffect, useCallback, useRef, useState } from 'react';
+import { lockScroll, unlockScroll } from '../utils/scrollLock';
 import { motion, AnimatePresence } from 'framer-motion';
 import './ProjectPage.css';
 
@@ -17,8 +18,13 @@ const PROJECTS = {
     accentLight: '#d4f0df',
     sections: [
       {
+        type: 'opening-quote',
+        quote: "«Ogni settembre uguale. La lista in mano, un'ora persa, e alla fine vado in libreria.»",
+        citation: "Genitore, Milano",
+      },
+      {
         type: 'context',
-        label: '01 / Chi e quale problema',
+        label: '01 / Il problema',
         title: "Il genitore con la lista in mano che non riesce a comprare i libri",
         body: "Libraccio.it è uno dei principali canali per l'acquisto dei libri scolastici in Italia. Ma ogni settembre, milioni di famiglie si scontrano con la stessa frustrazione: una ricerca che non capisce le liste delle scuole, un confronto nuovo/usato che non funziona, un carrello pensato per un libro alla volta quando ne servono dodici.",
         highlight: "Come si fa a comprare 12 libri in mezz'ora — nuovo o usato, qualsiasi condizione — senza impazzire?",
@@ -65,12 +71,17 @@ const PROJECTS = {
     team: "Caterina Cozzoli, Camilla Lurani Cernuschi",
     tags: ['UX/UI', 'Mobile App', 'Web App', 'Accessibility'],
     badge: '🏛 Parlamento Europeo',
-    accent: '#5c7fff',
+    accent: '#3f68ff',
     accentLight: '#e8eeff',
     sections: [
       {
+        type: 'opening-quote',
+        quote: "«Cerchi eventi accessibili. Il sito non funziona sul telefono. Cerchi associazioni. Il numero non risponde.»",
+        citation: "Persona con disabilità motoria, Roma",
+      },
+      {
         type: 'context',
-        label: '01 / Chi e quale problema',
+        label: '01 / Il problema',
         title: "Informazioni sparse ovunque, accessibilità garantita da nessuna parte",
         body: "Se sei una persona con disabilità — o ne hai una vicino — sai cosa significa cercare. Cerchi eventi accessibili su siti istituzionali che non funzionano su smartphone. Cerchi associazioni di supporto tra gruppi Facebook e passaparola. Cerchi lavoro in un mercato che finge che tu non esista. AbiliCity nasce da una semplice domanda: perché non c'è un posto dove trovare tutto?",
         highlight: "L'accessibilità non è un'opzione. È un diritto. E noi vogliamo costruire la città digitale dove tutti possano entrare.",
@@ -117,11 +128,15 @@ const PROJECTS = {
     accentLight: '#ffedd5',
     sections: [
       {
+        type: 'opening-quote',
+        quote: "«I've learned not to trust myself with successfully identifying colors all the time.»",
+        citation: "Jadraptor, r/ColorBlind",
+      },
+      {
         type: 'context',
-        label: '01 / Chi e quale problema',
+        label: '01 / Il problema',
         title: "L'8% degli uomini non vede male i colori. Non si fida di vederli.",
         body: "Il daltonismo colpisce circa l'8% degli uomini e lo 0,5% delle donne. Ma il problema reale non è il deficit — è la paranoia quotidiana: l'81% delle persone daltoniche chiede aiuto a qualcun altro per verificare un colore almeno una volta al giorno. Vestiti al mattino. Carne sul fuoco. LED che non sai se è verde o rosso. Grafici al lavoro che non riesci a leggere.",
-        highlight: "«I've learned not to trust myself with successfully identifying colors all the time.» — Jadraptor, r/ColorBlind",
       },
       {
         type: 'research',
@@ -298,17 +313,33 @@ function SectionImpact({ s, accent, accentLight }) {
   );
 }
 
+/* citazione + attribution in <cite> dentro <blockquote> */
+function SectionOpeningQuote({ s }) {
+  return (
+    <section className="pp-section pp-section--opening-quote">
+      <blockquote className="pp-opening-quote">
+        {s.quote}
+        {s.citation && <cite className="pp-opening-cite">{s.citation}</cite>}
+      </blockquote>
+    </section>
+  );
+}
+
 function SectionCalloutQuote({ s }) {
   return (
     <section className="pp-section pp-section--quote">
-      <blockquote className="pp-big-quote">{s.quote}</blockquote>
-      <span className="pp-label" style={{ marginTop: '12px', display: 'block' }}>{s.label}</span>
+      <blockquote className="pp-big-quote">
+        {s.quote}
+        {/* attribution inside blockquote per semantics HTML spec */}
+        {s.label && <cite className="pp-callout-cite">{s.label}</cite>}
+      </blockquote>
     </section>
   );
 }
 
 function renderSection(s, accent, accentLight) {
   switch (s.type) {
+    case 'opening-quote': return <SectionOpeningQuote key={s.quote} s={s} />;
     case 'context':       return <SectionContext key={s.label} s={s} accent={accent} accentLight={accentLight} />;
     case 'process':       return <SectionProcess key={s.label} s={s} accent={accent} />;
     case 'insights':      return <SectionInsights key={s.label} s={s} />;
@@ -325,6 +356,9 @@ function renderSection(s, accent, accentLight) {
 
 export default function ProjectPage({ projectId, onClose }) {
   const data = PROJECTS[projectId];
+  const [collapsed, setCollapsed] = useState(false);
+  const contentRef    = useRef(null);
+  const collapsibleRef = useRef(null);
 
   const handleKeyDown = useCallback((e) => {
     if (e.key === 'Escape') onClose();
@@ -332,12 +366,35 @@ export default function ProjectPage({ projectId, onClose }) {
 
   useEffect(() => {
     document.addEventListener('keydown', handleKeyDown);
-    document.body.style.overflow = 'hidden';
+    lockScroll();
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
-      document.body.style.overflow = '';
+      unlockScroll();
     };
   }, [handleKeyDown]);
+
+  /* Collapse hero quando si scorre nel contenuto */
+  useEffect(() => {
+    const el = contentRef.current;
+    if (!el) return;
+    const onScroll = () => {
+      const next = el.scrollTop > 80;
+      setCollapsed(c => c === next ? c : next);
+    };
+    el.addEventListener('scroll', onScroll, { passive: true });
+    return () => el.removeEventListener('scroll', onScroll);
+  }, []);
+
+  /* inert sul wrapper collassabile — sicuro contro future aggiunte interattive */
+  useEffect(() => {
+    const el = collapsibleRef.current;
+    if (!el) return;
+    if (collapsed) {
+      el.setAttribute('inert', '');
+    } else {
+      el.removeAttribute('inert');
+    }
+  }, [collapsed]);
 
   if (!data) return null;
 
@@ -369,39 +426,49 @@ export default function ProjectPage({ projectId, onClose }) {
             <span className="pp-close-label">chiudi</span>
           </button>
 
-          {/* Hero banner */}
-          <header className="pp-hero" style={{ background: '#FED728' }}>
+          {/* Hero banner — tinta chiara accent, testo charcoal */}
+          <header className={`pp-hero${collapsed ? ' pp-hero--collapsed' : ''}`} style={{ background: accentLight }}>
+            {/* pp-hero-mockup: NO focusable elements mai dentro (aria-hidden) */}
+            <div className="pp-hero-mockup" aria-hidden="true" />
             <div className="pp-hero-inner">
-              <div className="pp-hero-meta">
-                <span className="pp-year">{data.year}</span>
-                {data.badge && (
-                  <span className="pp-badge" style={{ background: accent, color: '#fff' }}>
-                    {data.badge}
-                  </span>
-                )}
-              </div>
+              {/* Titolo + Sub — sempre visibili */}
               <h2 className="pp-title">{data.title}</h2>
               <p className="pp-subtitle">{data.subtitle}</p>
-              <div className="pp-hero-footer">
+
+              {/* Collapsible — anno, badge, pills, ruolo, team */}
+              <div
+                ref={collapsibleRef}
+                className="pp-hero-collapsible"
+                aria-label="Dettagli progetto"
+              >
+                <div className="pp-hero-meta">
+                  <span className="pp-year">{data.year}</span>
+                  {data.badge && (
+                    <span className="pp-badge" style={{ background: accent, color: '#fff' }}>
+                      {data.badge}
+                    </span>
+                  )}
+                </div>
+                <ul className="pp-tags" aria-label="Categorie" style={{ marginBottom: '24px' }}>
+                  {data.tags.map(t => (
+                    <li key={t} className="pp-tag" style={{ background: accent, color: '#fff' }}>{t}</li>
+                  ))}
+                </ul>
                 <div className="pp-info-row">
                   <span className="pp-info-label">Ruolo</span>
                   <span className="pp-info-value">{data.role}</span>
                 </div>
-                <div className="pp-info-row">
+                <div className="pp-info-row" style={{ marginTop: '12px' }}>
                   <span className="pp-info-label">Team</span>
                   <span className="pp-info-value">{data.team}</span>
                 </div>
-                <ul className="pp-tags" aria-label="Categorie">
-                  {data.tags.map(t => (
-                    <li key={t} className="pp-tag" style={{ background: accentLight, color: accent }}>{t}</li>
-                  ))}
-                </ul>
               </div>
             </div>
           </header>
 
           {/* Content */}
           <div
+            ref={contentRef}
             className="pp-content"
             style={{
               backgroundImage: "url('/images/textures/carta acquarello.jpg')",

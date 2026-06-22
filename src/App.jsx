@@ -147,7 +147,7 @@ function AvatarIntro({ onComplete }) {
         onAnimationComplete={() => { if (flying) onComplete(); }}
       >
         {/* Nuvola — in basso a sinistra, puntini puntano al viso */}
-        <div style={{ position: 'absolute', left: '-30%', bottom: '-15%', width: '82%', zIndex: 1 }}>
+        <div style={{ position: 'absolute', left: '-24%', bottom: '-10%', width: '82%', zIndex: 1 }}>
           <ThoughtBubble text={!flying ? currentText : ''} visible={!flying} />
         </div>
 
