@@ -27,15 +27,15 @@ const AVATAR = {
 /* === LOADING: 3 fasi, avatar stop-motion === */
 const INTRO_BUBBLES = [
   {
-    text: 'ci sono quasi...',
+    text: 'scusa.. non ti avevo visto',
     frames: [AVATAR.default, AVATAR.sottoCentro, AVATAR.latoSinistra, AVATAR.altoDestra],
   },
   {
-    text: 'dove ho lasciato il cellulare',
+    text: 'sto finendo i token',
     frames: [AVATAR.frontale, AVATAR.inBassoADestra, AVATAR.sottoCentro, AVATAR.altoDestra],
   },
   {
-    text: 'eccomi! 👋',
+    text: 'eccomi!',
     frames: [AVATAR.frontale, AVATAR.default, AVATAR.latoSinistra, AVATAR.frontale],
   },
 ];
@@ -50,15 +50,17 @@ const FRAME_MS    = 280;   // ~3.5fps — stop-motion lento
 /* === THOUGHT BUBBLE === */
 let _nuvolettaFailed = false;
 
-function ThoughtBubble({ text, visible }) {
+function ThoughtBubble({ text, visible, className = "" }) {
   const [imgFailed, setImgFailed] = useState(_nuvolettaFailed);
   const handleError = useCallback(() => { _nuvolettaFailed = true; setImgFailed(true); }, []);
+
+  const isLong = text && text.length > 18;
 
   return (
     <AnimatePresence>
       {visible && text && (
         <motion.div
-          className="thought-bubble"
+          className={`thought-bubble ${className}`}
           initial={{ opacity: 0, scale: 0.75, y: 8 }}
           animate={{ opacity: 1, scale: 1,    y: 0 }}
           exit={{    opacity: 0, scale: 0.75,  y: 8 }}
@@ -68,7 +70,7 @@ function ThoughtBubble({ text, visible }) {
             <img src="/images/nuvola.png" className="thought-bubble__img" alt="" aria-hidden="true"
               onError={handleError} />
           )}
-          <span className={`thought-bubble__text${imgFailed ? ' thought-bubble__text--fallback' : ''}`}>
+          <span className={`thought-bubble__text${imgFailed ? ' thought-bubble__text--fallback' : ''}${isLong ? ' thought-bubble__text--long' : ''}`}>
             {text}
           </span>
         </motion.div>
@@ -146,9 +148,9 @@ function AvatarIntro({ onComplete }) {
           : { duration: 0 }}
         onAnimationComplete={() => { if (flying) onComplete(); }}
       >
-        {/* Nuvola — in basso a destra, copre la bocca */}
-        <div style={{ position: 'absolute', right: '-38%', bottom: '8%', width: '66%', zIndex: 1 }}>
-          <ThoughtBubble text={!flying ? currentText : ''} visible={!flying} />
+        {/* Nuvola — in basso a sinistra, puntini puntano al viso */}
+        <div style={{ position: 'absolute', left: '-42px', bottom: '-14px', width: '184px', zIndex: 1 }}>
+          <ThoughtBubble text={!flying ? currentText : ''} visible={!flying} className="thought-bubble--intro" />
         </div>
 
         {/* Avatar — stop motion: src swap diretto, nessun crossfade */}
@@ -171,17 +173,34 @@ function AvatarIntro({ onComplete }) {
   );
 }
 
-function FloatingAvatar({ mode, onGoHome }) {
+const BUBBLE_TEXTS = {
+  hover: {
+    it: 'ciao, cm va?',
+    en: "hi, how's it going?",
+    pt: 'olá, tudo bem?',
+  },
+  contact: {
+    it: 'restiamo in contatto',
+    en: "let's keep in touch",
+    pt: 'vamos manter contato',
+  }
+};
+
+function FloatingAvatar({ mode, activeSection, onGoHome }) {
+  const { lang } = useLang();
   const src = AVATAR[mode] ?? AVATAR.default;
   const [hovered, setHovered] = useState(false);
 
+  const isContactSection = activeSection === 'contatti';
+  const bubbleVisible = hovered || isContactSection;
+  const textDict = BUBBLE_TEXTS[isContactSection ? 'contact' : 'hover'];
+  const bubbleText = textDict[lang] ?? textDict.it;
+
   return (
     <div className="floating-avatar-wrap">
-      {hovered && (
-        <div className="floating-avatar-bubble-anchor" aria-hidden="true">
-          <ThoughtBubble text="ciao! 👋" visible={true} />
-        </div>
-      )}
+      <div className="floating-avatar-bubble-anchor" aria-hidden="true">
+        <ThoughtBubble text={bubbleText} visible={bubbleVisible} />
+      </div>
       <a
         href="#"
         className="floating-avatar-link"
@@ -275,7 +294,7 @@ function AppInner() {
       />
       {!introComplete && <AvatarIntro onComplete={handleIntroComplete} />}
       {introComplete && (
-        <FloatingAvatar mode={avatarMode} onGoHome={handleGoHome} />
+        <FloatingAvatar mode={avatarMode} activeSection={activeSection} onGoHome={handleGoHome} />
       )}
 
       <main id="main-content">

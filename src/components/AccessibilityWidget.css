@@ -61,24 +61,29 @@
   backdrop-filter: blur(2px);
 }
 
-/* === PANEL === */
+/* === PANEL — centrato a schermo, più grande === */
 
 .a11y-panel {
   position: fixed;
-  top: 88px;
-  left: 16px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   z-index: 9991;
   background: #1c1c1c;
   color: #f0ece0;
   border-radius: var(--r-lg, 20px);
-  padding: 20px 20px 16px;
-  min-width: 272px;
-  max-width: 300px;
+  padding: 28px 28px 24px;
+  width: min(480px, 92vw);
+  max-height: 88vh;
+  overflow-y: auto;
+  scrollbar-width: none;
   box-shadow:
-    0 2px 8px rgba(0,0,0,0.3),
-    0 12px 40px rgba(0,0,0,0.5);
-  border: 1px solid rgba(255,255,255,0.08);
+    0 4px 16px rgba(0,0,0,0.4),
+    0 24px 64px rgba(0,0,0,0.65);
+  border: 1px solid rgba(255,255,255,0.1);
 }
+
+.a11y-panel::-webkit-scrollbar { display: none; }
 
 /* Panel header */
 .a11y-panel__header {
@@ -93,10 +98,10 @@
   align-items: center;
   gap: 8px;
   font-family: var(--font-body, 'Onest', sans-serif);
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
   color: #e1dcc6;
   margin: 0;
 }
@@ -105,8 +110,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 28px;
-  height: 28px;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   background: rgba(255,255,255,0.08);
   color: rgba(255,255,255,0.6);
@@ -131,18 +136,18 @@
 .a11y-group {
   border: none;
   padding: 0;
-  margin: 0 0 14px;
+  margin: 0 0 18px;
 }
 
 .a11y-group__label {
   display: block;
   font-family: var(--font-body, sans-serif);
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: rgba(255,255,255,0.38);
-  margin-bottom: 7px;
+  letter-spacing: 0.09em;
+  color: rgba(255,255,255,0.45);
+  margin-bottom: 9px;
 }
 
 .a11y-btn-row {
@@ -154,18 +159,18 @@
 /* === RADIO BUTTONS === */
 
 .a11y-opt-btn {
-  padding: 5px 13px;
+  padding: 8px 18px;
   border-radius: var(--r-sm, 6px);
   border: 1.5px solid rgba(255,255,255,0.1);
   background: rgba(255,255,255,0.06);
   color: rgba(255,255,255,0.6);
   font-family: var(--font-body, sans-serif);
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 500;
   cursor: pointer;
   transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
   min-width: 44px;  /* WCAG 2.5.8 touch target */
-  min-height: 36px;
+  min-height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -194,8 +199,8 @@
 
 .a11y-reset-btn {
   width: 100%;
-  padding: 8px var(--sp-2, 16px);
-  margin-top: 4px;
+  padding: 12px var(--sp-2, 16px);
+  margin-top: 8px;
   border-radius: var(--r-sm, 6px);
   border: 1px solid rgba(255,255,255,0.08);
   background: rgba(255,255,255,0.04);
@@ -219,18 +224,7 @@
   outline-offset: 2px;
 }
 
-/* === RESPONSIVE — mobile === */
-
-@media (max-width: 768px) {
-  .a11y-panel {
-    top: auto;
-    bottom: 16px;
-    left: 16px;
-    right: 16px;
-    max-width: none;
-    border-radius: var(--r-lg, 20px);
-  }
-}
+/* Panel centrato — width: min(480px, 92vw) già responsive su mobile */
 
 /* === REDUCED MOTION === */
 

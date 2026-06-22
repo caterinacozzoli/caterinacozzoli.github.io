@@ -22,12 +22,13 @@
   display: block;
 }
 
-/* Nuvola — sopra la bocca, puntini (alto-dx cloud) puntano al viso */
+/* Nuvola — in basso a sinistra, puntini puntano al viso */
 .floating-avatar-bubble-anchor {
   position: absolute;
-  left: -70px;
-  top: 8%;
-  width: 120px;
+  right: 44%;
+  top: 57%;
+  margin-top: -2px;
+  width: 124px;
   pointer-events: none;
   z-index: 2;
 }
@@ -45,6 +46,12 @@
   .floating-avatar {
     width: 88px;
   }
+
+  .floating-avatar-bubble-anchor {
+    width: 80px;
+    right: 44%;
+    top: 57%;
+  }
 }
 
 @media (max-width: 600px) {
@@ -55,6 +62,12 @@
 
   .floating-avatar {
     width: 72px;
+  }
+
+  .floating-avatar-bubble-anchor {
+    width: 64px;
+    right: 44%;
+    top: 57%;
   }
 }
 
@@ -73,23 +86,43 @@
   display: block;
 }
 
-/* Testo centrato nel corpo della nuvola */
+/* Testo centrato nel corpo della nuvola — site bubble (120px) */
 .thought-bubble__text {
   position: absolute;
-  top: 18%;
-  left: 8%;
-  right: 8%;
+  top: 22%;
+  left: 2%;
+  right: 24%;
   bottom: 10%;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 4px 8px;
+  padding: 4px 6px;
   font-family: 'Gochi Hand', cursive;
-  font-size: clamp(16px, 1.8vw, 22px);
+  font-size: clamp(12px, 1.6vw, 16px);
   font-weight: 400;
   color: #212529;
   text-align: center;
-  line-height: 1.2;
+  line-height: 1.1;
+  white-space: nowrap;
+  overflow: hidden;
+  transform: translate(10px, 4px);
+}
+
+.thought-bubble__text--long {
+  font-size: clamp(12px, 1.5vw, 16px);
+  line-height: 1.05;
+  white-space: normal;
+  word-break: break-word;
+}
+
+/* Intro/preview bubble — testo più grande */
+.thought-bubble--intro .thought-bubble__text {
+  font-size: clamp(18px, 2.2vw, 22px);
+  transform: translate(16px, 4px);
+}
+
+.thought-bubble--intro .thought-bubble__text--long {
+  font-size: clamp(17px, 2.0vw, 20px);
 }
 
 /* Fallback CSS quando nuvola.png non disponibile */

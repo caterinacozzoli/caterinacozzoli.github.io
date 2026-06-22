@@ -4,8 +4,6 @@ import { t } from '../i18n/translations';
 import AccessibilityWidget from './AccessibilityWidget';
 import './LangNav.css';
 
-const SPRITE = '/images/flags/flag-uk.png';
-const BG_SIZE = '453px 192px';
 export const FLAGS = {
   it: { bgPos: '-208px -130px', label: 'Italiano' },
   en: { bgPos: '-258px -130px', label: 'English' },
@@ -13,6 +11,7 @@ export const FLAGS = {
 };
 
 export function FlagBtn({ code, config, onClick }) {
+  const src = `/images/flags/flag-${code === 'en' ? 'uk' : code}.png`;
   return (
     <button
       className="lang-flag-btn"
@@ -20,15 +19,11 @@ export function FlagBtn({ code, config, onClick }) {
       aria-label={config.label}
       type="button"
     >
-      <span
+      <img
+        src={src}
         className="lang-flag"
+        alt=""
         aria-hidden="true"
-        style={{
-          backgroundImage: `url('${SPRITE}')`,
-          backgroundSize: BG_SIZE,
-          backgroundPosition: config.bgPos,
-          backgroundRepeat: 'no-repeat',
-        }}
       />
     </button>
   );

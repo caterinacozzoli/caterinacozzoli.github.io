@@ -2,18 +2,20 @@
 
 .lang-nav {
   position: fixed;
-  top: 32px;
+  top: 42px; /* Centrata verticalmente rispetto alla barra nav desktop (center a 74px: 32px + 84px/2) */
   left: 24px;
   /* +1 sopra nav-header: burger resta cliccabile quando overlay è aperto */
   z-index: calc(var(--z-nav) + 1);
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 14px;
-  height: 88px;
-  padding: 0 28px;
-  background: url('/images/nav/nav-bar-shape.png') center / 100% 100% no-repeat;
-  filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.55));
+  gap: 12px; /* Gap uniforme con le bandiere per distanze uguali */
+  height: 64px; /* Aumentata a 64px per accogliere l'icona accessibilità da 44px */
+  padding: 0 20px;
+  background: #212529;
+  border: 1.5px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px; /* Pill stondata */
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
   pointer-events: all;
 }
 
@@ -22,8 +24,8 @@
 .lang-flags {
   display: flex;
   align-items: center;
-  gap: 14px;
-  transform: translateY(-4px);
+  justify-content: center;
+  gap: 12px; /* Distanza uguale tra le bandiere */
 }
 
 /* === BANDIERA === */
@@ -32,7 +34,6 @@
   background: none;
   border: none;
   cursor: pointer;
-  /* 36px flag + 4px × 2 = 44px touch target (WCAG 2.5.8) */
   padding: 4px;
   display: flex;
   align-items: center;
@@ -65,6 +66,29 @@
   vertical-align: middle;
 }
 
+/* Dimensioni e allineamento all'interno della pillola lang-nav */
+.lang-nav .lang-flag-btn {
+  width: 40px; /* Incrementato di 4px */
+  height: 40px; /* Incrementato di 4px */
+  padding: 0;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lang-nav .lang-flag-btn:focus-visible {
+  border-radius: 4px;
+}
+
+.lang-nav .lang-flag {
+  width: 40px; /* Incrementato di 4px */
+  height: 28px; /* Incrementato di 4px, proporzionato */
+  border-radius: 2px;
+  object-fit: contain; /* Garantisce la proporzione corretta e copertura */
+  transform: none;
+}
+
 /* === HAMBURGER BUTTON — dentro la pill, nascosto su desktop === */
 
 .lang-burger {
@@ -76,8 +100,7 @@
   background: none;
   border: none;
   cursor: pointer;
-  /* 44px touch target */
-  padding: 10px 12px;
+  padding: 8px 10px;
   border-radius: 4px;
 }
 
@@ -114,26 +137,60 @@
 .lang-a11y-wrap {
   display: flex;
   align-items: center;
+  justify-content: center;
   flex-shrink: 0;
   order: -1;
 }
 
-/* === MOBILE ≤768px — mostra hamburger, nascondi flags === */
+.lang-nav .a11y-trigger {
+  width: 44px; /* Icona accessibilità ingrandita alla dimensione originale */
+  height: 44px;
+  border-radius: 6px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
-/* 900px — riduce insieme all'avatar (88px) */
+.lang-nav .a11y-trigger__svg {
+  width: 38px;
+  height: 38px;
+  display: block;
+}
+
+/* === MOBILE ≤900px — riduce insieme alla barra nav principale === */
 @media (max-width: 900px) {
   .lang-nav {
-    height: 70px;
-    top: 20px;
-    padding: 0 20px;
+    height: 52px;
+    top: 29px; /* Centrata con la nav pill da 70px ad altezza 20px (center a 55px) */
+    padding: 0 16px;
     gap: 10px;
+  }
+
+  .lang-nav .lang-flag-btn {
+    width: 30px;
+    height: 30px;
+  }
+
+  .lang-nav .lang-flag {
+    width: 30px;
+    height: 20px; /* Ridimensionamento proporzionale 3:2 */
+  }
+
+  .lang-nav .a11y-trigger {
+    width: 34px;
+    height: 34px;
+  }
+
+  .lang-nav .a11y-trigger__svg {
+    width: 28px;
+    height: 28px;
   }
 }
 
-/* 768px — mostra solo hamburger + a11y trigger, stessa altezza 70px del nav pill */
+/* === MOBILE ≤768px — mostra hamburger + a11y trigger === */
 @media (max-width: 768px) {
   .lang-nav {
-    /* height resta 70px — uguale al nav pill a ≤900px */
     padding: 0 12px;
     gap: 8px;
   }
@@ -151,7 +208,7 @@
   }
 }
 
-/* 600px — LangNav scompare (avatar minimo 72px, non c'è spazio) */
+/* === MOBILE ≤600px — scompare === */
 @media (max-width: 600px) {
   .lang-nav {
     display: none;

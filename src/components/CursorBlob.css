@@ -10,8 +10,8 @@
     position: fixed;
     top: 0;
     left: 0;
-    width: 8px;
-    height: 8px;
+    width: 11px;
+    height: 11px;
     border-radius: 50%;
     background: #8942FE;
     pointer-events: none;
@@ -45,14 +45,28 @@
      Ripristina cursore visibile (freccia gialla palette) sugli elementi
      dove cursor: none lo renderebbe invisibile e disorientante. */
 
+  /* Cursore giallo su tutta la superficie degli elementi cliccabili */
+  a,
+  button,
+  [role="button"],
+  input[type="button"],
+  input[type="submit"],
+  .project-frame-container,
+  .project-footer,
+  .chip,
+  .nav-pill,
+  .lang-nav,
   .nav-link,
   .nav-lang,
   .lang-burger,
   .lang-flag-btn,
   .a11y-trigger,
+  .a11y-panel,
   .a11y-opt-btn,
   .a11y-reset-btn,
-  .a11y-panel__close {
+  .a11y-panel__close,
+  .a11y-panel__header,
+  .a11y-group {
     cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='32' viewBox='0 0 20 24'%3E%3Cpath d='M1 1L1 19L5.5 15L8.5 22L11 21L8 14L14 14Z' fill='%23FED728' stroke='%23212529' stroke-width='1.5' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E") 1 1, auto !important;
   }
 

@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
+import { lockScroll, unlockScroll } from '../utils/scrollLock';
 import { useLang } from '../contexts/LangContext';
 import { FLAGS, FlagBtn } from './LangNav';
 import './Nav.css';
@@ -73,8 +74,9 @@ export default function Nav({ onSectionChange, onChiSonoHover, menuOpen, onMenuC
 
   /* Blocca scroll body quando menu aperto */
   useEffect(() => {
-    document.body.style.overflow = menuOpen ? 'hidden' : '';
-    return () => { document.body.style.overflow = ''; };
+    if (menuOpen) lockScroll();
+    else unlockScroll();
+    return () => { if (menuOpen) unlockScroll(); };
   }, [menuOpen]);
 
   const handleNavClick = (id) => {
