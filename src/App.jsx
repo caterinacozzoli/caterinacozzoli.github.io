@@ -54,6 +54,8 @@ function ThoughtBubble({ text, visible }) {
   const [imgFailed, setImgFailed] = useState(_nuvolettaFailed);
   const handleError = useCallback(() => { _nuvolettaFailed = true; setImgFailed(true); }, []);
 
+  const isLong = text && text.length > 18;
+
   return (
     <AnimatePresence>
       {visible && text && (
@@ -68,7 +70,7 @@ function ThoughtBubble({ text, visible }) {
             <img src="/images/nuvola.png" className="thought-bubble__img" alt="" aria-hidden="true"
               onError={handleError} />
           )}
-          <span className={`thought-bubble__text${imgFailed ? ' thought-bubble__text--fallback' : ''}`}>
+          <span className={`thought-bubble__text${imgFailed ? ' thought-bubble__text--fallback' : ''}${isLong ? ' thought-bubble__text--long' : ''}`}>
             {text}
           </span>
         </motion.div>

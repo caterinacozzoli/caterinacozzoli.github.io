@@ -28,6 +28,46 @@ const STEPS = {
 
 const TITLE = { it: 'workflow', en: 'workflow', pt: 'workflow' };
 
+const TOOLS_TITLE = {
+  it: 'strumenti',
+  en: 'tools',
+  pt: 'ferramentas',
+};
+
+const TOOLS = [
+  { name: 'Figma',        key: 'figma',        label: 'Fi' },
+  { name: 'Antigravity',  key: 'antigravity',  label: 'An' },
+  { name: 'Canva',        key: 'canva',        label: 'Ca' },
+  { name: 'Gemini',       key: 'gemini',       label: 'Ge' },
+  { name: 'Claude',       key: 'claude',       label: 'Cl' },
+  { name: 'Suite Adobe',  key: 'suite-adobe',  label: 'Ad' },
+];
+
+function ToolIcon({ name, imgKey, label }) {
+  const [imgFailed, setImgFailed] = useState(false);
+  const src = `/images/icons/${imgKey}.png`;
+
+  return (
+    <div className="workflow-tool-card" title={name}>
+      <div className="workflow-tool-card-inner">
+        {!imgFailed ? (
+          <img
+            src={src}
+            alt={name}
+            className="workflow-tool-icon-img"
+            onError={() => setImgFailed(true)}
+          />
+        ) : (
+          <div className="workflow-tool-icon-fallback" aria-hidden="true">
+            <span>{label}</span>
+          </div>
+        )}
+      </div>
+      <span className="workflow-tool-name">{name}</span>
+    </div>
+  );
+}
+
 /* One-shot IntersectionObserver reveal hook */
 function useReveal(threshold = 0.12) {
   const ref = useRef(null);

@@ -26,8 +26,8 @@
 .floating-avatar-bubble-anchor {
   position: absolute;
   right: 44%;
-  top: 45%;
-  width: 96px;
+  top: 48%;
+  width: 110px;
   pointer-events: none;
   z-index: 2;
 }
@@ -47,9 +47,9 @@
   }
 
   .floating-avatar-bubble-anchor {
-    width: 65px;
+    width: 74px;
     right: 44%;
-    top: 45%;
+    top: 48%;
   }
 }
 
@@ -64,9 +64,9 @@
   }
 
   .floating-avatar-bubble-anchor {
-    width: 55px;
+    width: 60px;
     right: 44%;
-    top: 45%;
+    top: 48%;
   }
 }
 
@@ -104,6 +104,11 @@
   line-height: 1.1;
   word-break: break-word;
   overflow: hidden;
+}
+
+.thought-bubble__text--long {
+  font-size: clamp(10px, 1.4vw, 16px);
+  line-height: 1.05;
 }
 
 /* Fallback CSS quando nuvola.png non disponibile */
