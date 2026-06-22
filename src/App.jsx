@@ -94,22 +94,24 @@ function AvatarIntro({ onComplete }) {
     const cyVal = h / 2 - INTRO_SIZE / 2;
 
     let finalW = FINAL_SIZE;
-    let finalX = w - FINAL_SIZE - FINAL_RIGHT;
+    let finalRight = FINAL_RIGHT;
     let finalY = FINAL_TOP;
 
     if (w <= 600) {
       finalW = 72;
-      finalX = 16;
+      finalRight = 16;
       finalY = 12;
     } else if (w <= 768) {
       finalW = 88;
-      finalX = 24;
+      finalRight = 24;
       finalY = 12;
     } else if (w <= 900) {
       finalW = 88;
-      finalX = w - 88 - 72;
+      finalRight = 24;
       finalY = 12;
     }
+
+    const finalX = w - finalW - finalRight;
 
     return { width: finalW, x: finalX, y: finalY, cx: cxVal, cy: cyVal };
   };

@@ -40,7 +40,7 @@
 @media (max-width: 900px) {
   .floating-avatar-wrap {
     top: 12px;
-    right: 72px; /* spazio per hamburger button a destra */
+    right: 24px;
   }
 
   .floating-avatar {
@@ -61,32 +61,32 @@
 
 @media (max-width: 768px) {
   .floating-avatar-wrap {
-    right: auto;
-    left: 24px;
+    right: 24px;
+    left: auto;
   }
 
   .floating-avatar-bubble-anchor {
-    right: auto;
-    left: 44%;
+    right: 44%;
+    left: auto;
     width: 100px;
   }
 
   .floating-avatar-wrap .thought-bubble__img {
-    transform: scaleX(-1);
+    transform: none;
   }
 
   .floating-avatar-wrap .thought-bubble__text {
-    left: 24%;
-    right: 2%;
+    left: 2%;
+    right: 24%;
     font-size: 12px;
-    transform: translate(-8px, 3px);
+    transform: translate(8px, 3px);
   }
 }
 
 @media (max-width: 600px) {
   .floating-avatar-wrap {
-    right: auto;
-    left: 16px;
+    right: 16px;
+    left: auto;
   }
 
   .floating-avatar {
@@ -94,17 +94,17 @@
   }
 
   .floating-avatar-bubble-anchor {
-    right: auto;
-    left: 44%;
+    right: 44%;
+    left: auto;
     width: 88px;
     top: 57%;
   }
 
   .floating-avatar-wrap .thought-bubble__text {
-    left: 24%;
-    right: 2%;
+    left: 2%;
+    right: 24%;
     font-size: 10px;
-    transform: translate(-7px, 2px);
+    transform: translate(7px, 2px);
   }
 }
 
