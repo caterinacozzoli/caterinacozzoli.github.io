@@ -62,7 +62,7 @@ const POLAROIDS = [
     src:   '/images/polaroid/polaroid-parlamento.png',
     retro: '/images/polaroid/polaroid-retro-parlamento.png',
     tilt: 0.8,
-    caption: { it: 'Parlamento europeo', en: 'European Parliament', pt: 'Parlamento europeu' },
+    caption: null,
     description: {
       it: 'Bruxelles. In quelle sale enormi ho capito che il design non decora — decide.',
       en: 'Brussels. Walking those vast halls I understood: design doesn\'t decorate — it decides.',
@@ -137,12 +137,6 @@ function PolaroidCard({ src, retro, caption, description, date, tilt, index, lan
               className="polaroid-photo"
             />
           )}
-          <img
-            src="/images/polaroid/cornice-polaroid.png"
-            alt=""
-            aria-hidden="true"
-            className="polaroid-frame"
-          />
           {captionStr && (
             <span className="polaroid-caption" aria-hidden="true">{captionStr}</span>
           )}
@@ -162,152 +156,14 @@ function PolaroidCard({ src, retro, caption, description, date, tilt, index, lan
   );
 }
 
-const BANNER_H = 180; // same as min-height on about-headline-strip
-
-function HorizontalCarousel({ carouselLabel, onCarouselScroll, aboutRef, lang }) {
-  const sectionRef     = useRef(null);
-  const trackRef       = useRef(null);
-  const isMobileRef    = useRef(false);
-  const maxSlideRef    = useRef(0);
-  const currentSlideRef = useRef(0); // tracks current translateX for focusin handler
-
-  /* Compute how many px the track must shift so the LAST polaroid's
-     right edge lands at (viewport - 56px padding).
-     Uses offsetLeft/offsetWidth — stable regardless of scrollWidth padding. */
-  const computeMaxSlide = useCallback(() => {
-    const track = trackRef.current;
-    if (!track) return 0;
-    const items = track.querySelectorAll('.about-carousel-item');
-    if (!items.length) return 0;
-    const last = items[items.length - 1];
-    const lastRight = last.offsetLeft + last.offsetWidth;   // from track left edge
-    const targetRight = window.innerWidth - 56;             // 56px right padding
-    return Math.max(0, lastRight - targetRight);
-  }, []);
-
-  const updateHeight = useCallback(() => {
-    const section = sectionRef.current;
-    const track   = trackRef.current;
-    if (!section || !track) return;
-
-    isMobileRef.current = window.innerWidth < 900;
-
-    if (isMobileRef.current) {
-      section.style.height = '';
-      track.style.transform = '';
-      maxSlideRef.current = 0;
-      return;
-    }
-
-    const ms = computeMaxSlide();
-    maxSlideRef.current = ms;
-    // Extra BANNER_H so horizontal scroll budget starts when banner is in view
-    if (ms > 0) section.style.height = `calc(100svh + ${ms + BANNER_H}px)`;
-  }, [computeMaxSlide]);
-
-  const onScroll = useCallback(() => {
-    if (isMobileRef.current) return;
-    const track  = trackRef.current;
-    const parent = aboutRef?.current;
-    if (!track || !parent) return;
-
-    const ms  = maxSlideRef.current;
-    if (ms <= 0) return;
-
-    // Use about section rect so horizontal scroll starts while banner is visible
-    const top      = parent.getBoundingClientRect().top;
-    const parentH  = parent.offsetHeight;
-    const vh       = window.innerHeight;
-    const progress = Math.max(0, Math.min(1, -top / (parentH - vh)));
-
-    const tx = progress * ms;
-    currentSlideRef.current = tx;
-    track.style.transform = `translateX(-${tx}px)`;
-    onCarouselScroll?.(progress > 0 && progress < 1);
-  }, [aboutRef]);
-
-  /* Bring keyboard-focused polaroid into the horizontal view window */
-  const onFocusIn = useCallback((e) => {
-    if (isMobileRef.current) return;
-    const item  = e.target.closest('.about-carousel-item');
-    const track = trackRef.current;
-    if (!item || !track) return;
-
-    const PAD       = 56;
-    const current   = currentSlideRef.current;
-    const cardLeft  = item.offsetLeft;
-    const cardRight = cardLeft + item.offsetWidth;
-    const viewStart = current + PAD;
-    const viewEnd   = current + window.innerWidth - PAD;
-
-    let next = current;
-    if (cardLeft < viewStart)   next = cardLeft - PAD;
-    else if (cardRight > viewEnd) next = cardRight - (window.innerWidth - PAD);
-    next = Math.max(0, Math.min(maxSlideRef.current, next));
-
-    if (Math.abs(next - current) > 1) {
-      currentSlideRef.current = next;
-      track.style.transform = `translateX(-${next}px)`;
-    }
-  }, []);
-
-  useEffect(() => {
-    updateHeight();
-    onScroll();
-
-    const onLoad = () => { updateHeight(); onScroll(); };
-    window.addEventListener('load', onLoad);
-
-    let ro;
-    if (window.ResizeObserver && trackRef.current) {
-      ro = new ResizeObserver(() => { updateHeight(); onScroll(); });
-      ro.observe(trackRef.current);
-    }
-
-    const track = trackRef.current;
-    track?.addEventListener('focusin', onFocusIn);
-
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', updateHeight);
-
-    return () => {
-      window.removeEventListener('load', onLoad);
-      window.removeEventListener('scroll', onScroll);
-      window.removeEventListener('resize', updateHeight);
-      track?.removeEventListener('focusin', onFocusIn);
-      ro?.disconnect();
-    };
-  }, [updateHeight, onScroll, onFocusIn]);
-
-  return (
-    /* Tall outer container captures vertical scroll budget */
-    <div ref={sectionRef} className="about-carousel-section">
-      {/* Sticky inner: stays fixed in viewport while user scrolls the outer */}
-      <div className="about-carousel-sticky">
-        <ul
-          ref={trackRef}
-          className="about-carousel"
-          role="list"
-          aria-label={carouselLabel}
-        >
-          {POLAROIDS.map((p, i) => (
-            <li key={p.id} className="about-carousel-item">
-              <PolaroidCard src={p.src} retro={p.retro} caption={p.caption} description={p.description} date={p.date} tilt={p.tilt} index={i} lang={lang} />
-            </li>
-          ))}
-        </ul>
-      </div>
-    </div>
-  );
-}
-
 export default function About({ onCarouselScroll }) {
   const { lang } = useLang();
   const lines = HEADLINE[lang] ?? HEADLINE.it;
   const label = CAROUSEL_LABEL[lang] ?? CAROUSEL_LABEL.it;
-  const aboutRef  = useRef(null);
   const bannerRef = useRef(null);
+  const trackRef = useRef(null);
   const [activated, setActivated] = useState(false);
+  const scrollTimeoutRef = useRef(null);
 
   useEffect(() => {
     const banner = bannerRef.current;
@@ -325,16 +181,92 @@ export default function About({ onCarouselScroll }) {
     return () => obs.disconnect();
   }, []);
 
+  useEffect(() => {
+    return () => {
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
+    };
+  }, []);
+
   const skipRecap = () => {
     document.getElementById('workflow')?.scrollIntoView({ behavior: 'smooth' });
   };
+
+  // Rileva lo scorrimento (sia drag che swipe nativo) per attivare l'avatar popcorn
+  const onScroll = useCallback(() => {
+    onCarouselScroll?.(true);
+
+    if (scrollTimeoutRef.current) {
+      clearTimeout(scrollTimeoutRef.current);
+    }
+    scrollTimeoutRef.current = setTimeout(() => {
+      onCarouselScroll?.(false);
+    }, 150);
+  }, [onCarouselScroll]);
+
+  // Gestione del drag col mouse su desktop
+  const dragRef = useRef({ startX: 0, startScrollLeft: 0, active: false, hasDragged: false });
+
+  const onMouseMove = useCallback((e) => {
+    const drag = dragRef.current;
+    if (!drag.active) return;
+
+    const dx = e.clientX - drag.startX;
+    if (Math.abs(dx) > 5) {
+      drag.hasDragged = true;
+    }
+
+    const track = trackRef.current;
+    if (track) {
+      track.scrollLeft = drag.startScrollLeft - dx;
+    }
+  }, []);
+
+  const onMouseUp = useCallback(() => {
+    const drag = dragRef.current;
+    drag.active = false;
+
+    const track = trackRef.current;
+    if (track) {
+      track.classList.remove('about-carousel--dragging');
+    }
+
+    document.removeEventListener('mousemove', onMouseMove);
+    document.removeEventListener('mouseup', onMouseUp);
+  }, [onMouseMove]);
+
+  const onMouseDown = useCallback((e) => {
+    if (e.button !== 0) return; // solo click sinistro
+
+    const track = trackRef.current;
+    if (!track) return;
+
+    dragRef.current = {
+      startX: e.clientX,
+      startScrollLeft: track.scrollLeft,
+      active: true,
+      hasDragged: false
+    };
+
+    track.classList.add('about-carousel--dragging');
+    document.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('mouseup', onMouseUp);
+  }, [onMouseMove, onMouseUp]);
+
+  const onClickCapture = useCallback((e) => {
+    if (dragRef.current.hasDragged) {
+      e.stopPropagation();
+      e.preventDefault();
+      dragRef.current.hasDragged = false;
+    }
+  }, []);
 
   return (
     <section
       id="chi-sono"
       className={`about${activated ? ' about--activated' : ''}`}
       aria-labelledby="about-title"
-      ref={aboutRef}
     >
       {/* Yellow strip — normal vertical scroll */}
       <div className="about-headline-strip" ref={bannerRef}>
@@ -353,8 +285,33 @@ export default function About({ onCarouselScroll }) {
         </button>
       </div>
 
-      {/* Horizontal scroll-hijack section */}
-      <HorizontalCarousel carouselLabel={label} onCarouselScroll={onCarouselScroll} aboutRef={aboutRef} lang={lang} />
+      {/* Carosello orizzontale a scorrimento libero */}
+      <div className="about-carousel-container">
+        <ul
+          ref={trackRef}
+          className="about-carousel"
+          role="list"
+          aria-label={label}
+          onMouseDown={onMouseDown}
+          onClickCapture={onClickCapture}
+          onScroll={onScroll}
+        >
+          {[...POLAROIDS].reverse().map((p, i) => (
+            <li key={p.id} className="about-carousel-item">
+              <PolaroidCard
+                src={p.src}
+                retro={p.retro}
+                caption={p.caption}
+                description={p.description}
+                date={p.date}
+                tilt={p.tilt}
+                index={i}
+                lang={lang}
+              />
+            </li>
+          ))}
+        </ul>
+      </div>
     </section>
   );
 }

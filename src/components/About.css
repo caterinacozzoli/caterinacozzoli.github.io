@@ -138,71 +138,79 @@
   .skip-recap-btn { transition: none; }
 }
 
-/* === CAROUSEL SECTION — tall outer + sticky inner === */
+/* === FREE-SCROLLING HORIZONTAL CAROUSEL === */
 
-.about-carousel-section {
+.about-carousel-container {
   position: relative;
-  /* height is set dynamically by JS on desktop */
-}
-
-.about-carousel-sticky {
-  position: sticky;
-  top: 0;
-  height: 100svh;
-  overflow: hidden;
+  /* Distanza da banner sopra e sotto uguale (48px) */
+  padding: 48px 0 48px;
   background: transparent;
-  display: flex;
-  align-items: center;
-  /* 36px from nav bottom (~120px) and 36px from viewport bottom */
-  padding: calc(120px + 36px) 0 36px;
-  box-sizing: border-box;
+  width: 100%;
+  overflow: hidden;
 }
-
-/* === TRACK — transforms horizontally via JS === */
 
 .about-carousel {
   display: flex;
   flex-wrap: nowrap;
-  gap: 40px;
-  padding: 0 56px;
+  gap: 48px;
+  padding: 24px 56px 40px; /* padding extra per consentire visualizzazione dell'ombra */
   list-style: none;
-  /* transform applied by JS */
-  will-change: transform;
+  overflow-x: auto;
+  scrollbar-width: none; /* nasconde su Firefox */
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.about-carousel::-webkit-scrollbar {
+  display: none; /* nasconde su Chrome/Safari */
+}
+
+.about-carousel--dragging {
+  cursor: grabbing;
+  scroll-behavior: auto;
+}
+
+.about-carousel--dragging .polaroid-card {
+  cursor: grabbing;
 }
 
 .about-carousel-item {
   flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* === POLAROID CARD ===
-   Desktop: ~4 visible at once */
+/* === POLAROID CARD === */
 
 .polaroid-card {
-  width: clamp(180px, calc((100vw - 260px) / 4), 320px);
+  /* Polaroid ancora più grandi e d'impatto */
+  width: clamp(280px, calc((100vw - 260px) / 2.8), 420px);
   background: none;
   border: none;
   cursor: pointer;
   padding: 0;
   perspective: 1000px;
   display: block;
-  /* drop-shadow MUST be on the card, NOT on .polaroid-inner.
-     filter on the same element as transform-style:preserve-3d
-     forces it to 'flat', which breaks backface-visibility. */
-  filter: drop-shadow(2px 8px 24px rgba(33, 37, 41, 0.16));
+  /* Ombra più morbida e leggera, per integrarsi naturalmente senza creare distacco */
+  filter: drop-shadow(2px 8px 20px rgba(33, 37, 41, 0.13));
+  transition: filter 0.3s ease;
 }
 
 .polaroid-card:hover {
-  filter: drop-shadow(3px 14px 32px rgba(33, 37, 41, 0.26));
+  filter: drop-shadow(3px 12px 28px rgba(33, 37, 41, 0.2));
 }
 
 .polaroid-inner {
   width: 100%;
-  /* polaroid aspect ratio ≈ 4:5 */
+  /* aspect ratio tipico polaroid ≈ 4:5 */
   aspect-ratio: 4 / 5;
   position: relative;
   transform-style: preserve-3d;
   transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
-  /* Each card has a unique tilt via --tilt custom property */
   rotate: var(--tilt, 0deg);
 }
 
@@ -234,6 +242,8 @@
   height: 100%;
   object-fit: cover;
   object-position: center;
+  pointer-events: none;
+  -webkit-user-drag: none;
 }
 
 .polaroid-frame {
@@ -243,6 +253,8 @@
   height: 100%;
   object-fit: contain;
   display: block;
+  pointer-events: none;
+  -webkit-user-drag: none;
 }
 
 .polaroid-back {
@@ -306,7 +318,7 @@
   }
 }
 
-/* === DESKTOP ≥900px — focus clearance (WCAG 2.4.11) === */
+/* === DESKTOP ≥900px — focus clearance === */
 
 @media (min-width: 900px) {
   .polaroid-card:focus-visible {
@@ -314,73 +326,40 @@
   }
 }
 
-/* === MOBILE + TABLET — native horizontal scroll, no JS hijack === */
+/* === RESPONSIVE CARD SIZING === */
 
-@media (max-width: 899px) {
-  .about-carousel-section {
-    height: auto !important;
-  }
-
-  .about-carousel-sticky {
-    position: static;
-    width: 100%;
-    height: auto;
-    overflow: visible;
-    padding: 24px 0 24px;
+@media (max-width: 900px) {
+  .about-carousel-container {
+    padding: 32px 0 64px;
   }
 
   .about-carousel {
-    width: 100%;
-    overflow-x: auto;
-    /* contain prevents page from hijacking horizontal drag */
-    overscroll-behavior-x: contain;
-    scroll-snap-type: x proximity;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    padding: 16px 24px 20px;
+    padding: 16px 24px 24px;
+    gap: 32px;
+  }
+
+  .polaroid-card {
+    width: clamp(200px, 45vw, 300px);
+  }
+}
+
+@media (max-width: 600px) {
+  .about-carousel-container {
+    padding: 24px 0 48px;
+  }
+
+  .about-carousel {
+    padding: 12px 16px 20px;
     gap: 20px;
-    /* neutralise JS transform */
-    transform: none !important;
   }
 
-  .about-carousel::-webkit-scrollbar { display: none; }
-
-  .about-carousel-item {
-    scroll-snap-align: start;
-  }
-
-}
-
-/* === TABLET 769–899px — 2 card visibili con peek della terza === */
-
-@media (min-width: 769px) and (max-width: 899px) {
   .polaroid-card {
-    /* ~2 card + peek: (vw - 48px padding - 20px gap) / 2 */
-    width: clamp(200px, calc((100vw - 68px) / 2), 320px);
+    width: clamp(170px, 65vw, 260px);
   }
 }
-
-/* === MOBILE 481–768px — 1.5 card visibili === */
-
-@media (max-width: 768px) {
-  .polaroid-card {
-    width: clamp(160px, 60vw, 260px);
-  }
-}
-
-/* === SMALL MOBILE ≤480px — card leggermente più stretta === */
 
 @media (max-width: 480px) {
-  .about-carousel {
-    gap: 14px;
-    padding: 20px 16px 36px;
-  }
-
-  .polaroid-card {
-    width: clamp(140px, 72vw, 210px);
-  }
-
-  /* Bottone "Salta il recap" — torna nel flusso flex per non sovrapporsi al titolo */
+  /* Bottone "Salta il recap" — mobile layout */
   .about-headline-strip {
     flex-wrap: wrap;
     gap: 8px 0;
@@ -393,16 +372,7 @@
   }
 }
 
-/* === VERY SMALL ≤360px === */
-
-@media (max-width: 360px) {
-  .polaroid-card {
-    width: clamp(130px, 80vw, 180px);
-  }
-}
-
-/* === HEADER SCALE — 8px grid, consistent with Works + Workflow ===
-   ONLY this header stays sticky (≥900px, for horizontal carousel). */
+/* === HEADER SCALE === */
 
 @media (max-width: 900px) {
   .about-headline-strip {

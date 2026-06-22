@@ -25,9 +25,9 @@
 /* Nuvola — in basso a sinistra, puntini puntano al viso */
 .floating-avatar-bubble-anchor {
   position: absolute;
-  right: 60%;
-  top: 40%;
-  width: 120px;
+  right: 65%;
+  top: 32%;
+  width: 155px;
   pointer-events: none;
   z-index: 2;
 }
@@ -45,6 +45,12 @@
   .floating-avatar {
     width: 88px;
   }
+
+  .floating-avatar-bubble-anchor {
+    width: 100px;
+    right: 65%;
+    top: 32%;
+  }
 }
 
 @media (max-width: 600px) {
@@ -55,6 +61,12 @@
 
   .floating-avatar {
     width: 72px;
+  }
+
+  .floating-avatar-bubble-anchor {
+    width: 80px;
+    right: 65%;
+    top: 32%;
   }
 }
 
@@ -76,20 +88,20 @@
 /* Testo centrato nel corpo della nuvola */
 .thought-bubble__text {
   position: absolute;
-  top: 12%;
-  left: 12%;
-  right: 12%;
-  bottom: 22%;
+  top: 25%;
+  left: 10%;
+  right: 16%;
+  bottom: 12%;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 4px 6px;
   font-family: 'Gochi Hand', cursive;
-  font-size: clamp(11px, 1.4vw, 17px);
+  font-size: clamp(13px, 1.7vw, 21px);
   font-weight: 400;
   color: #212529;
   text-align: center;
-  line-height: 1.2;
+  line-height: 1.1;
   word-break: break-word;
   overflow: hidden;
 }

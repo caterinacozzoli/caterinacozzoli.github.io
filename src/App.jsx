@@ -35,7 +35,7 @@ const INTRO_BUBBLES = [
     frames: [AVATAR.frontale, AVATAR.inBassoADestra, AVATAR.sottoCentro, AVATAR.altoDestra],
   },
   {
-    text: 'eccomi! 👋',
+    text: 'eccomi!',
     frames: [AVATAR.frontale, AVATAR.default, AVATAR.latoSinistra, AVATAR.frontale],
   },
 ];
@@ -147,7 +147,7 @@ function AvatarIntro({ onComplete }) {
         onAnimationComplete={() => { if (flying) onComplete(); }}
       >
         {/* Nuvola — in basso a sinistra, puntini puntano al viso */}
-        <div style={{ position: 'absolute', left: '-30%', bottom: '-5%', width: '75%', zIndex: 1 }}>
+        <div style={{ position: 'absolute', left: '-38%', bottom: '-10%', width: '92%', zIndex: 1 }}>
           <ThoughtBubble text={!flying ? currentText : ''} visible={!flying} />
         </div>
 
@@ -179,7 +179,7 @@ function FloatingAvatar({ mode, onGoHome }) {
     <div className="floating-avatar-wrap">
       {hovered && (
         <div className="floating-avatar-bubble-anchor" aria-hidden="true">
-          <ThoughtBubble text="ciao! 👋" visible={true} />
+          <ThoughtBubble text="ciao!" visible={true} />
         </div>
       )}
       <a
