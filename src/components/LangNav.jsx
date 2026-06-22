@@ -1,9 +1,10 @@
 import { useRef, useEffect } from 'react';
 import { useLang } from '../contexts/LangContext';
 import { t } from '../i18n/translations';
+import AccessibilityWidget from './AccessibilityWidget';
 import './LangNav.css';
 
-const SPRITE = '/images/flag-uk.png';
+const SPRITE = '/images/flags/flag-uk.png';
 const BG_SIZE = '453px 192px';
 export const FLAGS = {
   it: { bgPos: '-208px -130px', label: 'Italiano' },
@@ -77,6 +78,11 @@ export default function LangNav({ menuOpen, onMenuToggle }) {
             onClick={() => setLang(code)}
           />
         ))}
+      </div>
+
+      {/* ♿ Accessibilità — sempre visibile (desktop + mobile) */}
+      <div className="lang-a11y-wrap">
+        <AccessibilityWidget />
       </div>
     </nav>
   );

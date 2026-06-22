@@ -56,8 +56,8 @@ export default function Experience() {
 
   return (
     <section id="esperienza" className="experience" aria-labelledby="exp-title">
-      {/* Handwritten note — danielsun style */}
-      <p className="exp-handwritten" aria-hidden="true">
+      {/* Handwritten note — decorative style but meaningful content */}
+      <p className="exp-handwritten">
         {HANDWRITTEN[lang]}
       </p>
 

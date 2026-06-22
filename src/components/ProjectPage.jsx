@@ -404,7 +404,7 @@ export default function ProjectPage({ projectId, onClose }) {
           <div
             className="pp-content"
             style={{
-              backgroundImage: "url('/images/carta acquarello.jpg')",
+              backgroundImage: "url('/images/textures/carta acquarello.jpg')",
               backgroundSize: 'cover',
               backgroundPosition: 'center',
             }}

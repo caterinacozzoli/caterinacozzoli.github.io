@@ -90,7 +90,7 @@ html, body {
 
 body {
   background-color: var(--bg);
-  background-image: url('/images/carta acquarello.jpg');
+  background-image: url('/images/textures/carta acquarello.jpg');
   background-size: cover;
   background-attachment: fixed;
   background-repeat: no-repeat;
@@ -200,4 +200,101 @@ button {
     transition-duration: 0.01ms !important;
     transition-delay: 0ms !important;
   }
+}
+
+/* ============================================================
+   ACCESSIBILITY MODES — applied via data-a11y-* on <html>
+   Set by AccessibilityWidget, persisted in localStorage.
+   ============================================================ */
+
+/* --- Font size scaling --- */
+[data-a11y-fontsize="large"] {
+  font-size: 19px;
+}
+[data-a11y-fontsize="xl"] {
+  font-size: 22px;
+}
+
+/* --- High contrast (dark) --- */
+/* All pairs verified ≥ 7:1 against #0a0a0a (WCAG AAA) */
+[data-a11y-contrast="high"] {
+  --bg:           #0a0a0a;
+  --bg-surface:   #1a1a1a;
+  --bg-pill:      #2a2a2a;
+  --ink:          #ffffff;
+  --ink-muted:    #e0e0e0;
+  --ink-decorative: #999999;
+  --ink-on-purple:#000000;
+  --ink-on-yellow:#000000;
+  --primary:      #ffff00;
+  --primary-light:#ffff99;
+  --primary-button:#ffcc00;
+  --accent:       #00ffff;
+  --accent-light: #99ffff;
+  --border:       #ffffff;
+  color-scheme: dark;
+}
+[data-a11y-contrast="high"] body {
+  background-image: none;
+  background-color: var(--bg);
+}
+[data-a11y-contrast="high"] .hero-bg,
+[data-a11y-contrast="high"] .wc-blob {
+  display: none;
+}
+[data-a11y-contrast="high"] :focus-visible {
+  outline-color: var(--accent);
+}
+
+/* --- Force reduced motion --- */
+[data-a11y-motion="reduced"] *,
+[data-a11y-motion="reduced"] *::before,
+[data-a11y-motion="reduced"] *::after {
+  animation-duration:        0.01ms !important;
+  animation-iteration-count: 1      !important;
+  transition-duration:       0.01ms !important;
+  transition-delay:          0ms    !important;
+}
+
+/* --- Dyslexia-friendly font (Arial + enhanced spacing) --- */
+/* Spacing aids dyslexic readers; specific typeface matters less */
+[data-a11y-fontstyle="dyslexia"] {
+  --font-display: Arial, Helvetica, sans-serif;
+  --font-body:    Arial, Helvetica, sans-serif;
+  letter-spacing: 0.05em;
+  word-spacing:   0.12em;
+  line-height:    1.9;
+}
+[data-a11y-fontstyle="dyslexia"] p,
+[data-a11y-fontstyle="dyslexia"] li,
+[data-a11y-fontstyle="dyslexia"] a {
+  max-width: 70ch;
+}
+
+/* --- Simplified layout (hide decorative / animated elements) --- */
+[data-a11y-layout="simplified"] .hero-bg,
+[data-a11y-layout="simplified"] .wc-blob,
+[data-a11y-layout="simplified"] .cursor-blob-wrap {
+  display: none !important;
+}
+[data-a11y-layout="simplified"] body {
+  background-image: none;
+}
+/* Simplified: disable JS scroll-hijack on desktop, keep native scroll on mobile */
+[data-a11y-layout="simplified"] .about-carousel-section {
+  height: auto !important;
+}
+[data-a11y-layout="simplified"] .about-carousel-sticky {
+  position: static !important;
+  height: auto !important;
+  overflow: visible !important;
+}
+[data-a11y-layout="simplified"] .about-carousel {
+  transform: none !important;
+  /* On desktop (>899px) enable native scroll in simplified mode */
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x proximity;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
 }

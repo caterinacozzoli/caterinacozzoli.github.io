@@ -16,7 +16,7 @@
   overflow: hidden;
   margin: -56px -56px 48px;
   padding: 48px 56px 32px;
-  min-height: 180px;
+  min-height: 176px; /* 22×8px grid */
   background: #FED728;
   border-bottom: none;
 }
@@ -52,13 +52,14 @@
 
 .works-board {
   background-color: #D4CDFF;
-  background-image: url('/images/carta acquarello.jpg');
+  background-image: url('/images/textures/carta acquarello.jpg');
   background-size: cover;
   background-position: center;
   background-blend-mode: multiply;
   border-radius: 24px;
   padding: 32px;
-  overflow: clip;
+  /* clip solo a desktop: evita che il footer del 3° progetto venga tagliato a tablet */
+  overflow: visible;
   box-shadow: 0 2px 12px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.04);
 }
 
@@ -220,7 +221,14 @@
   }
 }
 
-/* === TABLET (769-1024px) — flex layout, riduce padding === */
+/* Desktop only: clip board overflow (cards stay inside at large sizes) */
+@media (min-width: 1025px) {
+  .works-board {
+    overflow: clip;
+  }
+}
+
+/* === TABLET (769-1024px) — flex layout === */
 
 @media (min-width: 769px) and (max-width: 1024px) {
   .works {
@@ -228,8 +236,8 @@
   }
 
   .works-header {
+    /* structural: compensate parent horizontal padding */
     margin: -120px -40px 40px;
-    padding: 40px 40px 28px;
   }
 
   .works-stage {
@@ -263,7 +271,8 @@
   }
 
   .works-header {
-    padding: 0 24px 24px;
+    /* structural: parent has 0 horizontal padding — reset negative margins */
+    margin: -80px 0 40px;
   }
 
   .works-stage {
@@ -286,5 +295,38 @@
     transform: none;
     top: auto;
     left: auto;
+  }
+}
+
+/* === HEADER SCALE — 8px grid, consistent with Workflow + About ===
+   NOT sticky — only About carousel header is sticky. */
+
+@media (max-width: 900px) {
+  .works-header {
+    min-height: 160px;
+    padding: 40px 40px 24px;
+  }
+  .works-title {
+    font-size: clamp(32px, 5.5vw, 72px);
+  }
+}
+
+@media (max-width: 768px) {
+  .works-header {
+    min-height: 144px;
+    padding: 32px 24px 24px;
+  }
+  .works-title {
+    font-size: clamp(28px, 7.5vw, 56px);
+  }
+}
+
+@media (max-width: 480px) {
+  .works-header {
+    min-height: 128px;
+    padding: 24px 16px 16px;
+  }
+  .works-title {
+    font-size: clamp(24px, 8vw, 48px);
   }
 }

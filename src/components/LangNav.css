@@ -12,7 +12,7 @@
   gap: 14px;
   height: 88px;
   padding: 0 28px;
-  background: url('/images/nav-bar-shape-lingue.png') center / 100% 100% no-repeat;
+  background: url('/images/nav/nav-bar-shape.png') center / 100% 100% no-repeat;
   filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.55));
   pointer-events: all;
 }
@@ -23,6 +23,7 @@
   display: flex;
   align-items: center;
   gap: 14px;
+  transform: translateY(-4px);
 }
 
 /* === BANDIERA === */
@@ -108,15 +109,33 @@
   border-radius: 4px;
 }
 
+/* === ♿ ACCESSIBILITY TRIGGER WRAPPER — sempre visibile === */
+
+.lang-a11y-wrap {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  order: -1;
+}
+
 /* === MOBILE ≤768px — mostra hamburger, nascondi flags === */
 
+/* 900px — riduce insieme all'avatar (88px) */
+@media (max-width: 900px) {
+  .lang-nav {
+    height: 70px;
+    top: 20px;
+    padding: 0 20px;
+    gap: 10px;
+  }
+}
+
+/* 768px — mostra solo hamburger + a11y trigger, stessa altezza 70px del nav pill */
 @media (max-width: 768px) {
   .lang-nav {
-    height: 64px;
-    top: 20px;
-    /* pill più stretta: solo hamburger */
-    padding: 0 8px;
-    gap: 0;
+    /* height resta 70px — uguale al nav pill a ≤900px */
+    padding: 0 12px;
+    gap: 8px;
   }
 
   .lang-flags {
@@ -125,6 +144,17 @@
 
   .lang-burger {
     display: flex;
+  }
+
+  .lang-a11y-wrap {
+    display: flex;
+  }
+}
+
+/* 600px — LangNav scompare (avatar minimo 72px, non c'è spazio) */
+@media (max-width: 600px) {
+  .lang-nav {
+    display: none;
   }
 }
 
