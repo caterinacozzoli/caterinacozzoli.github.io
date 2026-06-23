@@ -226,7 +226,7 @@
 }
 
 .project-name span {
-  color: #8942FE;
+  color: var(--primary);
   font-size: 0.85em;
   transition: transform 0.2s ease;
   display: inline-block;

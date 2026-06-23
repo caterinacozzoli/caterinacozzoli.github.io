@@ -99,21 +99,24 @@
   min-width: 0;
 }
 
-/* Collapsible wrapper — max-height transition */
+/* Collapsible wrapper — grid-template-rows (no layout thrash) */
 .pp-hero-collapsible {
-  max-height: 300px;
+  display: grid;
+  grid-template-rows: 1fr;
   overflow: hidden;
-  transition: max-height 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-              visibility 0.35s;
-  visibility: visible;
+  transition: grid-template-rows 0.35s cubic-bezier(0.22, 1, 0.36, 1);
   margin-top: 16px;
+}
+
+.pp-hero-collapsible-inner {
+  min-height: 0;
+  overflow: hidden;
 }
 
 /* Hero collapsed — solo titolo + sub + chiudi */
 .pp-hero--collapsed {
   padding-top: 20px;
   padding-bottom: 16px;
-  transition: padding 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .pp-hero--collapsed .pp-title {
@@ -130,8 +133,7 @@
 }
 
 .pp-hero--collapsed .pp-hero-collapsible {
-  max-height: 0;
-  visibility: hidden;
+  grid-template-rows: 0fr;
 }
 
 .pp-hero--collapsed .pp-hero-mockup {

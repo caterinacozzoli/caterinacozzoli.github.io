@@ -183,8 +183,8 @@
 }
 
 .a11y-opt-btn--active {
-  background: var(--primary, #8942FE);
-  border-color: var(--primary, #8942FE);
+  background: var(--primary);
+  border-color: var(--primary);
   color: #fff;
   font-weight: 600;
 }

@@ -30,9 +30,9 @@
   --ink-on-yellow:   #212529;         /* dark on yellow accent */
 
   /* Brand */
-  --primary:         #8942FE;         /* vivid purple — brand primary */
+  --primary:         #7a35ee;         /* vivid purple — brand primary (4.5:1+ on --bg) */
   --primary-light:   #D4CDFF;         /* lavender — light tint of primary */
-  --primary-button:  #7a35ee;         /* slightly darker for button bg */
+  --primary-button:  #6d2bd6;         /* slightly darker for button bg */
 
   /* Accent */
   --accent:          #FED728;         /* bright yellow */

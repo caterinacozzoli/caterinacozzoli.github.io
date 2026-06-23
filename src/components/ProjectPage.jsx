@@ -219,9 +219,12 @@ const PROJECTS = {
       {
         type: 'prototype',
         label: '05 / Prototipo',
-        title: "Repository e codice sorgente",
-        body: "Il progetto Qualia è stato sviluppato come prototipo funzionale. Puoi esplorare l'intero codice sorgente e la documentazione del software direttamente su GitHub.",
-        link: "https://github.com/caterinacozzoli/qualia"
+        title: "Esplora il prototipo interattivo",
+        url: "https://caterinacozzoli.github.io/qualia-preview/",
+        link: "https://caterinacozzoli.github.io/qualia-preview/",
+        linkLabel: "Apri prototipo",
+        qrLink: "https://caterinacozzoli.github.io/qualia-preview/",
+        githubLink: "https://github.com/caterinacozzoli/qualia",
       },
       {
         type: 'callout-quote',
@@ -577,6 +580,7 @@ export default function ProjectPage({ projectId, onClose }) {
                 className="pp-hero-collapsible"
                 aria-label="Dettagli progetto"
               >
+                <div className="pp-hero-collapsible-inner">
                 <div className="pp-hero-meta">
                   <span className="pp-year">{data.year}</span>
                   {data.badge && (
@@ -617,6 +621,7 @@ export default function ProjectPage({ projectId, onClose }) {
                     </div>
                   </div>
                 )}
+                </div>{/* /pp-hero-collapsible-inner */}
               </div>
             </div>
             {/* Stickers decorativi nel hero — cliccabili se hanno link */}

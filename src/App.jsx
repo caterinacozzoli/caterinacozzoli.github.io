@@ -270,13 +270,18 @@ function AppInner() {
   const [activeSection, setActiveSection] = useState('');
   const [chiSonoHovered, setChiSonoHovered] = useState(false);
   const [homeLock, setHomeLock] = useState(false);
-  const [introComplete, setIntroComplete] = useState(false);
+  const [introComplete, setIntroComplete] = useState(
+    () => sessionStorage.getItem('introSeen') === '1'
+  );
   const [carouselScrolling, setCarouselScrolling] = useState(false);
   const [openProject, setOpenProject] = useState(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const handleMenuToggle = useCallback(() => setMenuOpen(o => !o), []);
   const handleMenuClose  = useCallback(() => setMenuOpen(false), []);
-  const handleIntroComplete = useCallback(() => setIntroComplete(true), []);
+  const handleIntroComplete = useCallback(() => {
+    sessionStorage.setItem('introSeen', '1');
+    setIntroComplete(true);
+  }, []);
   const handleOpenProject = useCallback((id) => setOpenProject(id), []);
   const handleCloseProject = useCallback(() => setOpenProject(null), []);
   const handleCarouselScroll = useCallback((active) => setCarouselScrolling(active), []);

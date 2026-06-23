@@ -56,7 +56,7 @@
 .workflow-steps-label {
   font-size: 12px;
   font-weight: 600;
-  color: #8942FE;
+  color: var(--primary);
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
@@ -100,7 +100,7 @@
   font-weight: 700;
   font-size: 52px;
   line-height: 1;
-  color: #8942FE;
+  color: var(--primary);
   display: block;
   /* white padding isolates number from connector line */
   background: transparent;
@@ -308,7 +308,7 @@
   font-family: var(--font-display);
   font-weight: 700;
   font-size: 24px;
-  color: #8942FE; /* viola */
+  color: var(--primary); /* viola */
   background: #f8f9fa;
 }
 
