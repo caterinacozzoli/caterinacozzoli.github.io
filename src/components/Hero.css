@@ -120,6 +120,28 @@
   color: var(--primary);
 }
 
+.typewriter-cursor {
+  display: inline-block;
+  margin-left: 4px;
+  font-weight: 300;
+  color: var(--primary);
+  animation: typewriter-blink 1s step-end infinite;
+}
+
+.typewriter-cursor--idle {
+  animation: typewriter-blink-idle 1.5s step-end infinite;
+}
+
+@keyframes typewriter-blink {
+  from, to { opacity: 0; }
+  50% { opacity: 1; }
+}
+
+@keyframes typewriter-blink-idle {
+  from, to { opacity: 0; }
+  50% { opacity: 0.5; }
+}
+
 /* === NAME — ALL CAPS, single line, per-letter hover === */
 
 .hero-name-container {
