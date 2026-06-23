@@ -236,7 +236,7 @@ function AvatarIntro({ onComplete, lang }) {
 
 const BUBBLE_TEXTS = {
   hover: {
-    it: 'ciao, cm va?',
+    it: 'ciao, come va?',
     en: "hi, how's it going?",
     pt: 'olá, tudo bem?',
   },
