@@ -136,9 +136,7 @@ export default function Works({ onOpenProject }) {
                         }}
                       />
                     </button>
-                    <span className="project-open-tag" aria-hidden="true">
-                      {lang === 'it' ? 'apri' : lang === 'pt' ? 'abrir' : 'open'}
-                    </span>
+
                     {/* Stickers sovrapposti alla cartella */}
                     {p.stickers?.map((s, si) => (
                       s.link ? (
