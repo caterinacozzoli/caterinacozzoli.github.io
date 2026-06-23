@@ -9,6 +9,7 @@ const PROJECTS = [
     title: 'Libraccio',
     year: '2026',
     image: '/images/folders/folder-libraccio.png',
+    openImage: '/images/folders/folder-libraccio-open.png',
     fallback: '/images/projects/libraccio.svg',
     tags: ['UX Research', 'Figma', 'Usabilità', 'Benchmark', 'Website'],
     stickers: [
@@ -24,6 +25,7 @@ const PROJECTS = [
     title: 'AbiliCity',
     year: '2023–',
     image: '/images/folders/folder-abilicity.png',
+    openImage: '/images/folders/folder-abilicity-open.png',
     fallback: '/images/projects/abili-city.svg',
     tags: ['UI', 'Figma', 'Lovable', 'Mobile App', 'Accessibilità'],
     stickers: [
@@ -40,6 +42,7 @@ const PROJECTS = [
     title: 'Qualia',
     year: '—',
     image: '/images/folders/folder-qualia.png',
+    openImage: '/images/folders/folder-qualia-open.png',
     fallback: '/images/projects/progetto-3.svg',
     tags: ['XR', 'Figma', 'Antigravity', 'Claude Code', 'UX Research', 'Accessibilità'],
     stickers: [
@@ -125,7 +128,7 @@ export default function Works({ onOpenProject }) {
                       onClick={() => onOpenProject?.(p.id)}
                       aria-label={(OPEN_LABEL[lang] ?? OPEN_LABEL.en)(p.title)}
                     >
-                      <picture style={{ display: 'contents' }}>
+                      <picture className="project-folder-closed">
                         <source srcSet={p.image.replace('.png', '.avif')} type="image/avif" />
                         <img
                           src={p.image}
@@ -136,6 +139,15 @@ export default function Works({ onOpenProject }) {
                               e.target.src = p.fallback;
                             }
                           }}
+                        />
+                      </picture>
+                      <picture className="project-folder-open">
+                        <source srcSet={p.openImage.replace('.png', '.avif')} type="image/avif" />
+                        <img
+                          src={p.openImage}
+                          alt=""
+                          aria-hidden="true"
+                          loading="lazy"
                         />
                       </picture>
                     </button>
