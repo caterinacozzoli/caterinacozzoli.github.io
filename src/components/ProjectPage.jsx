@@ -21,6 +21,7 @@ const PROJECTS = {
     ],
     accent: '#1a7a3c',
     accentLight: '#d4f0df',
+    qrUrl: 'https://www.figma.com/proto/72QyZ6zBlCHX6Hdlef9N6T/Libraccio-scolastica?page-id=2910%3A20566&node-id=4132-33231&viewport=-15048%2C37%2C0.44&t=ajf2YquIi7PveT8Q-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=3698%3A44057',
     links: [
       { label: 'Prototipo Figma', url: 'https://www.figma.com/proto/72QyZ6zBlCHX6Hdlef9N6T/Libraccio-scolastica?page-id=2910%3A20566&node-id=4132-33231&viewport=-15048%2C37%2C0.44&t=ajf2YquIi7PveT8Q-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=3698%3A44057' }
     ],
@@ -92,6 +93,7 @@ const PROJECTS = {
     ],
     accent: '#3f68ff',
     accentLight: '#e8eeff',
+    qrUrl: 'https://www.abilicity.com/',
     links: [
       { label: 'Sito attuale', url: 'https://www.abilicity.com/' },
       { label: 'Primo prototipo', url: 'https://www.figma.com/proto/jhC381DC6WyEdSeG070svr/AbiliCity?node-id=66-1881&starting-point-node-id=366%3A93' }
@@ -161,6 +163,7 @@ const PROJECTS = {
     ],
     accent: '#c2410c',
     accentLight: '#ffedd5',
+    qrUrl: 'https://caterinacozzoli.github.io/qualia-preview/',
     links: [
       { label: 'GitHub', url: 'https://github.com/caterinacozzoli/qualia' }
     ],
@@ -517,6 +520,7 @@ export default function ProjectPage({ projectId, onClose }) {
   const [collapsed, setCollapsed] = useState(false);
   const scrollRef      = useRef(null);
   const collapsibleRef = useRef(null);
+  const qrRef          = useRef(null);
 
   const handleKeyDown = useCallback((e) => {
     if (e.key === 'Escape') onClose();
@@ -543,14 +547,15 @@ export default function ProjectPage({ projectId, onClose }) {
     return () => el.removeEventListener('scroll', onScroll);
   }, []);
 
-  /* inert sul wrapper collassabile — sicuro contro future aggiunte interattive */
+  /* inert sul wrapper collassabile e sul QR (visibile solo quando collassato) */
   useEffect(() => {
-    const el = collapsibleRef.current;
-    if (!el) return;
-    if (collapsed) {
-      el.setAttribute('inert', '');
-    } else {
-      el.removeAttribute('inert');
+    const collapsible = collapsibleRef.current;
+    const qr = qrRef.current;
+    if (collapsible) {
+      collapsed ? collapsible.setAttribute('inert', '') : collapsible.removeAttribute('inert');
+    }
+    if (qr) {
+      collapsed ? qr.removeAttribute('inert') : qr.setAttribute('inert', '');
     }
   }, [collapsed]);
 
@@ -684,6 +689,26 @@ export default function ProjectPage({ projectId, onClose }) {
                 />
               )}
             </div>
+            {/* QR code — visibile solo quando il banner è collassato */}
+            {data.qrUrl && (
+              <a
+                ref={qrRef}
+                href={data.qrUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="pp-hero-qr"
+                aria-label={`Apri prototipo ${data.title} su smartphone, si apre in una nuova scheda`}
+                inert=""
+              >
+                <img
+                  src={`https://api.qrserver.com/v1/create-qr-code/?size=80x80&data=${encodeURIComponent(data.qrUrl)}&bgcolor=ffffff&color=000000`}
+                  alt=""
+                  width="80"
+                  height="80"
+                />
+                <span className="pp-hero-qr-label">Apri su smartphone</span>
+              </a>
+            )}
           </header>
 
           {/* Content */}
