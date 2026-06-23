@@ -191,7 +191,7 @@ export default function Hero() {
             className="hero-name"
             tabIndex={0}
             onKeyDown={handleKeyDown}
-            aria-label="Caterina Cozzoli"
+            aria-label="Caterina M. Cozzoli"
           >
             {/* CATERINA — riga 1 */}
             <motion.div
@@ -200,7 +200,7 @@ export default function Hero() {
               animate={{ opacity: 1, y: 0  }}
               transition={{ duration: 0.8, ease: EXPO, delay: 0.35 }}
             >
-              {'Caterina'.split('').map((char, i) => (
+              {'CATERINA'.split('').map((char, i) => (
                 <NameLetter
                   key={`fn-${i}-${resetKey}`}
                   char={char}
@@ -209,6 +209,7 @@ export default function Hero() {
                   greetingText={HOVER_GREETINGS[lang]?.[i]}
                 />
               ))}
+              <span className="letter-wrap"> M.</span>
             </motion.div>
 
             {/* COZZOLI — riga 2 */}
@@ -218,7 +219,7 @@ export default function Hero() {
               animate={{ opacity: 1, y: 0  }}
               transition={{ duration: 0.8, ease: EXPO, delay: 0.52 }}
             >
-              {'Cozzoli'.split('').map((char, i) => (
+              {'COZZOLI'.split('').map((char, i) => (
                 <NameLetter
                   key={`ln-${i}-${resetKey}`}
                   char={char}
