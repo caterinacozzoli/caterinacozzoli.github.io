@@ -7,7 +7,7 @@
 
 /* Handwritten note — danielsun style */
 .exp-handwritten {
-  font-family: 'Caveat', cursive;
+  font-family: 'Gochi Hand', cursive;
   font-size: clamp(18px, 2vw, 26px);
   font-weight: 700;
   color: rgba(33,37,41,0.4);
