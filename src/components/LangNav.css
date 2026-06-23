@@ -2,8 +2,8 @@
 
 .lang-nav {
   position: fixed;
-  top: 42px; /* Centrata verticalmente rispetto alla barra nav desktop (center a 74px: 32px + 84px/2) */
-  left: 24px;
+  top: calc(42px + env(safe-area-inset-top, 0px)); /* Centrata verticalmente rispetto alla barra nav desktop (center a 74px: 32px + 84px/2) */
+  left: calc(24px + env(safe-area-inset-left, 0px));
   /* +1 sopra nav-header: burger resta cliccabile quando overlay è aperto */
   z-index: calc(var(--z-nav) + 1);
   display: flex;
@@ -174,7 +174,7 @@
 @media (max-width: 900px) {
   .lang-nav {
     height: 52px;
-    top: 29px; /* Centrata con la nav pill da 70px ad altezza 20px (center a 55px) */
+    top: calc(29px + env(safe-area-inset-top, 0px)); /* Centrata con la nav pill da 70px ad altezza 20px (center a 55px) */
     padding: 0 16px;
     gap: 10px;
   }
@@ -203,7 +203,7 @@
 /* === MOBILE ≤768px — mostra hamburger + a11y trigger a sinistra === */
 @media (max-width: 768px) {
   .lang-nav {
-    left: 24px;
+    left: calc(24px + env(safe-area-inset-left, 0px));
     right: auto;
     padding: 0 12px;
     gap: 8px;
@@ -226,7 +226,7 @@
 @media (max-width: 600px) {
   .lang-nav {
     display: flex;
-    left: 16px;
+    left: calc(16px + env(safe-area-inset-left, 0px));
     right: auto;
   }
 }

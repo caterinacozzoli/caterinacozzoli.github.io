@@ -4,8 +4,8 @@
 
 .floating-avatar-wrap {
   position: fixed;
-  top: 16px;
-  right: 24px;
+  top: calc(16px + env(safe-area-inset-top, 0px));
+  right: calc(24px + env(safe-area-inset-right, 0px));
   z-index: calc(var(--z-nav) - 1);
   pointer-events: none;
   cursor: default;
@@ -39,8 +39,8 @@
 
 @media (max-width: 900px) {
   .floating-avatar-wrap {
-    top: 12px;
-    right: 24px;
+    top: calc(12px + env(safe-area-inset-top, 0px));
+    right: calc(24px + env(safe-area-inset-right, 0px));
   }
 
   .floating-avatar {
@@ -85,7 +85,7 @@
 
 @media (max-width: 600px) {
   .floating-avatar-wrap {
-    right: 16px;
+    right: calc(16px + env(safe-area-inset-right, 0px));
     left: auto;
   }
 

@@ -738,6 +738,10 @@
     padding: 40px 24px;
   }
 
+  .pp-section:last-child {
+    padding-bottom: calc(48px + env(safe-area-inset-bottom, 0px));
+  }
+
   .pp-close {
     top: 12px;
     right: 16px;
