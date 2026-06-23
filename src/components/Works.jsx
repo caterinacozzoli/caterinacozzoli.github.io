@@ -10,7 +10,7 @@ const PROJECTS = [
     year: '2026',
     image: '/images/folders/folder-libraccio.png',
     fallback: '/images/projects/libraccio.svg',
-    tags: ['UX Research', 'Wireframing', 'Figma', 'Benchmark'],
+    tags: ['UX Research', 'Figma', 'Usabilità', 'Benchmark', 'Website'],
     stickers: [
       { src: '/images/sticker/sticker tag.png', link: 'https://students.talentgarden.com/talents/recaSrSfzZxkuRi1X', style: { bottom: '15%', right: '18%', width: '22%', transform: 'rotate(8deg)' } },
     ],
@@ -25,7 +25,7 @@ const PROJECTS = [
     year: '2023–',
     image: '/images/folders/folder-abilicity.png',
     fallback: '/images/projects/abili-city.svg',
-    tags: ['UX/UI', 'Mobile App', 'Accessibility', 'Web App'],
+    tags: ['UI', 'Figma', 'Lovable', 'Mobile App', 'Accessibilità'],
     stickers: [
       { src: '/images/sticker/sticker abilicity.png', link: 'https://www.abilicity.com/', style: { bottom: '14%', right: '16%', width: '22%', transform: 'rotate(6deg)' } },
       { src: '/images/sticker/sticker parlameneto.png', link: 'https://psicologia.unimib.it/it/news/abilicity-lapplicazione-tutti-nata-bicocca-e-sbarcata-al-parlamento-europeo', style: { bottom: '32%', left: '16%', width: '20%', transform: 'rotate(-5deg)' } },
@@ -41,7 +41,7 @@ const PROJECTS = [
     year: '—',
     image: '/images/folders/folder-qualia.png',
     fallback: '/images/projects/progetto-3.svg',
-    tags: ['UX/UI', 'Figma'],
+    tags: ['XR', 'Figma', 'Antigravity', 'Claude Code', 'UX Research', 'Accessibilità'],
     stickers: [
       { src: '/images/sticker/sticker tag.png', link: 'https://students.talentgarden.com/talents/recaSrSfzZxkuRi1X', style: { bottom: '15%', right: '18%', width: '22%', transform: 'rotate(-7deg)' } },
     ],
@@ -136,6 +136,9 @@ export default function Works({ onOpenProject }) {
                         }}
                       />
                     </button>
+                    <span className="project-open-tag" aria-hidden="true">
+                      {lang === 'it' ? 'apri' : lang === 'pt' ? 'abrir' : 'open'}
+                    </span>
                     {/* Stickers sovrapposti alla cartella */}
                     {p.stickers?.map((s, si) => (
                       s.link ? (

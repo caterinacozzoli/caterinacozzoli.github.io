@@ -112,7 +112,7 @@ const FLIP_LABEL = {
   },
 };
 
-function PolaroidCard({ src, retro, caption, description, date, tilt, index, lang }) {
+function PolaroidCard({ src, retro, caption, description, date, tilt, lang }) {
   const [flipped, setFlipped] = useState(false);
   const dateStr    = date[lang]        ?? date.it;
   const captionStr = caption?.[lang]   ?? caption?.it ?? null;
@@ -229,39 +229,32 @@ export default function About({ onCarouselScroll }) {
   // Gestione del drag col mouse su desktop
   const dragRef = useRef({ startX: 0, startScrollLeft: 0, active: false, hasDragged: false });
 
-  const onMouseMove = useCallback((e) => {
-    const drag = dragRef.current;
-    if (!drag.active) return;
-
-    const dx = e.clientX - drag.startX;
-    if (Math.abs(dx) > 5) {
-      drag.hasDragged = true;
-    }
-
-    const track = trackRef.current;
-    if (track) {
-      track.scrollLeft = drag.startScrollLeft - dx;
-    }
-  }, []);
-
-  const onMouseUp = useCallback(() => {
-    const drag = dragRef.current;
-    drag.active = false;
-
-    const track = trackRef.current;
-    if (track) {
-      track.classList.remove('about-carousel--dragging');
-    }
-
-    document.removeEventListener('mousemove', onMouseMove);
-    document.removeEventListener('mouseup', onMouseUp);
-  }, [onMouseMove]);
-
   const onMouseDown = useCallback((e) => {
     if (e.button !== 0) return; // solo click sinistro
 
     const track = trackRef.current;
     if (!track) return;
+
+    const onMouseMove = (moveEvent) => {
+      const drag = dragRef.current;
+      if (!drag.active) return;
+
+      const dx = moveEvent.clientX - drag.startX;
+      if (Math.abs(dx) > 5) {
+        drag.hasDragged = true;
+      }
+
+      track.scrollLeft = drag.startScrollLeft - dx;
+    };
+
+    const onMouseUp = () => {
+      const drag = dragRef.current;
+      drag.active = false;
+      track.classList.remove('about-carousel--dragging');
+
+      document.removeEventListener('mousemove', onMouseMove);
+      document.removeEventListener('mouseup', onMouseUp);
+    };
 
     dragRef.current = {
       startX: e.clientX,
@@ -273,7 +266,7 @@ export default function About({ onCarouselScroll }) {
     track.classList.add('about-carousel--dragging');
     document.addEventListener('mousemove', onMouseMove);
     document.addEventListener('mouseup', onMouseUp);
-  }, [onMouseMove, onMouseUp]);
+  }, []);
 
   const onClickCapture = useCallback((e) => {
     if (dragRef.current.hasDragged) {
@@ -317,7 +310,7 @@ export default function About({ onCarouselScroll }) {
           onClickCapture={onClickCapture}
           onScroll={onScroll}
         >
-          {[...POLAROIDS].reverse().map((p, i) => (
+          {[...POLAROIDS].reverse().map((p) => (
             <li key={p.id} className="about-carousel-item">
               <PolaroidCard
                 src={p.src}
@@ -326,7 +319,6 @@ export default function About({ onCarouselScroll }) {
                 description={p.description}
                 date={p.date}
                 tilt={p.tilt}
-                index={i}
                 lang={lang}
               />
             </li>

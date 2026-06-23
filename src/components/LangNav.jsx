@@ -4,6 +4,7 @@ import { t } from '../i18n/translations';
 import AccessibilityWidget from './AccessibilityWidget';
 import './LangNav.css';
 
+/* eslint-disable-next-line react-refresh/only-export-components */
 export const FLAGS = {
   it: { bgPos: '-208px -130px', label: 'Italiano' },
   en: { bgPos: '-258px -130px', label: 'English' },

@@ -3,24 +3,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useLang } from '../contexts/LangContext';
 import './Hero.css';
 
-/* Scrittura bustrofedica: ogni carattere pari ruotato 180° */
-function Boustrophedon({ text }) {
-  return (
-    <>
-      {text.split('').map((char, i) => (
-        <span
-          key={i}
-          style={{
-            display: 'inline-block',
-            transform: i % 2 === 1 ? 'rotate(180deg)' : 'none',
-          }}
-        >
-          {char}
-        </span>
-      ))}
-    </>
-  );
-}
 
 /* Per-letter hover images — /public/images/hover-letters/hover letterNN.png
    CATERINA: 01-08

@@ -18,7 +18,9 @@ function loadPrefs() {
   try {
     const s = localStorage.getItem(STORAGE_KEY);
     if (s) return { ...DEFAULTS, ...JSON.parse(s) };
-  } catch {}
+  } catch {
+    // ignore
+  }
   return { ...DEFAULTS };
 }
 
@@ -185,7 +187,11 @@ export default function AccessibilityWidget() {
 
   useEffect(() => {
     applyPrefs(prefs);
-    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(prefs)); } catch {}
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(prefs));
+    } catch {
+      // ignore
+    }
   }, [prefs]);
 
   /* Blocca scroll quando il pannello è aperto */

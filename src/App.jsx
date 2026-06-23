@@ -79,7 +79,7 @@ function ThoughtBubble({ text, visible, className = "" }) {
   );
 }
 
-function AvatarIntro({ onComplete }) {
+function AvatarIntro({ onComplete, lang }) {
   const [bubbleIdx, setBubbleIdx] = useState(0);
   const [frameIdx,  setFrameIdx]  = useState(0);
   const [flying,    setFlying]    = useState(false);
@@ -126,6 +126,17 @@ function AvatarIntro({ onComplete }) {
     return () => window.removeEventListener('resize', updateDimensions);
   }, []);
 
+  /* Listen for Escape key to skip the intro */
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        setFlying(true);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
   const { cx, cy, x: fx, y: fy, width: finalSize } = dimensions;
 
   /* Timer nuvole — avanza ogni BUBBLE_MS, poi lancia il volo */
@@ -170,6 +181,17 @@ function AvatarIntro({ onComplete }) {
         animate={flying ? { opacity: 0, scale: 0.98 } : { opacity: 1, scale: 1 }}
         transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
       />
+
+      {!flying && (
+        <button
+          className="intro-skip-btn"
+          onClick={() => setFlying(true)}
+          aria-label={lang === 'it' ? 'Salta introduzione' : lang === 'pt' ? 'Pular introdução' : 'Skip introduction'}
+          type="button"
+        >
+          {lang === 'it' ? 'Salta' : lang === 'pt' ? 'Pular' : 'Skip'}
+        </button>
+      )}
 
       {/* Avatar — vola da centro a corner */}
       <motion.div
@@ -266,22 +288,17 @@ function FloatingAvatar({ mode, activeSection, onGoHome }) {
 }
 
 function AppInner() {
-  const { announcement, tr } = useLang();
+  const { lang, announcement, tr } = useLang();
   const [activeSection, setActiveSection] = useState('');
   const [chiSonoHovered, setChiSonoHovered] = useState(false);
   const [homeLock, setHomeLock] = useState(false);
-  const [introComplete, setIntroComplete] = useState(
-    () => sessionStorage.getItem('introSeen') === '1'
-  );
+  const [introComplete, setIntroComplete] = useState(false);
   const [carouselScrolling, setCarouselScrolling] = useState(false);
   const [openProject, setOpenProject] = useState(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const handleMenuToggle = useCallback(() => setMenuOpen(o => !o), []);
   const handleMenuClose  = useCallback(() => setMenuOpen(false), []);
-  const handleIntroComplete = useCallback(() => {
-    sessionStorage.setItem('introSeen', '1');
-    setIntroComplete(true);
-  }, []);
+  const handleIntroComplete = useCallback(() => setIntroComplete(true), []);
   const handleOpenProject = useCallback((id) => setOpenProject(id), []);
   const handleCloseProject = useCallback(() => setOpenProject(null), []);
   const handleCarouselScroll = useCallback((active) => setCarouselScrolling(active), []);
@@ -336,7 +353,7 @@ function AppInner() {
         menuOpen={menuOpen}
         onMenuClose={handleMenuClose}
       />
-      {!introComplete && <AvatarIntro onComplete={handleIntroComplete} />}
+      {!introComplete && <AvatarIntro onComplete={handleIntroComplete} lang={lang} />}
       {introComplete && (
         <FloatingAvatar mode={avatarMode} activeSection={activeSection} onGoHome={handleGoHome} />
       )}

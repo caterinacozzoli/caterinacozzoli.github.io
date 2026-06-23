@@ -47,7 +47,7 @@ export default function Nav({ onSectionChange, onChiSonoHover, menuOpen, onMenuC
       observers.forEach(o => o.disconnect());
       window.removeEventListener('scroll', onScroll);
     };
-  }, []);
+  }, [onSectionChange]);
 
   /* Escape chiude menu + focus trap dentro l'overlay */
   useEffect(() => {

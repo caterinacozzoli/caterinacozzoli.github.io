@@ -179,3 +179,46 @@
   color: #212529;
   text-align: center;
 }
+
+/* Intro Skip Button */
+.intro-skip-btn {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 9999;
+  font-family: var(--font-body), sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  background: transparent;
+  color: #212529;
+  border: 1.5px solid rgba(33, 37, 41, 0.25);
+  border-radius: 999px;
+  padding: 6px 16px;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+}
+
+.intro-skip-btn:hover {
+  background: #E6E8EC;
+  border-color: #212529;
+}
+
+.intro-skip-btn:active {
+  transform: scale(0.97);
+}
+
+.intro-skip-btn:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+@media (max-width: 768px) {
+  .intro-skip-btn {
+    bottom: 16px;
+    right: 16px;
+    padding: 5px 12px;
+    font-size: 11px;
+  }
+}

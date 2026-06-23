@@ -9,6 +9,8 @@ const CONTENT = {
     emailLabel: 'Scrivi una email a Caterina Cozzoli',
     linkedin: 'linkedin.com/in/caterina-cozzoli',
     linkedinLabel: 'Profilo LinkedIn di Caterina Cozzoli',
+    cvLabel: 'Scarica il curriculum di Caterina Cozzoli',
+    cvText: 'Scarica CV ↗',
     cta: 'Scrivimi',
     copy: '© 2026 Caterina Maria Cozzoli',
   },
@@ -19,6 +21,8 @@ const CONTENT = {
     emailLabel: 'Send an email to Caterina Cozzoli',
     linkedin: 'linkedin.com/in/caterina-cozzoli',
     linkedinLabel: "Caterina Cozzoli's LinkedIn profile",
+    cvLabel: "Download Caterina Cozzoli's CV",
+    cvText: 'Download CV ↗',
     cta: 'Get in touch',
     copy: '© 2026 Caterina Maria Cozzoli',
   },
@@ -29,6 +33,8 @@ const CONTENT = {
     emailLabel: 'Enviar email para Caterina Cozzoli',
     linkedin: 'linkedin.com/in/caterina-cozzoli',
     linkedinLabel: 'Perfil do LinkedIn de Caterina Cozzoli',
+    cvLabel: 'Baixar o curriculum de Caterina Cozzoli',
+    cvText: 'Baixar CV ↗',
     cta: 'Fale comigo',
     copy: '© 2026 Caterina Maria Cozzoli',
   },
@@ -64,6 +70,16 @@ export default function Contact() {
             aria-label={c.linkedinLabel}
           >
             LinkedIn ↗
+          </a>
+
+          <a
+            href="/cv-caterina-cozzoli.pdf"
+            className="contact-cv"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={c.cvLabel}
+          >
+            {c.cvText}
           </a>
         </div>
 

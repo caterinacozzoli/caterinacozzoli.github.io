@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useLang } from '../contexts/LangContext';
 import './Workflow.css';
 
@@ -36,7 +36,7 @@ const TOOLS_TITLE = {
 
 const TOOLS = [
   { name: 'Figma',        key: 'figma',        label: 'Fi' },
-  { name: 'Antigravity',  key: 'anigravity',   label: 'An' },
+  { name: 'Antigravity',  key: 'antigravity',  label: 'An' },
   { name: 'Canva',        key: 'canva',        label: 'Ca' },
   { name: 'Gemini',       key: 'gemini',       label: 'Ge' },
   { name: 'Claude',       key: 'claude',       label: 'Cl' },
