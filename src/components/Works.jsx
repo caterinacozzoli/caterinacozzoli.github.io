@@ -156,13 +156,13 @@ export default function Works({ onOpenProject }) {
                           <img src={s.src} aria-hidden="true" className="project-sticker-img" />
                         </a>
                       ) : (
-                        <img
+                        <div
                           key={si}
-                          src={s.src}
-                          aria-hidden="true"
-                          className="project-sticker"
+                          className="project-sticker-static"
                           style={s.style}
-                        />
+                        >
+                          <img src={s.src} aria-hidden="true" className="project-sticker-img" />
+                        </div>
                       )
                     ))}
                     {p.badge && (

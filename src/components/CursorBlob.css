@@ -18,7 +18,7 @@
     width: 32px;
     height: 32px;
     border-radius: 50%;
-    background: rgba(137, 66, 254, 0.42);
+    background: color-mix(in srgb, var(--primary) 42%, transparent);
     pointer-events: none;
     z-index: 10000;
     will-change: transform;
@@ -64,7 +64,7 @@
   .cursor-blob--hover {
     width: 56px;
     height: 56px;
-    background: rgba(137, 66, 254, 0.14);
+    background: color-mix(in srgb, var(--primary) 14%, transparent);
     border-radius: 42% 58% 56% 44% / 48% 52% 48% 52%;
     animation: blob-morph 4s ease-in-out infinite;
   }
