@@ -1,0 +1,117 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-06-24T00:00:00Z",
+  "title": "Design System: Portfolio Caterina Cozzoli",
+  "extensions": {
+    "colorMeta": {
+      "carta-acquarello":  { "role": "neutral",    "displayName": "Carta Acquarello",  "canonical": "#f5f3ee",  "tonalRamp": ["#2a2826","#4a4642","#6b6460","#8e8a84","#b2aea8","#cac7c1","#dedad5","#f5f3ee"] },
+      "inchiostro":        { "role": "neutral",    "displayName": "Inchiostro Profondo","canonical": "#212529", "tonalRamp": ["#0a0b0c","#212529","#3a3f45","#545a62","#6f757e","#8c9199","#aab0b8","#d0d4d8"] },
+      "grafite":           { "role": "neutral",    "displayName": "Grafite",            "canonical": "#6b6f75", "tonalRamp": ["#1a1c1e","#2e3236","#434749","#595e63","#6b6f75","#898e95","#adb3ba","#d4d8dc"] },
+      "viola-manifesto":   { "role": "primary",    "displayName": "Viola Manifesto",    "canonical": "#7a35ee", "tonalRamp": ["#1a0036","#340070","#5218b8","#6b2bd6","#7a35ee","#9d65f5","#c4a4fb","#e8d8fe"] },
+      "giallo-segnale":    { "role": "secondary",  "displayName": "Giallo Segnale",     "canonical": "#FED728", "tonalRamp": ["#3d3200","#7a6400","#b89600","#d4b000","#FED728","#ffe566","#fff0a0","#fffae0"] },
+      "carbone-nav":       { "role": "neutral",    "displayName": "Carbone Nav",        "canonical": "#212529", "tonalRamp": ["#0a0b0c","#212529","#3a3f45","#545a62","#6f757e","#8c9199","#aab0b8","#d0d4d8"] }
+    },
+    "typographyMeta": {
+      "display":  { "displayName": "Display / Hero Name",    "purpose": "CATERINA COZZOLI hero. Uno solo per schermata." },
+      "headline": { "displayName": "Headline / Case Study",  "purpose": "Titolo del progetto in ProjectPage." },
+      "title":    { "displayName": "Title / Section",        "purpose": "Titoli di sezione e progetto nel corpo." },
+      "body":     { "displayName": "Body",                   "purpose": "Testo narrativo, descrizioni, copy." },
+      "label":    { "displayName": "Label / Tag",            "purpose": "Chip, tag, tagline, badge." }
+    },
+    "shadows": [
+      { "name": "nav-lift",   "value": "0 4px 16px rgba(0,0,0,0.35)",  "purpose": "Nav pill e lang-nav. Sempre visibile." },
+      { "name": "sheet-rise", "value": "0 -8px 48px rgba(0,0,0,0.18)", "purpose": "Project sheet che emerge dal basso." },
+      { "name": "hover-lift", "value": "0 8px 24px rgba(0,0,0,0.15)",  "purpose": "Cartelle-progetto e interattivi in hover." }
+    ],
+    "motion": [
+      { "name": "ease-out-quint", "value": "cubic-bezier(0.22, 1, 0.36, 1)", "purpose": "Easing principale per transizioni UI." },
+      { "name": "ease-out-expo",  "value": "cubic-bezier(0.16, 1, 0.3, 1)",  "purpose": "Easing per entrances più aggressive." },
+      { "name": "cursor-lerp",    "value": "0.09",                            "purpose": "Fattore interpolazione blob cursore." }
+    ],
+    "breakpoints": [
+      { "name": "mobile",  "value": "768px",  "notes": "Hamburger menu; nav pill nascosta." },
+      { "name": "mobile-s","value": "480px",  "notes": "Font display ridotto." },
+      { "name": "xs",      "value": "360px",  "notes": "Font display ulteriormente ridotto." },
+      { "name": "tablet",  "value": "1024px", "notes": "Padding ridotto nav." }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "CTA principale — contatto, link Figma. Pillola viola.",
+      "html": "<button class=\"ds-btn-primary\">Scrivimi</button>",
+      "css": ".ds-btn-primary { background: #7a35ee; color: #fff; padding: 14px 28px; border-radius: 999px; font-family: 'Onest', sans-serif; font-size: 15px; font-weight: 600; border: none; letter-spacing: 0.02em; cursor: pointer; transition: background 0.18s ease, transform 0.15s ease; } .ds-btn-primary:hover { background: #6d2bd6; transform: translateY(-1px); } .ds-btn-primary:focus-visible { outline: 2px solid #7a35ee; outline-offset: 3px; border-radius: 999px; } .ds-btn-primary:active { transform: scale(0.97); }"
+    },
+    {
+      "name": "Nav Link",
+      "kind": "nav",
+      "refersTo": "nav-link",
+      "description": "Link nella dark pill nav. Default grigio chiaro, active giallo segnale.",
+      "html": "<nav class=\"ds-nav-pill\"><a href=\"#\" class=\"ds-nav-link ds-nav-link--active\">lavori</a><a href=\"#\" class=\"ds-nav-link\">chi sono</a><a href=\"#\" class=\"ds-nav-link\">workflow</a><a href=\"#\" class=\"ds-nav-link\">contatti</a></nav>",
+      "css": ".ds-nav-pill { display: flex; align-items: center; gap: 4px; background: #212529; border: 1.5px solid rgba(255,255,255,0.12); border-radius: 999px; padding: 8px 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.35); } .ds-nav-link { color: #e1dcc6; font-family: 'Onest', sans-serif; font-size: 13px; font-weight: 500; padding: 8px 16px; border-radius: 6px; text-decoration: none; letter-spacing: 0.01em; transition: color 0.15s ease; } .ds-nav-link:hover { color: #fff; } .ds-nav-link--active { color: #FED728; } .ds-nav-link:focus-visible { outline: 2px solid #FED728; outline-offset: 2px; border-radius: 6px; }"
+    },
+    {
+      "name": "Chip / Tag",
+      "kind": "chip",
+      "refersTo": "chip",
+      "description": "Categoria di progetto. Sfondo grigio, testo scuro. Variant colorata per case study.",
+      "html": "<ul class=\"ds-chips\"><li class=\"ds-chip\">UX Research</li><li class=\"ds-chip\">Figma</li><li class=\"ds-chip ds-chip--accent\" style=\"--chip-bg:#1a7a3c\">Libraccio</li></ul>",
+      "css": ".ds-chips { list-style: none; display: flex; flex-wrap: wrap; gap: 6px; padding: 0; margin: 0; } .ds-chip { font-family: 'Onest', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; padding: 4px 12px; border-radius: 999px; background: #E6E8EC; color: #212529; } .ds-chip--accent { background: var(--chip-bg, #7a35ee); color: #fff; }"
+    },
+    {
+      "name": "Project Footer",
+      "kind": "card",
+      "refersTo": "nav-link",
+      "description": "Footer della cartella-progetto. Titolo + freccia + chip categorie. Sempre visibile sotto la cartella.",
+      "html": "<footer class=\"ds-project-footer\"><h3 class=\"ds-project-name\">Libraccio <span aria-hidden=\"true\">→</span></h3><ul class=\"ds-chips\"><li class=\"ds-chip\">UX Research</li><li class=\"ds-chip\">Figma</li></ul></footer>",
+      "css": ".ds-project-footer { padding: 12px 0 0; cursor: pointer; } .ds-project-name { font-family: 'Onest', sans-serif; font-weight: 700; font-size: clamp(18px, 1.6vw, 24px); color: #212529; margin-bottom: 10px; } .ds-project-name span { color: #7a35ee; font-size: 0.85em; display: inline-block; transition: transform 0.2s ease; } .ds-project-footer:hover .ds-project-name span { transform: translate(4px, -2px); } .ds-chips { list-style: none; display: flex; flex-wrap: wrap; gap: 6px; padding: 0; margin: 0; } .ds-chip { font-family: 'Onest', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; padding: 4px 12px; border-radius: 999px; background: #E6E8EC; color: #212529; }"
+    },
+    {
+      "name": "Lang Nav Pill",
+      "kind": "nav",
+      "refersTo": "nav-link",
+      "description": "Pill sinistra con flag lingua + separatore + widget accessibilità.",
+      "html": "<nav class=\"ds-lang-nav\"><button class=\"ds-a11y-trigger\" aria-label=\"Opzioni accessibilità\"><svg width=\"28\" height=\"28\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#e1dcc6\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"12\" cy=\"5\" r=\"1.5\"/><path d=\"M5 10h14M9 10v10m6-10v10M12 10v3\"/></svg></button><span class=\"ds-separator\"></span><div class=\"ds-flags\"><button class=\"ds-flag-btn\" aria-label=\"English\"><img src=\"\" alt=\"\" width=\"36\" height=\"25\" style=\"background:#ccc;border-radius:2px;display:block;\"/></button></div></nav>",
+      "css": ".ds-lang-nav { display: flex; align-items: center; gap: 12px; background: #212529; border: 1.5px solid rgba(255,255,255,0.12); border-radius: 999px; padding: 0 20px; height: 64px; box-shadow: 0 4px 16px rgba(0,0,0,0.35); } .ds-a11y-trigger { background: none; border: none; width: 44px; height: 44px; border-radius: 6px; display: flex; align-items: center; justify-content: center; cursor: pointer; } .ds-a11y-trigger:focus-visible { outline: 2px solid #FED728; outline-offset: 3px; } .ds-separator { width: 1px; height: 22px; background: rgba(255,255,255,0.18); flex-shrink: 0; } .ds-flag-btn { background: none; border: none; padding: 4px; border-radius: 4px; cursor: pointer; transition: transform 0.18s ease; } .ds-flag-btn:hover { transform: scale(1.12); } .ds-flag-btn:focus-visible { outline: 2px solid #FED728; outline-offset: 3px; border-radius: 4px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "Il Taccuino di Fortaleza",
+    "overview": "Immagina un quaderno rilegato con la copertina vissuta — pagine di carta acquarello, margini scarabocchiati, sticker incollati sopra appunti seri. Ogni elemento deve sembrare che qualcuno lo abbia messo lì con intenzione, non che un algoritmo lo abbia generato.\n\nIl sistema vive su una tensione produttiva: Milanese nella struttura, Brasiliano nel carattere. Il viola è dichiarativo, il giallo è improvviso, la carta acquarello è il campo su cui tutto si deposita.\n\nL'accessibilità è la dimostrazione pratica della filosofia del progetto. Ogni scelta tecnica rispecchia un valore.",
+    "keyCharacteristics": [
+      "Fisicità prima della fluidità — elementi con peso, stickers incollati, carta texturata",
+      "Bilanciamento bipolare — viola strutturale + giallo accidentale; raramente insieme, sempre in tensione",
+      "Accessibilità integrata, non applicata",
+      "Animazioni a personaggio — motion che racconta qualcosa",
+      "Zero template aesthetic"
+    ],
+    "rules": [
+      { "name": "La Regola dei Due Segnali",             "body": "Viola Manifesto e Giallo Segnale non compaiono mai sullo stesso elemento e raramente nella stessa zona visiva.", "section": "colors" },
+      { "name": "La Regola del Contrasto Non Negoziabile","body": "Nessun testo su sfondo che non superi 4.5:1. Il Grafite e il Viola Manifesto sono già al limite.", "section": "colors" },
+      { "name": "La Regola del Font Unico per Ruolo",    "body": "Chunko appare solo come display heading. Tutto il resto è Onest. Nessun terzo font.", "section": "typography" },
+      { "name": "Il Soffitto del Display",               "body": "clamp() max per il display è 113px. Al di sopra il nome griderebbe invece di dichiarare.", "section": "typography" },
+      { "name": "La Regola Flat-By-Default",             "body": "Nessuna superficie ottiene ombra perché 'sembra più pulita'. Le ombre rispondono a: sticky, movimento verticale, hover.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do usare Chunko solo per display heading — zero eccezioni.",
+      "Do mantenere Viola Manifesto a ≥5.30:1 su Carta Acquarello.",
+      "Do preservare la fisicità: texture acquarello, tilt sulle cartelle, sticker in absolute.",
+      "Do applicare prefers-reduced-motion su ogni animazione.",
+      "Do usare var(--primary) mai #7a35ee hardcoded.",
+      "Do testare ogni componente con Tab, Enter, Escape prima di dichiararlo completo."
+    ],
+    "donts": [
+      "Don't usare sfondi beige/sabbia senza la texture acquarello — diventa AI cream.",
+      "Don't creare card grid uniformi. Le cartelle-progetto non sono card.",
+      "Don't aggiungere eyebrow (01 / ABOUT) su sezioni che non sono sequenze reali.",
+      "Don't usare border-left > 1px come accento colorato.",
+      "Don't applicare gradient text (background-clip: text).",
+      "Don't introdurre un terzo font.",
+      "Don't alleggerire --ink-muted (#6b6f75) ulteriormente — è già al limite WCAG AA.",
+      "Don't costruire qualcosa che sembri un template Webflow o una landing page SaaS.",
+      "Don't dimenticare il link al CV nella sezione Contact."
+    ]
+  }
+}
