@@ -132,7 +132,7 @@
   font-family: var(--font-display);
   font-weight: 700;
   /* 18vw: "CATERINA" 8 caps × ~0.65 ratio × 259px ≈ 1347px — fills viewport */
-  font-size: clamp(44px, 13.5vw, 200px);
+  font-size: clamp(44px, 13.5vw, 113px);
   line-height: 0.92;
   letter-spacing: -0.01em;
   color: var(--ink);
@@ -223,22 +223,6 @@
 
 @media (prefers-reduced-motion: reduce) {
   .hero-scroll-link { transition: none; }
-}
-
-/* === LARGE SCREENS (≥1440px) === */
-
-@media (min-width: 1440px) {
-  .hero-name {
-    font-size: clamp(44px, 11vw, 170px);
-  }
-}
-
-/* === ULTRA-WIDE (≥1920px) === */
-
-@media (min-width: 1920px) {
-  .hero-name {
-    font-size: clamp(44px, 9vw, 150px);
-  }
 }
 
 /* === TABLET (769-1024px) === */
