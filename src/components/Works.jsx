@@ -125,16 +125,19 @@ export default function Works({ onOpenProject }) {
                       onClick={() => onOpenProject?.(p.id)}
                       aria-label={(OPEN_LABEL[lang] ?? OPEN_LABEL.en)(p.title)}
                     >
-                      <img
-                        src={p.image}
-                        alt={(FOLDER_ALT[lang] ?? FOLDER_ALT.en)(p.title)}
-                        loading="lazy"
-                        onError={(e) => {
-                          if (p.fallback && e.target.src !== p.fallback) {
-                            e.target.src = p.fallback;
-                          }
-                        }}
-                      />
+                      <picture style={{ display: 'contents' }}>
+                        <source srcSet={p.image.replace('.png', '.avif')} type="image/avif" />
+                        <img
+                          src={p.image}
+                          alt={(FOLDER_ALT[lang] ?? FOLDER_ALT.en)(p.title)}
+                          loading="lazy"
+                          onError={(e) => {
+                            if (p.fallback && e.target.src !== p.fallback) {
+                              e.target.src = p.fallback;
+                            }
+                          }}
+                        />
+                      </picture>
                     </button>
 
                     {/* Stickers sovrapposti alla cartella */}

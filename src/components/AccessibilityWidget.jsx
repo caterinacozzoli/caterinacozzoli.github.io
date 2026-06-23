@@ -336,14 +336,17 @@ export default function AccessibilityWidget() {
         onClick={() => setOpen(o => !o)}
         type="button"
       >
-        <img
-          src="/images/accessibility-icon.png"
-          width="48"
-          height="48"
-          alt=""
-          aria-hidden="true"
-          className="a11y-trigger__svg"
-        />
+        <picture style={{ display: 'contents' }}>
+          <source srcSet="/images/accessibility-icon.avif" type="image/avif" />
+          <img
+            src="/images/accessibility-icon.png"
+            width="48"
+            height="48"
+            alt=""
+            aria-hidden="true"
+            className="a11y-trigger__svg"
+          />
+        </picture>
       </button>
 
       {panel}

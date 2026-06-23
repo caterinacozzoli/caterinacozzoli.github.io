@@ -46,17 +46,21 @@ const TOOLS = [
 function ToolIcon({ name, imgKey, label }) {
   const [imgFailed, setImgFailed] = useState(false);
   const src = `/images/logo-${imgKey}.png`;
+  const avifSrc = `/images/logo-${imgKey}.avif`;
 
   return (
     <div className="workflow-tool-card" title={name}>
       <div className="workflow-tool-card-inner">
         {!imgFailed ? (
-          <img
-            src={src}
-            alt={name}
-            className="workflow-tool-icon-img"
-            onError={() => setImgFailed(true)}
-          />
+          <picture style={{ display: 'contents' }}>
+            <source srcSet={avifSrc} type="image/avif" />
+            <img
+              src={src}
+              alt={name}
+              className="workflow-tool-icon-img"
+              onError={() => setImgFailed(true)}
+            />
+          </picture>
         ) : (
           <div className="workflow-tool-icon-fallback" aria-hidden="true">
             <span>{label}</span>

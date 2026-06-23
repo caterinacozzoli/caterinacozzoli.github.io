@@ -596,7 +596,7 @@ export default function ProjectPage({ projectId, onClose }) {
           <header
             className={`pp-hero${collapsed ? ' pp-hero--collapsed' : ''}`}
             style={{
-              '--folder-bg': `url('${data.image}')`,
+              '--folder-bg': `url('${data.image.replace('.png', '.avif')}')`,
               backgroundColor: accentLight,
             }}
           >
