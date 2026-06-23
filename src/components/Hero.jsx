@@ -106,48 +106,6 @@ function NameLetter({ char, imgData, isFirst, greetingText }) {
   );
 }
 
-function Typewriter({ text, speed = 15 }) {
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  useEffect(() => {
-    setCurrentIndex(0);
-    const interval = setInterval(() => {
-      setCurrentIndex((prev) => {
-        if (prev < text.length) {
-          return prev + 1;
-        }
-        clearInterval(interval);
-        return prev;
-      });
-    }, speed);
-
-    return () => clearInterval(interval);
-  }, [text, speed]);
-
-  const visibleText = text.slice(0, currentIndex);
-  const isFinished = currentIndex >= text.length;
-
-  return (
-    <>
-      {visibleText.split('\n').map((line, i, arr) => {
-        const parts = line.split(/(UX\/UI)/i);
-        return (
-          <span key={i}>
-            {parts.map((part, idx) => {
-              if (part.toLowerCase() === 'ux/ui') {
-                return <span key={idx} className="desc-role">UX/UI</span>;
-              }
-              return part;
-            })}
-            {i < arr.length - 1 && <br />}
-          </span>
-        );
-      })}
-      <span className={`typewriter-cursor${isFinished ? ' typewriter-cursor--idle' : ''}`}>|</span>
-    </>
-  );
-}
-
 export default function Hero() {
   const { tr, lang } = useLang();
   const [resetKey, setResetKey] = useState(0);
@@ -208,7 +166,20 @@ export default function Hero() {
         transition={{ duration: 0.7, ease: QUINT, delay: 0.2 }}
       >
         <p className="hero-description">
-          <Typewriter text={tr.hero.description} />
+          {tr.hero.description.split('\n').map((line, i, arr) => {
+            const parts = line.split(/(UX\/UI)/i);
+            return (
+              <span key={i}>
+                {parts.map((part, idx) => {
+                  if (part.toLowerCase() === 'ux/ui') {
+                    return <span key={idx} className="desc-role">UX/UI</span>;
+                  }
+                  return part;
+                })}
+                {i < arr.length - 1 && <br />}
+              </span>
+            );
+          })}
         </p>
       </motion.div>
 
