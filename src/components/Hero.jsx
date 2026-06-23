@@ -209,7 +209,8 @@ export default function Hero() {
                   greetingText={HOVER_GREETINGS[lang]?.[i]}
                 />
               ))}
-              <span className="letter-wrap"> M.</span>
+              <span className="letter-space" aria-hidden="true" />
+              <span className="letter-wrap">M.</span>
             </motion.div>
 
             {/* COZZOLI — riga 2 */}
