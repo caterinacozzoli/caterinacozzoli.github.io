@@ -408,7 +408,7 @@ function SectionPrototype({ s, accent }) {
         <span className="pp-label">{s.label}</span>
         <h3 className="pp-section-title">{s.title}</h3>
         {s.body && <p className="pp-body">{s.body}</p>}
-        
+
         <div className="pp-iframe-wrapper">
           <iframe
             className="pp-iframe"
@@ -418,20 +418,45 @@ function SectionPrototype({ s, accent }) {
             loading="lazy"
           />
         </div>
-        
-        {s.link && (
-          <div className="pp-prototype-link-container">
+
+        <div className="pp-prototype-footer">
+          {s.link && (
             <a
               href={s.link}
               target="_blank"
               rel="noopener noreferrer"
               className="pp-prototype-btn"
               style={{ '--btn-accent': accent }}
+              aria-label={`${s.linkLabel || 'Apri prototipo su Figma'}, si apre in una nuova scheda`}
             >
-              Apri prototipo su Figma ↗
+              {s.linkLabel || 'Apri prototipo su Figma'} ↗
             </a>
-          </div>
-        )}
+          )}
+          {s.githubLink && (
+            <a
+              href={s.githubLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="pp-prototype-btn pp-prototype-btn--ghost"
+              style={{ '--btn-accent': accent }}
+              aria-label="Visualizza codice su GitHub, si apre in una nuova scheda"
+            >
+              GitHub ↗
+            </a>
+          )}
+          {s.qrLink && (
+            <div className="pp-qr-block">
+              <img
+                src={`https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=${encodeURIComponent(s.qrLink)}&bgcolor=ffffff&color=000000`}
+                alt="QR code per aprire il prototipo su smartphone"
+                width="120"
+                height="120"
+                className="pp-qr-code"
+              />
+              <span className="pp-qr-label">Scansiona per aprire su smartphone</span>
+            </div>
+          )}
+        </div>
       </section>
     );
   }
@@ -441,7 +466,7 @@ function SectionPrototype({ s, accent }) {
       <span className="pp-label">{s.label}</span>
       <h3 className="pp-section-title">{s.title}</h3>
       {s.body && <p className="pp-body">{s.body}</p>}
-      
+
       <div className="pp-github-card" style={{ borderColor: `${accent}33` }}>
         <div className="pp-github-header">
           <div className="pp-github-icon" style={{ backgroundColor: `${accent}15`, color: accent }}>
@@ -460,6 +485,7 @@ function SectionPrototype({ s, accent }) {
           rel="noopener noreferrer"
           className="pp-prototype-btn"
           style={{ '--btn-accent': accent }}
+          aria-label="Apri repository GitHub, si apre in una nuova scheda"
         >
           Apri repository GitHub ↗
         </a>
