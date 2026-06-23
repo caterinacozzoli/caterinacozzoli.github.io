@@ -58,10 +58,21 @@
 
 /* ─── HERO ──────────────────────────────────────────────────────────────────── */
 
+.pp-sheet-scroll {
+  flex: 1;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  display: flex;
+  flex-direction: column;
+  scroll-padding-top: 80px; /* altezza hero collassato */
+}
+
 .pp-hero {
   flex-shrink: 0;
   padding: 56px 56px 40px;
-  position: relative;
+  position: sticky;
+  top: 0;
+  z-index: 2;
   overflow: hidden;
   display: flex;
   align-items: stretch;
@@ -349,9 +360,6 @@
 /* ─── CONTENT ───────────────────────────────────────────────────────────────── */
 
 .pp-content {
-  flex: 1;
-  overflow-y: auto;
-  overscroll-behavior: contain;
   display: flex;
   flex-direction: column;
   gap: 0;

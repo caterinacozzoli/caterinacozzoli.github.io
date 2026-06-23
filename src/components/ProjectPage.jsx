@@ -486,7 +486,7 @@ function renderSection(s, accent, accentLight) {
 export default function ProjectPage({ projectId, onClose }) {
   const data = PROJECTS[projectId];
   const [collapsed, setCollapsed] = useState(false);
-  const contentRef    = useRef(null);
+  const scrollRef      = useRef(null);
   const collapsibleRef = useRef(null);
 
   const handleKeyDown = useCallback((e) => {
@@ -502,9 +502,9 @@ export default function ProjectPage({ projectId, onClose }) {
     };
   }, [handleKeyDown]);
 
-  /* Collapse hero quando si scorre nel contenuto */
+  /* Collapse hero su scroll dell'intera pagina prodotto */
   useEffect(() => {
-    const el = contentRef.current;
+    const el = scrollRef.current;
     if (!el) return;
     const onScroll = () => {
       const next = el.scrollTop > 80;
@@ -555,10 +555,13 @@ export default function ProjectPage({ projectId, onClose }) {
             <span className="pp-close-label">chiudi</span>
           </button>
 
+          {/* Unico scroll container — hero sticky + content */}
+          <div ref={scrollRef} className="pp-sheet-scroll" tabIndex={0}>
+
           {/* Hero banner — tinta chiara accent, testo charcoal */}
-          <header 
-            className={`pp-hero${collapsed ? ' pp-hero--collapsed' : ''}`} 
-            style={{ 
+          <header
+            className={`pp-hero${collapsed ? ' pp-hero--collapsed' : ''}`}
+            style={{
               '--folder-bg': `url('${data.image}')`,
               backgroundColor: accentLight,
             }}
@@ -654,7 +657,6 @@ export default function ProjectPage({ projectId, onClose }) {
 
           {/* Content */}
           <div
-            ref={contentRef}
             className="pp-content"
             style={{
               backgroundImage: "url('/images/textures/carta acquarello.jpg')",
@@ -664,6 +666,8 @@ export default function ProjectPage({ projectId, onClose }) {
           >
             {data.sections.map(s => renderSection(s, accent, accentLight))}
           </div>
+
+          </div>{/* /pp-sheet-scroll */}
         </motion.div>
       </motion.div>
     </AnimatePresence>
