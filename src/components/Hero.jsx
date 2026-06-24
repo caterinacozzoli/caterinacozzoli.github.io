@@ -149,12 +149,13 @@ export default function Hero() {
       >
         <p className="hero-description">
           {tr.hero.description.split('\n').map((line, i, arr) => {
-            const parts = line.split(/(UX\/UI)/i);
+            const parts = line.split(/(UX\/UI\s+designer|designer\s+UX\/UI)/i);
             return (
               <span key={i}>
                 {parts.map((part, idx) => {
-                  if (part.toLowerCase() === 'ux/ui') {
-                    return <span key={idx} className="desc-role">UX/UI</span>;
+                  const lower = part.toLowerCase();
+                  if (lower === 'ux/ui designer' || lower === 'designer ux/ui') {
+                    return <span key={idx} className="desc-role">{part}</span>;
                   }
                   return part;
                 })}
