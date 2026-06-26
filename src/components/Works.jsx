@@ -64,7 +64,7 @@ const PROJECTS = [
       { src: '/images/sticker/sticker tag.png', link: 'https://students.talentgarden.com/talents/recaSrSfzZxkuRi1X', style: { bottom: '15%', right: '18%', width: '22%', transform: 'rotate(-7deg)' } },
     ],
     size: 'small',
-    top: 570,
+    top: 700,
     left: 28,
     tilt: -1.5,
   },
