@@ -8,6 +8,11 @@ const PROJECTS = [
     id: 'libraccio',
     title: 'Libraccio',
     year: '2026',
+    description: {
+      it: "Settembre. Stessa lista. Stesso caos. Ogni anno.",
+      en: "September. Same list. Same chaos. Every year.",
+      pt: "Setembro. Mesma lista. Mesmo caos. Todo ano.",
+    },
     image: '/images/folders/folder-libraccio.png',
     openImage: '/images/folders/folder-libraccio-open.png',
     fallback: '/images/projects/libraccio.svg',
@@ -24,6 +29,11 @@ const PROJECTS = [
     id: 'abili-city',
     title: 'AbiliCity',
     year: '2023–',
+    description: {
+      it: "Il luogo digitale che le persone con disabilità non avevano mai avuto.",
+      en: "The digital place people with disabilities never had.",
+      pt: "O lugar digital que pessoas com deficiência nunca tiveram.",
+    },
     image: '/images/folders/folder-abilicity.png',
     openImage: '/images/folders/folder-abilicity-open.png',
     fallback: '/images/projects/abili-city.svg',
@@ -41,6 +51,11 @@ const PROJECTS = [
     id: 'qualia',
     title: 'Qualia',
     year: '—',
+    description: {
+      it: "Non è non vedere i colori. È non potersi fidare di ciò che si vede.",
+      en: "It's not about not seeing colors. It's about not trusting what you see.",
+      pt: "Não é não ver as cores. É não poder confiar no que você vê.",
+    },
     image: '/images/folders/folder-qualia.png',
     openImage: '/images/folders/folder-qualia-open.png',
     fallback: '/images/projects/progetto-3.svg',
@@ -186,6 +201,11 @@ export default function Works({ onOpenProject }) {
                       {p.title}
                       <span aria-hidden="true"> →</span>
                     </h3>
+                    {p.description && (
+                      <p className="project-desc">
+                        {p.description[lang] ?? p.description.it}
+                      </p>
+                    )}
                     <ul className="project-chips" aria-label="Categorie">
                       {p.tags.map(tag => (
                         <li key={tag} className="chip">{tag}</li>

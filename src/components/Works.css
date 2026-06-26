@@ -301,7 +301,19 @@
   font-weight: 700;
   font-size: clamp(18px, 1.6vw, 24px);
   color: #212529;
+  margin-bottom: 4px;
+}
+
+.project-desc {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 400;
+  font-style: italic;
+  color: #212529;
+  opacity: 0.58;
+  line-height: 1.45;
   margin-bottom: 10px;
+  max-width: 36ch;
 }
 
 .project-name span {
