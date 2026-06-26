@@ -12,7 +12,7 @@ export const t = {
     hero: {
       tagline:     'UX/UI Designer',
       location:    'Milano · Fortaleza',
-      description: "UX/UI designer guidata dall'empatia\ne dalla curiosità tecnologica. Disegno\ninterfacce inclusive\nsperimentando con l'AI, senza mai smettere di imparare.",
+      description: "UX/UI designer guidata dall'empatia\ne dalla curiosità tecnologica. \nDisegno interfacce inclusive sperimentando con l'AI, \nsenza mai smettere di imparare.",
       scrollHint:  'ma dove corri?',
     },
     langNav:    'Seleziona lingua',
