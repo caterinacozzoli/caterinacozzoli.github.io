@@ -225,6 +225,14 @@
   .hero-scroll-link { transition: none; }
 }
 
+/* === LARGE (1440px+) === */
+
+@media (min-width: 1440px) {
+  .hero-name {
+    font-size: clamp(113px, 9vw, 140px);
+  }
+}
+
 /* === TABLET (769-1024px) === */
 
 @media (min-width: 769px) and (max-width: 1024px) {
