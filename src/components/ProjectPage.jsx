@@ -73,7 +73,8 @@ const PROJECTS = {
         label: '05 / Prototipo',
         title: "Esplora il prototipo interattivo",
         url: "https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2F72QyZ6zBlCHX6Hdlef9N6T%2FLibraccio-scolastica%3Fpage-id%3D2910%253A20566%26node-id%3D4132-33231%26viewport%3D-15048%252C37%252C0.44%26t%3Dajf2YquIi7PveT8Q-1%26scaling%3Dscale-down%26content-scaling%3Dfixed%26starting-point-node-id%3D3698%253A44057",
-        link: "https://www.figma.com/proto/72QyZ6zBlCHX6Hdlef9N6T/Libraccio-scolastica?page-id=2910%3A20566&node-id=4132-33231&viewport=-15048%2C37%2C0.44&t=ajf2YquIi7PveT8Q-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=3698%3A44057"
+        link: "https://www.figma.com/proto/72QyZ6zBlCHX6Hdlef9N6T/Libraccio-scolastica?page-id=2910%3A20566&node-id=4132-33231&viewport=-15048%2C37%2C0.44&t=ajf2YquIi7PveT8Q-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=3698%3A44057",
+        qrLink: "https://www.figma.com/proto/72QyZ6zBlCHX6Hdlef9N6T/Libraccio-scolastica?page-id=2910%3A20566&node-id=4132-33231&viewport=-15048%2C37%2C0.44&t=ajf2YquIi7PveT8Q-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=3698%3A44057",
       },
     ],
   },
@@ -138,7 +139,8 @@ const PROJECTS = {
         label: '04 / Prototipo',
         title: "Esplora il prototipo dell'applicazione",
         url: "https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FjhC381DC6WyEdSeG070svr%2FAbiliCity%3Fnode-id%3D66-1881%26starting-point-node-id%3D366%253A93",
-        link: "https://www.figma.com/proto/jhC381DC6WyEdSeG070svr/AbiliCity?node-id=66-1881&starting-point-node-id=366%3A93"
+        link: "https://www.figma.com/proto/jhC381DC6WyEdSeG070svr/AbiliCity?node-id=66-1881&starting-point-node-id=366%3A93",
+        qrLink: "https://www.abilicity.com/",
       },
       {
         type: 'callout-quote',
@@ -157,6 +159,7 @@ const PROJECTS = {
     team: "Caterina Cozzoli + team",
     tags: ['XR', 'Figma', 'Antigravity', 'Claude Code', 'UX Research', 'Accessibilità'],
     mockup: '/images/projects/qualia/clothes-scanner-result.png',
+    mockupClass: 'pp-hero-mockup--phone',
     image: '/images/folders/folder-qualia.png',
     stickers: [
       { src: '/images/sticker/sticker tag.png', link: 'https://students.talentgarden.com/talents/recaSrSfzZxkuRi1X', style: { bottom: '-5%', right: '4%', width: '200px', transform: 'rotate(-7deg)' } },
@@ -423,40 +426,43 @@ function SectionPrototype({ s, accent }) {
         </div>
 
         <div className="pp-prototype-footer">
-          {s.link && (
-            <a
-              href={s.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="pp-prototype-btn"
-              style={{ '--btn-accent': accent }}
-              aria-label={`${s.linkLabel || 'Apri prototipo su Figma'}, si apre in una nuova scheda`}
-            >
-              {s.linkLabel || 'Apri prototipo su Figma'} ↗
-            </a>
-          )}
-          {s.githubLink && (
-            <a
-              href={s.githubLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="pp-prototype-btn pp-prototype-btn--ghost"
-              style={{ '--btn-accent': accent }}
-              aria-label="Visualizza codice su GitHub, si apre in una nuova scheda"
-            >
-              GitHub ↗
-            </a>
-          )}
+          <div className="pp-prototype-actions">
+            {s.link && (
+              <a
+                href={s.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="pp-prototype-btn"
+                style={{ '--btn-accent': accent }}
+                aria-label={`${s.linkLabel || 'Apri prototipo su Figma'}, si apre in una nuova scheda`}
+              >
+                {s.linkLabel || 'Apri prototipo su Figma'} ↗
+              </a>
+            )}
+            {s.githubLink && (
+              <a
+                href={s.githubLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="pp-prototype-btn pp-prototype-btn--ghost"
+                style={{ '--btn-accent': accent }}
+                aria-label="Visualizza codice su GitHub, si apre in una nuova scheda"
+              >
+                GitHub ↗
+              </a>
+            )}
+          </div>
           {s.qrLink && (
             <div className="pp-qr-block">
               <img
-                src={`https://api.qrserver.com/v1/create-qr-code/?size=120x120&data=${encodeURIComponent(s.qrLink)}&bgcolor=ffffff&color=000000`}
-                alt="QR code per aprire il prototipo su smartphone"
-                width="120"
-                height="120"
+                src={`https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=${encodeURIComponent(s.qrLink)}&bgcolor=ffffff&color=000000`}
+                alt=""
+                aria-hidden="true"
+                width="100"
+                height="100"
                 className="pp-qr-code"
               />
-              <span className="pp-qr-label">Scansiona per aprire su smartphone</span>
+              <span className="pp-qr-label">Scansiona per aprire il prototipo su smartphone</span>
             </div>
           )}
         </div>
@@ -680,7 +686,7 @@ export default function ProjectPage({ projectId, onClose }) {
               )
             ))}
             {/* pp-hero-mockup: NO focusable elements mai dentro (aria-hidden) */}
-            <div className="pp-hero-mockup" aria-hidden="true">
+            <div className={`pp-hero-mockup${data.mockupClass ? ` ${data.mockupClass}` : ''}`} aria-hidden="true">
               {data.mockup && (
                 <img 
                   src={data.mockup} 
