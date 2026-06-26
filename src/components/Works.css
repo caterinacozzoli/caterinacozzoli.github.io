@@ -68,8 +68,8 @@
 .works-stage {
   position: relative;
   width: 100%;
-  /* Height accommodates 3 projects with stagger + bottom padding */
-  height: 1020px;
+  /* Scala con il viewport: frame 4:3 a 38% larghezza + footer + padding */
+  height: calc(730px + 28.5vw);
 }
 
 .works-grid {
@@ -308,12 +308,11 @@
   font-family: var(--font-body);
   font-size: 13px;
   font-weight: 400;
-  font-style: italic;
   color: #212529;
-  opacity: 0.58;
+  opacity: 0.65;
   line-height: 1.45;
   margin-bottom: 10px;
-  max-width: 36ch;
+  max-width: 32ch;
 }
 
 .project-name span {
