@@ -1,6 +1,6 @@
 .works {
-  /* 8pt grid: 224px top (28×8), 56px sides (7×8), 96px bottom (12×8) */
-  padding: 224px 56px 96px;
+  /* 8pt grid: 224px top (28×8), 24px sides (3×8), 96px bottom (12×8) */
+  padding: 224px 24px 96px;
   position: relative;
   background: rgba(254, 215, 40, 0.07);
   overflow: hidden;
@@ -14,8 +14,8 @@
   justify-content: space-between;
   position: relative;
   overflow: hidden;
-  margin: -56px -56px 48px;
-  padding: 48px 56px 32px;
+  margin: -56px -24px 48px;
+  padding: 48px 24px 32px;
   min-height: 176px; /* 22×8px grid */
   background: #FED728;
   border-bottom: none;
@@ -57,7 +57,7 @@
   background-position: center;
   background-blend-mode: multiply;
   border-radius: 24px;
-  padding: 32px;
+  padding: 48px;
   /* clip solo a desktop: evita che il footer del 3° progetto venga tagliato a tablet */
   overflow: visible;
   box-shadow: 0 2px 12px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.04);
