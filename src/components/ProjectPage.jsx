@@ -9,11 +9,11 @@ const PROJECTS = {
   libraccio: {
     id: 'libraccio',
     title: 'Libraccio',
-    subtitle: "Settembre. Stessa lista. Stesso caos. Ogni anno.",
-    year: '2025',
-    role: "UX Research · Wireframing · Prototipazione",
-    team: "Caterina Cozzoli, Simone Ragnoli, Erica Marchetti, Lorenzo Lepera, Yash",
-    tags: ['UX Research', 'Figma', 'Usabilità', 'Benchmark', 'Website'],
+    subtitle: "Ridisegnare l'acquisto dei libri scolastici partendo dal momento più frustrante: trovare e comprare l'intera lista in una sola sessione.",
+    year: '2025–2026',
+    role: "UX Research · UI Design · [il tuo contributo specifico — conferma §E]",
+    team: "Progetto di team · Talent Garden — [conferma: quante persone]",
+    tags: ['E-commerce', 'User Research', 'Information Architecture', 'Accessibilità'],
     mockup: '/images/projects/mockup-libraccio.png',
     image: '/images/folders/folder-libraccio.png',
     stickers: [
@@ -23,58 +23,85 @@ const PROJECTS = {
     accentLight: '#d4f0df',
     qrUrl: 'https://www.figma.com/proto/72QyZ6zBlCHX6Hdlef9N6T/Libraccio-scolastica?page-id=2910%3A20566&node-id=4132-33231&viewport=-15048%2C37%2C0.44&t=ajf2YquIi7PveT8Q-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=3698%3A44057',
     links: [
-      { label: 'Prototipo Figma', url: 'https://www.figma.com/proto/72QyZ6zBlCHX6Hdlef9N6T/Libraccio-scolastica?page-id=2910%3A20566&node-id=4132-33231&viewport=-15048%2C37%2C0.44&t=ajf2YquIi7PveT8Q-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=3698%3A44057' }
+      { label: 'UI Figma', url: 'https://www.figma.com/design/72QyZ6zBlCHX6Hdlef9N6T/Libraccio-scolastica-UI' },
+      { label: 'Prototipo interattivo', url: 'https://www.figma.com/proto/72QyZ6zBlCHX6Hdlef9N6T/Libraccio-scolastica?node-id=3698-44057&starting-point-node-id=3698%3A44057' }
     ],
     sections: [
       {
         type: 'opening-quote',
-        quote: "«Ogni settembre uguale. La lista in mano, un'ora persa, e alla fine vado in libreria.»",
-        citation: "Genitore, Milano",
+        quote: "«Il 31 agosto apri la lista della classe e devi ricostruirla a mano, tra codici ISBN che nessuno conosce ed edizioni quasi identiche. La sfida non era rifare un sito: era capire dove si rompe la fiducia.»",
+        citation: "— Insight di ricerca, Libraccio redesign",
       },
       {
         type: 'context',
         label: '01 / Il problema',
-        title: "Il genitore con la lista in mano che non riesce a comprare i libri",
-        body: "Libraccio.it è uno dei principali canali per l'acquisto dei libri scolastici in Italia. Ma ogni settembre, milioni di famiglie si scontrano con la stessa frustrazione: una ricerca che non capisce le liste delle scuole, un confronto nuovo/usato che non funziona, un carrello pensato per un libro alla volta quando ne servono dodici.",
-        highlight: "Come si fa a comprare 12 libri in mezz'ora — nuovo o usato, qualsiasi condizione — senza impazzire?",
+        title: "Comprare libri scolastici: un compito ad alta posta e bassa tolleranza all'errore",
+        body: "Libraccio domina il mercato fisico ma online perde: il 65% di chi lo conosce non l'ha mai usato per comprare. Il 76% non sa nemmeno che esiste la lista adozioni — la sua funzione più utile. Non mancano le funzionalità: manca la visibilità. La sfida non era \"rifare un sito\": era capire dove si rompe la fiducia e perché le funzionalità chiave restano invisibili.",
+        highlight: "Ricerca: 100+ feedback · Il 76% non conosce la feature chiave · 65% sceglie Libraccio fisico, online si ferma al 15%",
+        objectives: [
+          "Migliorare la percezione dell'usato",
+          "Rendere visibili le funzionalità del sito",
+          "Dalla lista al checkout in una sola sessione (one-click buy)",
+        ],
       },
       {
         type: 'process',
-        label: '02 / Processo',
-        title: "Come siamo arrivati alla soluzione",
+        label: '02 / La ricerca che diventa interfaccia',
+        title: "Dal dato alla decisione: tracciabilità insight → schermata",
         steps: [
-          { num: '01', name: 'Brief', desc: "Scope definito: redesign del flusso di acquisto scolastico su libraccio.it, desktop e mobile." },
-          { num: '02', name: 'Empathize', desc: "Analisi euristica del sito attuale, benchmark competitor (IBS, Mondadori, Amazon), interviste a genitori e studenti durante il periodo scolastico." },
-          { num: '03', name: 'Define', desc: "Personas, user journey map dell'acquisto scolastico, pain prioritizzati: ricerca, confronto prezzi, checkout multiplo." },
-          { num: '04', name: 'Ideate', desc: "Crazy 8s, sketching collettivo, matrice effort/impact per selezionare le soluzioni da prototipare." },
-          { num: '05', name: 'Prototype', desc: "Wireframes low-fi → prototipo Figma mid-fi. Test di usabilità con 5 utenti reali." },
+          { num: '01', name: 'Desk research', desc: "Analisi AS-IS del flusso attuale, analisi euristica (frizioni su homepage, ricerca scuola, selezione usato/nuovo), benchmark competitor diretti e indiretti, digital observation su Reddit, Trustpilot e Google Trends. Insight chiave: chi ha buoni prezzi non ha buona esperienza — Libraccio può occupare il vuoto." },
+          { num: '02', name: 'User research', desc: "Survey quantitativo · 9 interviste semi-strutturate (5 donne, 3 uomini, età universitaria e genitoriale, 15–30 min) · 3 user test in Agile (6 task: ricerca, selezione usato/nuovo, checkout, data di consegna) · personas sul lifecycle scolastico. In totale 100+ feedback." },
+          { num: '03', name: 'Sintesi', desc: "9 insight dalla triangolazione dei dati → 3 personas (Laura 45, organizzata; Marco 17, veloce; Giulia 30, precisa) → customer journey ridisegnata." },
+          { num: '04', name: 'Design', desc: "Wireframe → UI → prototipo interattivo con 3 flussi. Ogni schermata ancorata a un insight di ricerca, non a una preferenza estetica." },
         ],
       },
       {
-        type: 'insights',
-        label: '03 / Insight che hanno guidato le scelte',
-        title: "Cosa abbiamo scoperto",
+        type: 'decisions',
+        label: '03 / Le decisioni di design',
+        title: "AS-IS → TO-BE: la lente accessibilità su ogni scelta",
         items: [
-          { icon: '📋', text: "Chi compra arriva con una lista già in mano: cerca titoli precisi, non naviga per materia. Il motore di ricerca deve capire il formato delle liste scolastiche." },
-          { icon: '📚', text: "Il punto di abbandono più alto è il confronto nuovo/usato: condizioni poco chiare, prezzi non comparabili a colpo d'occhio." },
-          { icon: '🛒', text: "Un acquisto scolastico è in media 6-12 libri: il carrello standard non è pensato per comprare in blocco, libro per libro, con condizioni diverse." },
-          { icon: '📱', text: "Il 61% inizia da mobile ma completa su desktop — spesso costretto. Un flusso mobile-first salverebbe metà degli abbandoni." },
+          {
+            icon: '🏠',
+            name: 'Homepage: dal rumore alla gerarchia',
+            asIs: "Densità alta, le azioni principali non emergono sul promozionale. Il sito travolge invece di accogliere.",
+            toBe: "CTA primaria dominante, lista adozioni come punto d'ingresso, rumore ridotto.",
+            why: "Una gerarchia visiva forte è la prima forma di accessibilità cognitiva.",
+          },
+          {
+            icon: '🔍',
+            name: 'Ricerca scuola: ridurre il carico cognitivo',
+            asIs: "Testo non formattato, rosso usato male, nessun breadcrumb, orientamento impossibile da mobile.",
+            toBe: "Gerarchia tipografica rigorosa, breadcrumb visibili, mobile come contesto primario. Lista adozioni via scuola→indirizzo→classe o QR code.",
+            why: "Breadcrumb + tipografia = l'utente sa sempre dove si trova. Inclusione = riduzione di ansia.",
+          },
+          {
+            icon: '🛒',
+            name: 'Selezione usato/nuovo: feedback che si vedono',
+            asIs: "Nessuna distinzione visiva tra stati, disponibilità solo testuale e a basso contrasto, CTA carrello non sticky su mobile.",
+            toBe: "Distinzione visiva netta nuovo/usato, feedback immediato sulla selezione, CTA fissa in fondo su mobile. Il sistema propone la combinazione più conveniente, ma l'utente mantiene controllo e conferma.",
+            why: "Contrasto e stati chiari sono WCAG applicato a una decisione d'acquisto reale.",
+          },
         ],
       },
       {
-        type: 'solution',
-        label: '04 / La soluzione',
-        title: "Un flusso scolastico dedicato, non un carrello generico",
-        body: "Abbiamo riprogettato l'acquisto scolastico come un percorso a sé: carica o cerca l'elenco testi, seleziona nuovo o usato libro per libro, checkout unificato. Una lista scolastica salvata permette di riprendere da qualsiasi dispositivo. Niente più tab aperte, niente più appunti su carta.",
-        callout: "Nei test di usabilità, il tempo medio di completamento è sceso da 12 a 4 minuti.",
+        type: 'outcome',
+        label: '04 / Outcome',
+        title: "Flussi validati, decisioni tracciate",
+        body: "Progetto formativo: l'esito è la qualità della validazione e la tracciabilità delle decisioni. Flussi validati con user test Agile; ogni schermata è ancorata a un insight di ricerca, non a una preferenza estetica.",
+        callout: "[Aggiungi qui un esito dei test se disponibile: es. task completati senza esitazione, feedback dei tutor]",
+      },
+      {
+        type: 'learning',
+        label: '05 / Cosa ho imparato',
+        quote: "\"In un acquisto ad alta posta la UI deve prevenire l'errore e mostrare la fiducia, non solo renderla reversibile. E una feature invisibile, per l'utente, semplicemente non esiste.\"",
       },
       {
         type: 'prototype',
-        label: '05 / Prototipo',
+        label: '06 / Prototipo',
         title: "Esplora il prototipo interattivo",
         url: "https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2F72QyZ6zBlCHX6Hdlef9N6T%2FLibraccio-scolastica%3Fpage-id%3D2910%253A20566%26node-id%3D4132-33231%26viewport%3D-15048%252C37%252C0.44%26t%3Dajf2YquIi7PveT8Q-1%26scaling%3Dscale-down%26content-scaling%3Dfixed%26starting-point-node-id%3D3698%253A44057",
-        link: "https://www.figma.com/proto/72QyZ6zBlCHX6Hdlef9N6T/Libraccio-scolastica?page-id=2910%3A20566&node-id=4132-33231&viewport=-15048%2C37%2C0.44&t=ajf2YquIi7PveT8Q-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=3698%3A44057",
-        qrLink: "https://www.figma.com/proto/72QyZ6zBlCHX6Hdlef9N6T/Libraccio-scolastica?page-id=2910%3A20566&node-id=4132-33231&viewport=-15048%2C37%2C0.44&t=ajf2YquIi7PveT8Q-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=3698%3A44057",
+        link: "https://www.figma.com/proto/72QyZ6zBlCHX6Hdlef9N6T/Libraccio-scolastica?node-id=3698-44057&starting-point-node-id=3698%3A44057",
+        qrLink: "https://www.figma.com/proto/72QyZ6zBlCHX6Hdlef9N6T/Libraccio-scolastica?node-id=3698-44057&starting-point-node-id=3698%3A44057",
       },
     ],
   },
@@ -253,6 +280,15 @@ function SectionContext({ s, accent }) {
         <blockquote className="pp-highlight" style={{ borderColor: accent }}>
           {s.highlight}
         </blockquote>
+      )}
+      {s.objectives && (
+        <ul className="pp-objectives">
+          {s.objectives.map((obj, i) => (
+            <li key={i} className="pp-objective" style={{ borderLeftColor: accent }}>
+              {obj}
+            </li>
+          ))}
+        </ul>
       )}
     </section>
   );
@@ -503,6 +539,64 @@ function SectionPrototype({ s, accent }) {
   );
 }
 
+function SectionDecisions({ s, accent, accentLight }) {
+  return (
+    <section className="pp-section pp-section--decisions">
+      <span className="pp-label">{s.label}</span>
+      <h3 className="pp-section-title">{s.title}</h3>
+      <div className="pp-decisions">
+        {s.items.map((item, i) => (
+          <div key={i} className="pp-decision-card" style={{ borderTopColor: accent }}>
+            <div className="pp-decision-header">
+              <span className="pp-decision-icon" aria-hidden="true">{item.icon}</span>
+              <strong className="pp-decision-name" style={{ color: accent }}>{item.name}</strong>
+            </div>
+            <div className="pp-decision-compare">
+              <div className="pp-decision-col pp-decision-col--before">
+                <span className="pp-decision-badge">AS-IS</span>
+                <p>{item.asIs}</p>
+              </div>
+              <div className="pp-decision-col pp-decision-col--after">
+                <span className="pp-decision-badge pp-decision-badge--after" style={{ background: accent }}>TO-BE</span>
+                <p>{item.toBe}</p>
+              </div>
+            </div>
+            <div className="pp-decision-why" style={{ background: accentLight, borderLeftColor: accent }}>
+              <strong>Perché conta:</strong> {item.why}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function SectionOutcome({ s, accent, accentLight }) {
+  return (
+    <section className="pp-section pp-section--outcome">
+      <span className="pp-label">{s.label}</span>
+      <h3 className="pp-section-title">{s.title}</h3>
+      <p className="pp-body">{s.body}</p>
+      {s.callout && (
+        <div className="pp-callout" style={{ background: accentLight, borderColor: accent }}>
+          {s.callout}
+        </div>
+      )}
+    </section>
+  );
+}
+
+function SectionLearning({ s }) {
+  return (
+    <section className="pp-section pp-section--learning">
+      <span className="pp-label">{s.label}</span>
+      <blockquote className="pp-learning-quote">
+        {s.quote}
+      </blockquote>
+    </section>
+  );
+}
+
 function renderSection(s, accent, accentLight) {
   switch (s.type) {
     case 'opening-quote': return <SectionOpeningQuote key={s.quote} s={s} />;
@@ -513,6 +607,9 @@ function renderSection(s, accent, accentLight) {
     case 'research':      return <SectionResearch key={s.label} s={s} accent={accent} accentLight={accentLight} />;
     case 'solution':      return <SectionSolution key={s.label} s={s} accent={accent} accentLight={accentLight} />;
     case 'impact':        return <SectionImpact key={s.label} s={s} accent={accent} accentLight={accentLight} />;
+    case 'decisions':     return <SectionDecisions key={s.label} s={s} accent={accent} accentLight={accentLight} />;
+    case 'outcome':       return <SectionOutcome key={s.label} s={s} accent={accent} accentLight={accentLight} />;
+    case 'learning':      return <SectionLearning key={s.label} s={s} />;
     case 'callout-quote': return <SectionCalloutQuote key={s.label} s={s} />;
     case 'prototype':     return <SectionPrototype key={s.label} s={s} accent={accent} />;
     default:              return null;
