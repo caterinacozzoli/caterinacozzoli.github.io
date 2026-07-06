@@ -1166,3 +1166,110 @@
   border: none;
   opacity: 0.85;
 }
+
+/* ─── WIDER SECTIONS ON LARGE SCREENS ─────────────────────────────────────── */
+
+@media (min-width: 1024px) {
+  .pp-section {
+    padding: 56px 80px;
+  }
+  .pp-body {
+    max-width: 76ch;
+  }
+}
+
+/* ─── STAT CHIPS ───────────────────────────────────────────────────────────── */
+
+.pp-stat-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 28px 0;
+}
+
+.pp-stat-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 18px;
+  border: 2px solid;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.55);
+  backdrop-filter: blur(4px);
+}
+
+.pp-stat-chip-text {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink, #212529);
+  line-height: 1.3;
+}
+
+/* ─── IMAGE PLACEHOLDER ────────────────────────────────────────────────────── */
+
+.pp-img-placeholder {
+  margin: 28px 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 220px;
+  border: 2px dashed rgba(33,37,41,0.18);
+  border-radius: 12px;
+  background: rgba(255,255,255,0.35);
+}
+
+.pp-img-placeholder--sm {
+  min-height: 160px;
+  margin: 12px 0 0;
+}
+
+.pp-img-placeholder span {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(33,37,41,0.38);
+  letter-spacing: 0.02em;
+  text-align: center;
+  padding: 0 24px;
+}
+
+/* ─── SECTION FIGURE (real screenshots) ───────────────────────────────────── */
+
+.pp-section-figure {
+  margin: 28px 0;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.pp-section-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  border: 1px solid rgba(33,37,41,0.08);
+}
+
+.pp-section-caption {
+  display: block;
+  margin-top: 10px;
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: rgba(33,37,41,0.55);
+  text-align: center;
+  line-height: 1.4;
+}
+
+/* ─── DECISION FIGURE ──────────────────────────────────────────────────────── */
+
+.pp-decision-figure {
+  margin: 0;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+
+.pp-decision-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 320px;
+  object-fit: cover;
+}

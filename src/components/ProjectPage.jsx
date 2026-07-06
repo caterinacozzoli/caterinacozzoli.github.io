@@ -270,17 +270,39 @@ const PROJECTS = {
 
 /* ─── SECTION RENDERERS ─────────────────────────────────────────────────────── */
 
-function SectionContext({ s, accent }) {
+function SectionContext({ s, accent, accentLight }) {
+  /* Extract stat chips from highlight string — parts separated by · */
+  const stats = s.stats || (s.highlight ? s.highlight.split('·').map(p => p.trim()).filter(Boolean) : null);
+
   return (
     <section className="pp-section pp-section--context">
       <span className="pp-label">{s.label}</span>
       <h3 className="pp-section-title">{s.title}</h3>
       <p className="pp-body">{s.body}</p>
-      {s.highlight && (
-        <blockquote className="pp-highlight" style={{ borderColor: accent }}>
-          {s.highlight}
-        </blockquote>
+
+      {/* Stat chips strip */}
+      {stats && (
+        <div className="pp-stat-chips">
+          {stats.map((chip, i) => (
+            <div key={i} className="pp-stat-chip" style={{ borderColor: accent }}>
+              <span className="pp-stat-chip-text">{chip}</span>
+            </div>
+          ))}
+        </div>
       )}
+
+      {/* Optional context image / screenshot */}
+      {s.image ? (
+        <figure className="pp-section-figure">
+          <img src={s.image} alt={s.imageAlt || ''} className="pp-section-img" />
+          {s.imageCaption && <figcaption className="pp-section-caption">{s.imageCaption}</figcaption>}
+        </figure>
+      ) : (
+        <div className="pp-img-placeholder" aria-hidden="true">
+          <span>[ screenshot — es. heatmap / benchmark / dati ricerca ]</span>
+        </div>
+      )}
+
       {s.objectives && (
         <ul className="pp-objectives">
           {s.objectives.map((obj, i) => (
@@ -299,6 +321,19 @@ function SectionProcess({ s, accent }) {
     <section className="pp-section pp-section--process">
       <span className="pp-label">{s.label}</span>
       <h3 className="pp-section-title">{s.title}</h3>
+
+      {/* Optional process diagram / journey map image */}
+      {s.image ? (
+        <figure className="pp-section-figure">
+          <img src={s.image} alt={s.imageAlt || ''} className="pp-section-img" />
+          {s.imageCaption && <figcaption className="pp-section-caption">{s.imageCaption}</figcaption>}
+        </figure>
+      ) : (
+        <div className="pp-img-placeholder" aria-hidden="true">
+          <span>[ screenshot — es. customer journey / affinity map / personas ]</span>
+        </div>
+      )}
+
       <ol className="pp-steps">
         {s.steps.map(step => (
           <li key={step.num} className="pp-step">
@@ -551,6 +586,19 @@ function SectionDecisions({ s, accent, accentLight }) {
               <span className="pp-decision-icon" aria-hidden="true">{item.icon}</span>
               <strong className="pp-decision-name" style={{ color: accent }}>{item.name}</strong>
             </div>
+
+            {/* Optional per-decision screenshot — AS-IS or TO-BE detail */}
+            {item.image ? (
+              <figure className="pp-decision-figure">
+                <img src={item.image} alt={item.imageAlt || ''} className="pp-decision-img" />
+                {item.imageCaption && <figcaption className="pp-section-caption">{item.imageCaption}</figcaption>}
+              </figure>
+            ) : (
+              <div className="pp-img-placeholder pp-img-placeholder--sm" aria-hidden="true">
+                <span>[ screenshot AS-IS / TO-BE — {item.name} ]</span>
+              </div>
+            )}
+
             <div className="pp-decision-compare">
               <div className="pp-decision-col pp-decision-col--before">
                 <span className="pp-decision-badge">AS-IS</span>
@@ -572,12 +620,14 @@ function SectionDecisions({ s, accent, accentLight }) {
 }
 
 function SectionOutcome({ s, accent, accentLight }) {
+  /* Hide callout if it's still a placeholder (starts with '[') */
+  const showCallout = s.callout && !s.callout.trim().startsWith('[');
   return (
     <section className="pp-section pp-section--outcome">
       <span className="pp-label">{s.label}</span>
       <h3 className="pp-section-title">{s.title}</h3>
       <p className="pp-body">{s.body}</p>
-      {s.callout && (
+      {showCallout && (
         <div className="pp-callout" style={{ background: accentLight, borderColor: accent }}>
           {s.callout}
         </div>
