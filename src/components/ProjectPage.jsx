@@ -11,7 +11,7 @@ const PROJECTS = {
     title: 'Libraccio',
     subtitle: "Ridisegnare l'acquisto dei libri scolastici partendo dal momento più frustrante: trovare e comprare l'intera lista in una sola sessione.",
     year: '2025–2026',
-    role: "UX Research · UI Design · [il tuo contributo specifico — conferma §E]",
+    role: "Desk Research (Reddit + articoli scientifici) · Progettazione flussi di esperienza · UI funzionalità",
     team: "Progetto di team · Talent Garden — [conferma: quante persone]",
     tags: ['E-commerce', 'User Research', 'Information Architecture', 'Accessibilità'],
     mockup: '/images/projects/mockup-libraccio.png',
