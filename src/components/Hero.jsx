@@ -1,5 +1,5 @@
 import { useRef, useState, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useMotionValue, useAnimation, animate } from 'framer-motion';
 import { useLang } from '../contexts/LangContext';
 import './Hero.css';
 
@@ -29,9 +29,9 @@ const LETTER_IMAGES_2 = [
   { src: '/images/hover-letters/hover letter05.png', rotate:   9, scale: 1.15 }, // I (H)
 ];
 
-/* Shared easing — decisive, no bounce */
-const EXPO = [0.16, 1, 0.3, 1];
-const QUINT = [0.22, 1, 0.36, 1];
+/* Shared easing — Premium Motion Profile */
+const EASE_ENTRANCE = [0.33, 1, 0.68, 1];
+const EASE_HOVER = [0.2, 0, 0, 1];
 
 // Testi nuvola per hover lettere (15 lettere: C-A-T-E-R-I-N-A + C-O-Z-Z-O-L-I)
 const HOVER_GREETINGS = {
@@ -79,7 +79,7 @@ function NameLetter({ char, imgData, isFirst, greetingText }) {
               initial={{ opacity: 0, scale: 0.65, y: 16 }}
               animate={{ opacity: 1, scale: imgData.scale ?? 1, y: 0, rotate: imgData.rotate }}
               exit={{    opacity: 0, scale: 0.75,  y: 8 }}
-              transition={{ duration: 0.28, ease: QUINT }}
+              transition={{ duration: 0.15, ease: EASE_HOVER }}
             />
           )}
         </AnimatePresence>
@@ -94,6 +94,47 @@ export default function Hero() {
   const handleKeyDown = useCallback((e) => {
     if (e.key === 'Escape') setResetKey(k => k + 1);
   }, []);
+
+  // --- Punchline interactive logic ---
+  const [pinDetached, setPinDetached] = useState(false);
+  const rotateValue = useMotionValue(15);
+  const paperControls = useAnimation();
+  const pinControls = useAnimation();
+
+  const handlePaperPan = useCallback((e, info) => {
+    if (pinDetached) return;
+    rotateValue.set(rotateValue.get() + info.delta.x * 0.15);
+  }, [pinDetached, rotateValue]);
+
+  const handlePaperPanEnd = useCallback(() => {
+    if (pinDetached) return;
+    animate(rotateValue, 15, { type: 'spring', stiffness: 150, damping: 10 });
+  }, [pinDetached, rotateValue]);
+
+  const detachPin = useCallback((direction = 1) => {
+    if (pinDetached) return;
+    setPinDetached(true);
+    pinControls.start({ 
+      y: typeof window !== 'undefined' ? window.innerHeight : 800, 
+      opacity: 0, 
+      transition: { duration: 1, ease: 'easeIn' } 
+    });
+    paperControls.start({ 
+      y: typeof window !== 'undefined' ? window.innerHeight + 500 : 1300, 
+      rotate: rotateValue.get() + (direction > 0 ? 45 : -45), 
+      opacity: 0, 
+      transition: { duration: 1.5, ease: 'easeIn', delay: 0.1 } 
+    });
+  }, [pinDetached, pinControls, paperControls, rotateValue]);
+
+  const handlePinDragEnd = useCallback((e, info) => {
+    if (pinDetached) return;
+    if (Math.abs(info.offset.x) > 30 || Math.abs(info.offset.y) > 30) {
+      detachPin(info.offset.x);
+    } else {
+      pinControls.start({ x: 0, y: 0, transition: { type: 'spring', stiffness: 300, damping: 20 } });
+    }
+  }, [pinDetached, detachPin, pinControls]);
 
   const scrollToWorks = useCallback((e) => {
     e.preventDefault();
@@ -124,19 +165,19 @@ export default function Hero() {
           className="wc-blob wc-blob--lavender"
           initial={{ scale: 0.6, opacity: 0 }}
           animate={{ scale: 1,   opacity: 1 }}
-          transition={{ duration: 1.8, ease: EXPO, delay: 0.05 }}
+          transition={{ duration: 1.2, ease: EASE_ENTRANCE, delay: 0.05 }}
         />
         <motion.div
           className="wc-blob wc-blob--gold"
           initial={{ scale: 0.55, opacity: 0 }}
           animate={{ scale: 1,    opacity: 1 }}
-          transition={{ duration: 1.6, ease: EXPO, delay: 0.15 }}
+          transition={{ duration: 1.0, ease: EASE_ENTRANCE, delay: 0.15 }}
         />
         <motion.div
           className="wc-blob wc-blob--lavender-sm"
           initial={{ scale: 0.4, opacity: 0 }}
           animate={{ scale: 1,   opacity: 1 }}
-          transition={{ duration: 1.4, ease: EXPO, delay: 0.35 }}
+          transition={{ duration: 0.9, ease: EASE_ENTRANCE, delay: 0.35 }}
         />
       </div>
 
@@ -145,25 +186,32 @@ export default function Hero() {
         className="hero-top"
         initial={{ opacity: 0, y: 22 }}
         animate={{ opacity: 1, y: 0  }}
-        transition={{ duration: 0.7, ease: QUINT, delay: 0.2 }}
+        transition={{ duration: 0.6, ease: EASE_ENTRANCE, delay: 0.2 }}
       >
-        <p className="hero-description">
-          {tr.hero.description.split('\n').map((line, i, arr) => {
-            const parts = line.split(/(UX\/UI\s+designer|designer\s+UX\/UI)/i);
-            return (
-              <span key={i}>
-                {parts.map((part, idx) => {
-                  const lower = part.toLowerCase();
-                  if (lower === 'ux/ui designer' || lower === 'designer ux/ui') {
-                    return <span key={idx} className="desc-role">{part}</span>;
-                  }
-                  return part;
-                })}
-                {i < arr.length - 1 && <br />}
-              </span>
-            );
-          })}
-        </p>
+        <motion.div 
+          className="hero-punchline-wrapper"
+        >
+          <motion.img 
+            drag
+            onDragEnd={handlePinDragEnd}
+            onTap={() => detachPin(1)}
+            animate={pinControls}
+            src="/images/pin.png" 
+            alt="Puntina" 
+            className="hero-punchline-pin framer-motion-drag" 
+            draggable="false"
+          />
+          <motion.img 
+            onPan={handlePaperPan}
+            onPanEnd={handlePaperPanEnd}
+            animate={paperControls}
+            src="/images/punchline.png" 
+            alt={tr.hero.description.replace(/\n/g, ' ')}
+            className="hero-punchline-img framer-motion-drag" 
+            draggable="false"
+            style={{ rotate: rotateValue, transformOrigin: 'calc(50% + 6px) -15px' }}
+          />
+        </motion.div>
       </motion.div>
 
       {/* Bottom group — nome */}
@@ -179,9 +227,9 @@ export default function Hero() {
             {/* CATERINA — riga 1 */}
             <motion.div
               className="name-line"
-              initial={{ opacity: 0, y: 56 }}
+              initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0  }}
-              transition={{ duration: 0.8, ease: EXPO, delay: 0.35 }}
+              transition={{ duration: 0.7, ease: EASE_ENTRANCE, delay: 0.35 }}
             >
               {'CATERINA'.split('').map((char, i) => (
                 <NameLetter
@@ -193,15 +241,19 @@ export default function Hero() {
                 />
               ))}
               <span className="letter-space" aria-hidden="true" />
-              <span className="letter-wrap">M.</span>
+              <NameLetter
+                char="M."
+                imgData={{ src: '/images/hover-letters/hover letter16.svg', rotate: -6, scale: 1.2 }}
+                isFirst={false}
+              />
             </motion.div>
 
             {/* COZZOLI — riga 2 */}
             <motion.div
               className="name-line"
-              initial={{ opacity: 0, y: 56 }}
+              initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0  }}
-              transition={{ duration: 0.8, ease: EXPO, delay: 0.52 }}
+              transition={{ duration: 0.7, ease: EASE_ENTRANCE, delay: 0.45 }}
             >
               {'COZZOLI'.split('').map((char, i) => (
                 <NameLetter

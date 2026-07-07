@@ -1,6 +1,6 @@
 .works {
-  /* 8pt grid: 224px top (28×8), 24px sides (3×8), 128px bottom (16×8) */
-  padding: 224px 24px 128px;
+  /* 8pt grid: 224px top (28×8), 52px sides, 128px bottom (16×8) */
+  padding: 224px 52px 128px;
   position: relative;
   background: rgba(254, 215, 40, 0.07);
   overflow: hidden;
@@ -14,11 +14,18 @@
   justify-content: space-between;
   position: relative;
   overflow: hidden;
-  margin: -56px -24px 64px;
-  padding: 48px 24px 32px;
+  margin: -56px -52px 64px;
+  padding: 48px 52px 32px;
   min-height: 176px; /* 22×8px grid */
   background: #FED728;
   border-bottom: none;
+}
+
+.works-header-left {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 1;
 }
 
 .works-title {
@@ -29,17 +36,27 @@
   color: #212529;
   line-height: 1;
   letter-spacing: -0.01em;
+}
+
+.works-signature {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: clamp(13px, 1.3vw, 16px);
+  color: #212529;
+  opacity: 0.7;
   position: relative;
   z-index: 1;
+  margin-top: 8px;
 }
 
 .works-count {
   position: absolute;
   right: 24px;
-  bottom: -8px;
+  top: 50%;
+  transform: translateY(calc(-50% - 2px));
   font-family: var(--font-display);
   font-weight: 900;
-  font-size: clamp(100px, 20vw, 220px);
+  font-size: clamp(130px, 26.5vw, 290px);
   color: #212529;
   opacity: 0.08;
   line-height: 0.85;
@@ -57,19 +74,18 @@
   background-position: center;
   background-blend-mode: multiply;
   border-radius: 24px;
-  padding: 64px 48px;
+  padding: 80px;
   /* clip solo a desktop: evita che il footer del 3° progetto venga tagliato a tablet */
   overflow: visible;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.04);
+  box-shadow: 0 2px 12px var(--shadow-light), 0 1px 3px var(--shadow-light-2);
 }
 
 /* === STAGE — fixed-height absolute container (danielsun technique) === */
 
 .works-stage {
   position: relative;
-  width: 100%;
-  /* Scala con il viewport: frame 4:3 a 38% larghezza + footer + padding */
-  height: clamp(1100px, calc(820px + 28.5vw), 1350px);
+  /* Altezza ottimizzata per layout sfalsato (ultima cartella a 800px + ~280px altezza) + 80px di margine finale */
+  height: 1160px;
 }
 
 .works-grid {
@@ -83,38 +99,20 @@
 
 .project-item {
   position: absolute;
-  transform: translateX(-50%) translateY(24px);  /* center on the left: anchor + initial offset */
-  will-change: opacity, transform;
-
-  /* Reveal: hidden by default, shown when parent gets --revealed class */
-  opacity: 0;
-  transition:
-    opacity 0.85s var(--ease-out-expo, cubic-bezier(0.16,1,0.3,1)) calc(var(--i, 0) * 140ms + 0.05s),
-    transform 0.85s var(--ease-out-expo, cubic-bezier(0.16,1,0.3,1)) calc(var(--i, 0) * 140ms + 0.05s);
-}
-
-.works-grid--revealed .project-item {
+  transform: translateX(-50%);  /* center on the left: anchor */
   opacity: 1;
-  transform: translateX(-50%) translateY(0);
 }
 
-/* Reduced motion: always visible and positioned */
-@media (prefers-reduced-motion: reduce) {
-  .project-item {
-    opacity: 1 !important;
-    transform: translateX(-50%) translateY(0) !important;
-    transition: none !important;
-  }
-}
+/* Reduced motion is no longer needed since animation is removed */
 
-/* Small cards — 38% width */
+/* Small cards — 402px fixed width to exactly match 170px * 2.36 scale */
 .project-item--small {
-  width: 38%;
+  width: 402px;
 }
 
-/* Large cards — 46% width */
+/* Large cards */
 .project-item--large {
-  width: 46%;
+  width: 480px;
 }
 
 /* === FRAME — static tilt, like danielsun's .framer-3pqp8l ===
@@ -123,10 +121,10 @@
 .project-frame-container {
   position: relative;
   overflow: visible;
-  aspect-ratio: 4/3;
+  height: 162px;
   width: 100%;
   transform: rotate(calc(var(--tilt, -1deg) * 0.5));
-  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: transform var(--dur-med) var(--ease-hover);
   will-change: transform;
 }
 
@@ -175,30 +173,16 @@
   height: auto;
   filter: drop-shadow(0.5px 1px 0.5px rgba(33, 37, 41, 0.18));
   transform-origin: center bottom;
-  transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1), filter 0.35s ease;
+  transition: transform var(--dur-med) var(--ease-hover), filter var(--dur-med) var(--ease-hover);
   will-change: transform, filter;
 }
 
-/* Interactive sticker lifts slightly and casts a shadow when hovered directly */
-.project-sticker-link:hover .project-sticker-img {
-  transform: translateY(-3px);
-  filter: drop-shadow(2px 5px 6px rgba(33, 37, 41, 0.20));
-}
 
-.project-sticker-link:active .project-sticker-img {
-  transform: translateY(-1px);
-  filter: drop-shadow(1px 2px 2px rgba(33, 37, 41, 0.16));
-}
-
-/* Static sticker — subtle shadow only when parent folder is hovered */
-.project-frame-container:hover .project-sticker-static .project-sticker-img {
-  filter: drop-shadow(1px 2px 2px rgba(33, 37, 41, 0.14));
-}
 
 .project-sticker-link:focus-visible {
   outline: 2px solid var(--primary);
   outline-offset: 4px;
-  border-radius: 4px;
+  border-radius: var(--r-sm);
 }
 
 .project-frame {
@@ -219,60 +203,120 @@
 .project-frame:focus-visible {
   outline: 2px solid var(--primary);
   outline-offset: 6px;
-  border-radius: 4px;
+  border-radius: var(--r-sm);
 }
 
-.project-folder-closed,
-.project-folder-open {
+/* === NEW FOLDER ANIMATION CSS === */
+.folder-card {
+  width: 170px;
+  height: 130px;
+  perspective: 1200px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  -webkit-tap-highlight-color: transparent;
+  transform: scale(2.36); /* ulteriori +64px effettivi */
+  transform-origin: left bottom;
+  margin: 32px 0 0 0;
+}
+
+/* folder card logics — hover-driven (non click) */
+.folder-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+  backface-visibility: hidden;
+  will-change: transform;
+}
+
+.project-frame:hover .folder-container, .project-frame:focus-visible .folder-container {
+  transform: rotateX(10deg) rotateY(-5deg);
+}
+
+.folder-back {
   position: absolute;
-  inset: 0;
-  display: block;
+  bottom: 0;
+  left: 0;
   width: 100%;
-  height: 100%;
-}
-
-.project-folder-closed img,
-.project-folder-open img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  object-position: bottom center;
+  height: auto;
   display: block;
   pointer-events: none;
 }
 
-/* === FOLDER OPEN ANIMATION — front panel tilts forward ===
-   The closed folder is the "front panel". On hover it tilts toward
-   the viewer with 3D perspective (top stays, bottom comes forward),
-   revealing the open folder sitting behind it.
-   Material: Paper — duration 0.35s, 3% overshoot, decelerate easing. */
-
-.project-folder-closed {
-  opacity: 1;
-  z-index: 2;
-  transform-origin: top center;
-  transform: perspective(800px) rotateX(0deg);
-  transition:
-    transform 0.35s cubic-bezier(0.25, 1, 0.5, 1),
-    opacity 0.35s cubic-bezier(0.25, 1, 0.5, 1);
-  will-change: transform, opacity;
+.folder-front-wrapper {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 90;
+  transform-origin: bottom;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  border-radius: var(--r-md);
 }
 
-.project-folder-open {
-  opacity: 0;
-  z-index: 1;
-  transition: opacity 0.3s cubic-bezier(0.25, 1, 0.5, 1);
-  will-change: opacity;
+.folder-front {
+  width: 100%;
+  height: auto;
+  display: block;
+  pointer-events: none;
 }
 
-/* Hover: front panel tilts forward, open folder appears behind */
-.project-frame-container:hover .project-folder-closed {
-  transform: perspective(800px) rotateX(6deg);
-  opacity: 0.88;
+/* files */
+.file {
+  position: absolute;
+  bottom: 5px;
+  left: 10%;
+  width: 80%;
+  height: 85px;
+  border-radius: var(--r-sm);
+  overflow: hidden;
+  box-shadow: inset 0 1px 1px var(--overlay-white-30), 0 4px 12px var(--shadow-dark);
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 0;
 }
 
-.project-frame-container:hover .project-folder-open {
-  opacity: 1;
+.file-1 { background: var(--file-1); z-index: 25; transition-delay: 0.15s; }
+.file-2 { background: var(--file-2); z-index: 24; transition-delay: 0.1s; }
+.file-3 { background: var(--file-3); z-index: 23; transition-delay: 0.05s; }
+.file-4 { background: var(--file-4); z-index: 22; transition-delay: 0.02s; }
+.file-5 { background: var(--file-5); z-index: 21; transition-delay: 0s; }
+
+/* active state — i file sporgono sopra il flap, ma restano dentro il profilo del folder-back */
+.project-frame:hover .folder-container .folder-front-wrapper, .project-frame:focus-visible .folder-container .folder-front-wrapper {
+  transform: rotateX(-50deg);
+}
+
+.project-frame:hover .folder-container .file-1, .project-frame:focus-visible .folder-container .file-1 {
+  transform: translateY(-35px) rotate(-8deg) translateX(-10px);
+}
+.project-frame:hover .folder-container .file-2, .project-frame:focus-visible .folder-container .file-2 {
+  transform: translateY(-28px) rotate(6deg) translateX(10px);
+}
+.project-frame:hover .folder-container .file-3, .project-frame:focus-visible .folder-container .file-3 {
+  transform: translateY(-21px) rotate(-10deg) translateX(-6px);
+}
+.project-frame:hover .folder-container .file-4, .project-frame:focus-visible .folder-container .file-4 {
+  transform: translateY(-14px) rotate(8deg) translateX(8px);
+}
+
+/*  Hover Interaction */
+.project-frame:hover .folder-container .file:hover, .project-frame:focus-visible .folder-container .file:hover {
+  cursor: pointer;
+  filter: brightness(1.1);
+}
+
+.file-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 14px;
+  height: 14px;
+  color: var(--overlay-white-40);
+  transition: color 0.3s ease;
 }
 
 .project-badge {
@@ -292,7 +336,8 @@
 /* === FOOTER === */
 
 .project-footer {
-  padding: 16px 0 0;
+  padding: 0;
+  margin-top: 24px;
   cursor: pointer;
 }
 
@@ -318,7 +363,7 @@
 .project-name span {
   color: var(--primary);
   font-size: 0.85em;
-  transition: transform 0.2s ease;
+  transition: transform var(--dur-fast) var(--ease-hover);
   display: inline-block;
 }
 
@@ -339,9 +384,9 @@
   font-weight: 600;
   letter-spacing: 0.04em;
   padding: 4px 12px;
-  border-radius: 999px;
-  background: #E6E8EC;
-  color: #212529;
+  border-radius: var(--r-pill);
+  background: var(--primary);
+  color: var(--ink-on-purple);
   cursor: pointer;
 }
 
@@ -353,8 +398,10 @@
   .project-frame-container,
   .project-frame-container:hover,
   .project-sticker-img,
-  .project-sticker-link:hover .project-sticker-img,
-  .project-frame-container:hover .project-sticker-static .project-sticker-img {
+  .project-sticker-link,
+  .project-sticker-static,
+  .project-frame:hover .project-sticker-link,
+  .project-frame:hover .project-sticker-static {
     transform: none !important;
     filter: none !important;
     transition: none !important;
@@ -366,6 +413,14 @@
   .works-board {
     overflow: clip;
   }
+}
+
+/* === SPECIFIC PROJECT OVERRIDES === */
+.project-item--sandbox .folder-card,
+.project-item--sandbox .folder-container,
+.project-item--sandbox .file {
+  box-shadow: none !important;
+  filter: none !important;
 }
 
 /* === TABLET (769-1024px) — flex layout === */
@@ -441,7 +496,7 @@
 /* === HEADER SCALE — 8px grid, consistent with Workflow + About ===
    NOT sticky — only About carousel header is sticky. */
 
-@media (max-width: 900px) {
+@media (max-width: 1024px) {
   .works-header {
     min-height: 160px;
     padding: 40px 40px 24px;
@@ -464,7 +519,7 @@
 @media (max-width: 480px) {
   .works-header {
     min-height: 128px;
-    padding: 24px 16px 16px;
+    padding: 24px 24px 16px;
   }
   .works-title {
     font-size: clamp(24px, 8vw, 48px);

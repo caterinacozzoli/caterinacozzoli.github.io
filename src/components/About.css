@@ -32,7 +32,7 @@
 
 .about-headline-strip {
   background: #FED728;
-  padding: 48px 56px 32px;
+  padding: 48px 48px 32px;
   min-height: 176px; /* 22×8px grid */
   display: flex;
   align-items: flex-end;
@@ -52,10 +52,11 @@
 .about-count {
   position: absolute;
   right: 24px;
-  bottom: -8px;
+  top: 50%;
+  transform: translateY(calc(-50% - 16px));
   font-family: var(--font-display);
   font-weight: 900;
-  font-size: clamp(100px, 20vw, 220px);
+  font-size: clamp(130px, 26.5vw, 290px);
   color: #212529;
   opacity: 0.08;
   line-height: 0.85;
@@ -100,7 +101,7 @@
   text-decoration: none;
   cursor: pointer;
   line-height: 1;
-  transition: color 0.25s ease;
+  transition: color var(--dur-fast) var(--ease-hover);
   white-space: nowrap;
 }
 
@@ -117,7 +118,7 @@
   background-position: center;
   background-repeat: no-repeat;
   opacity: 1;
-  transition: opacity 0.25s ease;
+  transition: opacity var(--dur-fast) var(--ease-hover);
   z-index: -1;
   pointer-events: none;
 }
@@ -135,10 +136,10 @@
   outline-offset: 4px;
 }
 
-/* Top-right inside yellow banner — allineato a destra col numero 03 */
+/* Bottom-right inside yellow banner */
 .skip-recap-btn--banner {
   position: absolute;
-  top: 20px;
+  bottom: 12px;
   right: 24px;
   z-index: 2;
 }
@@ -162,7 +163,7 @@
   display: flex;
   flex-wrap: nowrap;
   gap: 48px;
-  padding: 24px 56px 40px; /* padding extra per consentire visualizzazione dell'ombra */
+  padding: 24px 52px 40px; /* padding extra per consentire visualizzazione dell'ombra */
   list-style: none;
   overflow-x: auto;
   scrollbar-width: none; /* nasconde su Firefox */
@@ -206,7 +207,7 @@
   display: block;
   /* Ombra più morbida e leggera, per integrarsi naturalmente senza creare distacco */
   filter: drop-shadow(2px 8px 20px rgba(33, 37, 41, 0.13));
-  transition: filter 0.3s ease;
+  transition: filter var(--dur-med) var(--ease-hover);
 }
 
 .polaroid-card:hover {
@@ -219,7 +220,7 @@
   aspect-ratio: 4 / 5;
   position: relative;
   transform-style: preserve-3d;
-  transition: transform 0.65s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: transform var(--dur-slow) cubic-bezier(0.34, 1.56, 0.64, 1);
   rotate: var(--tilt, 0deg);
 }
 
@@ -377,15 +378,16 @@
   .skip-recap-btn--banner {
     position: relative;
     top: auto;
+    bottom: auto;
     right: auto;
     margin-left: auto;
-    align-self: flex-start;
+    align-self: flex-end;
   }
 }
 
 /* === HEADER SCALE === */
 
-@media (max-width: 900px) {
+@media (max-width: 1024px) {
   .about-headline-strip {
     min-height: 160px;
     padding: 40px 40px 24px;
@@ -408,7 +410,7 @@
 @media (max-width: 480px) {
   .about-headline-strip {
     min-height: 128px;
-    padding: 24px 16px 16px;
+    padding: 24px 24px 16px;
   }
   .about-headline {
     font-size: clamp(24px, 8vw, 48px);

@@ -23,12 +23,10 @@ export default function CursorBlob() {
     };
 
     const onOver = (e) => {
-      const letter = e.target.closest('.letter-wrap');
       const action = e.target.closest(
         'a, button, [role="button"], .project-frame, .polaroid-card, .nav-link'
       );
-      if (letter)        setState('letter');
-      else if (action)   setState('hover');
+      if (action)        setState('hover');
       else               setState('default');
     };
 

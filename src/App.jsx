@@ -6,6 +6,7 @@ import Hero from './components/Hero';
 import Works from './components/Works';
 import About from './components/About';
 import Workflow from './components/Workflow';
+import InteractiveWidgets from './components/InteractiveWidgets';
 import Contact from './components/Contact';
 import CursorBlob from './components/CursorBlob';
 import LangNav from './components/LangNav';
@@ -42,7 +43,7 @@ const INTRO_BUBBLES = [
 
 const INTRO_SIZE  = 240;
 const FINAL_SIZE  = 140;
-const FINAL_TOP   = 16;
+const FINAL_TOP   = 12;
 const FINAL_RIGHT = 24;
 const BUBBLE_MS   = 2000;  // durata di ciascuna nuvola
 const FRAME_MS    = 280;   // ~3.5fps — stop-motion lento
@@ -100,15 +101,15 @@ function AvatarIntro({ onComplete, lang }) {
     if (w <= 600) {
       finalW = 72;
       finalRight = 16;
-      finalY = 12;
+      finalY = 27;
     } else if (w <= 768) {
       finalW = 88;
       finalRight = 24;
-      finalY = 12;
+      finalY = 19;
     } else if (w <= 900) {
       finalW = 88;
       finalRight = 24;
-      finalY = 12;
+      finalY = 19;
     }
 
     const finalX = w - finalW - finalRight;
@@ -363,6 +364,7 @@ function AppInner() {
         <Works onOpenProject={handleOpenProject} />
         <About onCarouselScroll={handleCarouselScroll} />
         <Workflow />
+        <InteractiveWidgets />
         <Contact />
       </main>
 

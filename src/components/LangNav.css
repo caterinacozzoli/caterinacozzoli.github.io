@@ -2,7 +2,7 @@
 
 .lang-nav {
   position: fixed;
-  top: calc(42px + env(safe-area-inset-top, 0px)); /* Centrata verticalmente rispetto alla barra nav desktop (center a 74px: 32px + 84px/2) */
+  top: calc(50px + env(safe-area-inset-top, 0px)); /* Centrata verticalmente rispetto alla barra nav desktop (center a 82px: 32px + 100px/2) */
   left: calc(24px + env(safe-area-inset-left, 0px));
   /* +1 sopra nav-header: burger resta cliccabile quando overlay è aperto */
   z-index: calc(var(--z-nav) + 1);
@@ -174,7 +174,7 @@
 @media (max-width: 900px) {
   .lang-nav {
     height: 52px;
-    top: calc(29px + env(safe-area-inset-top, 0px)); /* Centrata con la nav pill da 70px ad altezza 20px (center a 55px) */
+    top: calc(37px + env(safe-area-inset-top, 0px)); /* Centrata con la nav pill da 86px ad altezza 20px (center a 63px) */
     padding: 0 16px;
     gap: 10px;
   }

@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CV — 5 varianti (Caterina Cozzoli)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  @font-face{
+    font-family:'Chunko';
+    src:url('./fonts/Chunko-Bold.otf') format('opentype');
+    font-weight:700; font-style:normal; font-display:swap;
+  }
+  :root{
+    --bg:#f5f3ee; --ink:#212529; --ink-muted:#6b6f75;
+    --primary:#7a35ee; --primary-light:#D4CDFF; --primary-button:#6d2bd6;
+    --accent:#FED728; --accent-light:#FFEBA2;
+    --font-display:'Chunko',sans-serif; --font-body:'Onest',system-ui,sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:#2c2740;font-family:var(--font-body);
+    display:flex;flex-direction:column;align-items:center;gap:36px;padding:40px 20px 100px}
+  .frame-label{color:#cfc8e6;font-size:13px;font-weight:600;letter-spacing:.06em;
+    text-transform:uppercase;align-self:flex-start;margin-left:calc(50% - 620px)}
+
+  /* ── pagina A4 @150dpi: 1240x1754 ── */
+  .page{position:relative;width:1240px;height:1754px;overflow:hidden;background:#fff;
+    display:flex;box-shadow:0 16px 44px rgba(0,0,0,.4);color:var(--ink)}
+
+  .sidebar{width:35%;padding:72px 44px;display:flex;flex-direction:column;gap:46px}
+  .main{width:65%;padding:72px 56px;display:flex;flex-direction:column;gap:46px}
+
+  .photo{width:200px;height:200px;flex-shrink:0;border-radius:50%;overflow:hidden;position:relative;
+    background:var(--primary-light);display:flex;align-items:center;justify-content:center;
+    font-size:13px;color:#5a3fa0;font-weight:600;text-align:center}
+  .photo.paper{border-radius:10px;transform:rotate(-2deg);border:10px solid #fbf8f1;
+    box-shadow:0 10px 24px rgba(60,45,20,.25)}
+  .photo.paper .ph-fill{position:absolute;inset:0;
+    background-image:url('./images/carta acquarello.jpg'), linear-gradient(135deg,#d9cdf2,#c9b8ee);
+    background-size:cover;background-position:center;background-blend-mode:multiply}
+  .photo .ph-text{position:relative;z-index:1}
+
+  .sb-name{font-family:var(--font-display);font-weight:700;font-size:42px;line-height:1.08;
+    text-transform:uppercase;margin:0}
+  .sb-name.alt{font-family:var(--font-body);font-weight:800;font-size:32px;text-transform:uppercase;letter-spacing:.01em}
+  .sb-role{font-size:18px;font-weight:600;color:var(--primary-button);margin:10px 0 0}
+  .sb-loc{font-size:15px;color:var(--ink-muted);margin:5px 0 0}
+
+  .sb-block h3, .main-block h3{font-family:var(--font-body);font-weight:700;font-size:15px;
+    letter-spacing:.1em;text-transform:uppercase;color:var(--primary-button);margin:0 0 14px;
+    padding-bottom:8px;border-bottom:2px solid var(--primary-light)}
+  .accent-strong .sb-block h3, .accent-strong .main-block h3{border-bottom-color:var(--accent);color:#7a5b0f}
+
+  .sb-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+  .sb-list li{font-size:14.5px;color:var(--ink);line-height:1.55}
+  .sb-contacts{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px;font-size:14px;color:var(--ink-muted)}
+
+  .tag-row{display:flex;flex-wrap:wrap;gap:8px}
+  .tag{font-size:13px;font-weight:600;color:var(--primary-button);background:var(--primary-light);
+    border-radius:999px;padding:6px 14px}
+  .accent-strong .tag{background:var(--accent-light);color:#7a5b0f}
+
+  .profile-text{font-size:16.5px;line-height:1.7;color:#3a3f45;margin:0}
+
+  .exp-item{display:flex;flex-direction:column;gap:4px;position:relative}
+  .exp-item .role{font-weight:700;font-size:17px;color:var(--ink)}
+  .exp-item .org{font-size:14.5px;color:var(--primary-button);font-weight:600}
+  .exp-item .period{font-size:13px;color:var(--ink-muted)}
+  .exp-item .desc{font-size:14.5px;color:#3a3f45;line-height:1.6;margin-top:4px}
+
+  .timeline{border-left:2px solid var(--primary-light);padding-left:22px;display:flex;flex-direction:column;gap:28px}
+  .timeline .exp-item::before{content:"";position:absolute;left:-27px;top:4px;width:10px;height:10px;
+    border-radius:50%;background:var(--primary)}
+  .accent-strong .timeline{border-left-color:var(--accent)}
+  .accent-strong .timeline .exp-item::before{background:var(--primary-button)}
+
+  .no-timeline{display:flex;flex-direction:column;gap:22px}
+
+  .proj-item{border-left:3px solid var(--primary-light);padding-left:18px}
+  .accent-strong .proj-item{border-left-color:var(--accent)}
+  .proj-item .name{font-weight:700;font-size:16px;color:var(--ink)}
+  .proj-item .role-tag{font-size:13px;color:var(--primary-button);font-weight:600;margin-left:8px}
+  .proj-item .desc{font-size:14px;color:#3a3f45;line-height:1.55;margin-top:4px}
+
+  .sidebar.on-lavanda{background:var(--primary-light)}
+  .sidebar.on-lavanda .sb-block h3{color:var(--ink);border-bottom-color:#ffffffaa}
+  .sidebar.on-lavanda .sb-list li, .sidebar.on-lavanda .sb-contacts li{color:#332a52}
+  .sidebar.on-lavanda .tag{background:#ffffffcc}
+  .sidebar.on-white{background:#fff;border-right:2px solid var(--primary-light)}
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script>
+const DATA = {
+  name: "Caterina Maria Cozzoli",
+  role: "Junior UX/UI Designer",
+  loc: "Milano",
+  contacts: ["[email]", "linkedin.com/in/[da confermare]", "caterinacozzoli.github.io"],
+  profile: "UX/UI designer con radici nelle scienze psicosociali della comunicazione. Progetto esperienze accessibili e inclusive (WCAG), dalla user research alla UI, usando l'AI come alleata di ricerca e sintesi. Dal riconoscimento istituzionale (AbiliCity → Parlamento Europeo) al redesign su cliente reale.",
+  skills: ["User research", "Usability testing", "Accessibilità (WCAG 2.1 AA)", "Information architecture", "Wireframing", "Prototipazione rapida", "UI design", "Design system / UI kit", "Inclusive design", "Interaction design", "Microcopy", "Insight-driven design"],
+  tools: ["Figma", "Antigravity", "Canva", "Gemini", "Claude", "Suite Adobe"],
+  langs: ["Italiano — madrelingua", "Portoghese — madrelingua", "Inglese — C1", "Spagnolo — B1"],
+  education: [
+    { role: "Master Full-Time UX/UI Design for Digital Products", org: "Talent Garden", period: "borsa di studio vinta con design challenge" },
+    { role: "Magistrale in Teoria e Tecnologia della Comunicazione", org: "Università Bicocca", period: "in corso" },
+    { role: "Laurea in Scienze Psicosociali della Comunicazione", org: "Università Bicocca", period: "2025" },
+  ],
+  recognitions: ["Parlamento Europeo (AbiliCity, 2023)", "Fondazione Triulza (legacy Milano-Cortina 2026)", "Acceleratore iBicocca", "Borsa di studio Talent Garden"],
+  experience: [
+    { role: "Mediatrice culturale", org: "Cooperativa Crinali", period: "2025 — oggi", desc: "Ascolto attivo e mediazione in contesti multiculturali." },
+    { role: "Volontaria a supporto di persone con disabilità", org: "“Su la testa!”", period: "2017 — oggi", desc: "Quasi 10 anni di volontariato: empatia e adattamento come pratica quotidiana." },
+    { role: "Cameriera", org: "esperienza pluriennale", period: "", desc: "Ascolto attivo, gestione dello stress, lavoro in team sotto pressione." },
+  ],
+  projects: [
+    { name: "AbiliCity", tag: "co-fondatrice", desc: "Web-app accessibile per l'autonomia delle persone con disabilità. UX/UI, microcopy, testing, pitch, business plan, illustrazioni, brand. Presentato al Parlamento Europeo; prototipo Fondazione Triulza; acceleratore iBicocca." },
+    { name: "Qualia", tag: "project work Master", desc: "App per persone daltoniche, AI driven (Antigravity): onboarding con test di Ishihara, scanner colori, tag NFC. Prototipo provabile." },
+    { name: "Libraccio", tag: "Master · team · cliente reale", desc: "Redesign UX/UI dell'acquisto scolastico. Ruolo: flusso esperienza, funzionalità, UI e ricerca (Reddit + articoli scientifici). 100+ feedback." },
+    { name: "Hestia", tag: "workshop · brief Gewiss · 4gg · team", desc: "App smart home sulla fiducia utente-AI: ricerca evidence-based, sistema a 3 gradi di fiducia." },
+    { name: "UX Lab", tag: "", desc: "UNICEF (usability evaluation) · Sefora (decisioni di design sensibili) · Mind the Craft." },
+  ],
+};
+
+const VARIANTS = [
+  { label: "v1 — sidebar lavanda · nome Chunko · timeline · accento standard", sidebar: "on-lavanda", nameStyle: "", timeline: true, accent: "" },
+  { label: "v2 — sidebar bianca · nome Onest bold · lista semplice · accento oro forte", sidebar: "on-white", nameStyle: "alt", timeline: false, accent: "accent-strong" },
+  { label: "v3 — sidebar lavanda chiara · nome Chunko grande · timeline · accento minimo", sidebar: "on-lavanda", nameStyle: "", timeline: true, accent: "" },
+  { label: "v4 — sidebar bianca · nome Onest bold · timeline · foto ruotata", sidebar: "on-white", nameStyle: "alt", timeline: true, accent: "" },
+  { label: "v5 — sidebar lavanda · nome Chunko · lista semplice · accento oro forte", sidebar: "on-lavanda", nameStyle: "", timeline: false, accent: "accent-strong" },
+];
+
+function el(html){ const t = document.createElement('template'); t.innerHTML = html.trim(); return t.content.firstElementChild; }
+
+function renderPage(v){
+  const expList = v.timeline
+    ? `<div class="timeline">${DATA.experience.map(e => `
+        <div class="exp-item">
+          <span class="role">${e.role}</span>
+          <span class="org">${e.org}</span>
+          <span class="period">${e.period}</span>
+          <p class="desc">${e.desc}</p>
+        </div>`).join('')}</div>`
+    : `<div class="no-timeline">${DATA.experience.map(e => `
+        <div class="exp-item">
+          <span class="role">${e.role} <span class="org">— ${e.org}</span></span>
+          <span class="period">${e.period}</span>
+          <p class="desc">${e.desc}</p>
+        </div>`).join('')}</div>`;
+
+  const page = el(`
+    <div class="page ${v.accent}">
+      <div class="sidebar ${v.sidebar}">
+        <div class="photo paper"><div class="ph-fill"></div><span class="ph-text">La tua foto qui</span></div>
+        <div>
+          <h1 class="sb-name ${v.nameStyle}">${DATA.name}</h1>
+          <p class="sb-role">${DATA.role}</p>
+          <p class="sb-loc">${DATA.loc}</p>
+        </div>
+        <div class="sb-block">
+          <h3>Contatti</h3>
+          <ul class="sb-contacts">${DATA.contacts.map(c => `<li>${c}</li>`).join('')}</ul>
+        </div>
+        <div class="sb-block">
+          <h3>Competenze</h3>
+          <div class="tag-row">${DATA.skills.map(s => `<span class="tag">${s}</span>`).join('')}</div>
+        </div>
+        <div class="sb-block">
+          <h3>Strumenti</h3>
+          <div class="tag-row">${DATA.tools.map(t => `<span class="tag">${t}</span>`).join('')}</div>
+        </div>
+        <div class="sb-block">
+          <h3>Lingue</h3>
+          <ul class="sb-list">${DATA.langs.map(l => `<li>${l}</li>`).join('')}</ul>
+        </div>
+        <div class="sb-block">
+          <h3>Formazione</h3>
+          <ul class="sb-list">${DATA.education.map(e => `<li><strong>${e.role}</strong><br>${e.org} — ${e.period}</li>`).join('')}</ul>
+        </div>
+        <div class="sb-block">
+          <h3>Riconoscimenti</h3>
+          <ul class="sb-list">${DATA.recognitions.map(r => `<li>${r}</li>`).join('')}</ul>
+        </div>
+      </div>
+      <div class="main">
+        <div class="main-block">
+          <h3>Profilo</h3>
+          <p class="profile-text">${DATA.profile}</p>
+        </div>
+        <div class="main-block">
+          <h3>Esperienza</h3>
+          ${expList}
+        </div>
+        <div class="main-block">
+          <h3>Progetti &amp; Workshop</h3>
+          <div style="display:flex;flex-direction:column;gap:16px">
+            ${DATA.projects.map(p => `
+              <div class="proj-item">
+                <span class="name">${p.name}</span>${p.tag ? `<span class="role-tag">${p.tag}</span>` : ''}
+                <p class="desc">${p.desc}</p>
+              </div>`).join('')}
+          </div>
+        </div>
+      </div>
+    </div>
+  `);
+  return page;
+}
+
+const root = document.getElementById('root');
+VARIANTS.forEach(v => {
+  const label = document.createElement('p');
+  label.className = 'frame-label';
+  label.textContent = v.label;
+  root.appendChild(label);
+  root.appendChild(renderPage(v));
+});
+</script>
+</body>
+</html>

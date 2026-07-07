@@ -11,6 +11,11 @@
   .cursor-dot { display: none; }
 
   /* === ORGANIC BLOB — lags, morphs on context === */
+  /* Applica il cursore custom default a tutto il body */
+  body, html {
+    cursor: url('/images/cursore/pointer.png?v=2') 16 16, auto;
+  }
+
   .cursor-blob {
     position: fixed;
     top: 0;
@@ -36,28 +41,51 @@
      dove cursor: none lo renderebbe invisibile e disorientante. */
 
   /* Cursore giallo su tutta la superficie degli elementi cliccabili */
-  a,
-  button,
-  [role="button"],
-  input[type="button"],
-  input[type="submit"],
-  .project-frame-container,
-  .project-footer,
-  .chip,
-  .nav-pill,
-  .lang-nav,
-  .nav-link,
-  .nav-lang,
-  .lang-burger,
-  .lang-flag-btn,
-  .a11y-trigger,
-  .a11y-panel,
-  .a11y-opt-btn,
-  .a11y-reset-btn,
-  .a11y-panel__close,
-  .a11y-panel__header,
-  .a11y-group {
-    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='32' viewBox='0 0 20 24'%3E%3Cpath d='M1 1L1 19L5.5 15L8.5 22L11 21L8 14L14 14Z' fill='%23FED728' stroke='%23212529' stroke-width='1.5' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E") 1 1, auto !important;
+  /* Cursore globale di default su tutto (sovrascrive eventuali manine di sistema) */
+  *, *::before, *::after {
+    cursor: url('/images/cursore/pointer.png?v=2') 16 16, auto !important;
+  }
+
+  /* Mano gialla aperta per elementi draggabili (grab) */
+  [draggable="true"],
+  [draggable="true"] *,
+  .polaroid-card,
+  .polaroid-card *,
+  .rp-crate-cd,
+  .rp-crate-cd *,
+  .premietto-container,
+  .premietto-container *,
+  .framer-motion-drag,
+  .framer-motion-drag *,
+  .workflow-step--puzzle,
+  .workflow-step--puzzle * {
+    cursor: url('/images/cursore/grab.png?v=2') 32 32, grab !important;
+  }
+  
+  .cane-container,
+  .cane-container * {
+    cursor: url('/images/cursore/pat.png?v=2') 32 32, pointer !important;
+  }
+
+  /* Mano gialla chiusa durante il drag (grabbing) */
+  [draggable="true"]:active,
+  [draggable="true"]:active *,
+  .polaroid-card:active,
+  .polaroid-card:active *,
+  .rp-crate-cd:active,
+  .rp-crate-cd:active *,
+  .premietto-container:active,
+  .premietto-container:active *,
+  .framer-motion-drag:active,
+  .framer-motion-drag:active *,
+  .workflow-step--puzzle:active,
+  .workflow-step--puzzle:active * {
+    cursor: url('/images/cursore/grab.png?v=2') 32 32, grabbing !important;
+  }
+  
+  .cane-container:active,
+  .cane-container:active * {
+    cursor: url('/images/cursore/pat.png?v=2') 32 32, pointer !important;
   }
 
   /* Hover over links / buttons / cards: expands, lighter */
@@ -68,18 +96,7 @@
     border-radius: 42% 58% 56% 44% / 48% 52% 48% 52%;
     animation: blob-morph 4s ease-in-out infinite;
   }
-
-  /* Hover over CATERINA COZZOLI letters: gold, bigger */
-  .cursor-blob--letter {
-    width: 76px;
-    height: 76px;
-    background: rgba(254, 215, 40, 0.52);
-    border-radius: 52% 48% 45% 55% / 42% 58% 42% 58%;
-    animation: blob-morph-gold 3s ease-in-out infinite;
-  }
 }
-
-/* === MORPH KEYFRAMES === */
 
 @keyframes blob-morph {
   0%, 100% { border-radius: 42% 58% 56% 44% / 48% 52% 48% 52%; }
@@ -87,11 +104,7 @@
   66%       { border-radius: 50% 50% 62% 38% / 42% 58% 42% 58%; }
 }
 
-@keyframes blob-morph-gold {
-  0%, 100% { border-radius: 52% 48% 45% 55% / 42% 58% 42% 58%; }
-  33%       { border-radius: 40% 60% 58% 42% / 55% 45% 55% 45%; }
-  66%       { border-radius: 62% 38% 42% 58% / 50% 50% 50% 50%; }
-}
+
 
 /* === REDUCED MOTION: stop morphing, keep the dot === */
 

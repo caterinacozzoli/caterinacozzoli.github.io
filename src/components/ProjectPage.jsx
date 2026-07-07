@@ -109,11 +109,11 @@ const PROJECTS = {
   'abili-city': {
     id: 'abili-city',
     title: 'AbiliCity',
-    subtitle: "Il luogo digitale che le persone con disabilità non avevano mai avuto.",
+    subtitle: "La città a misura di chi di solito resta fuori: mobilità, lavoro e tempo libero accessibili in un click.",
     year: '2023–',
-    role: "Co-founder · UX/UI Design · Product Strategy",
-    team: "Caterina Cozzoli, Camilla Lurani Cernuschi",
-    tags: ['UI', 'Figma', 'Lovable', 'Mobile App', 'Accessibilità'],
+    role: "Co-fondatrice · UX/UI Design · sistema illustrativo · brand",
+    team: "Con Camilla Lurani Cernuschi — io: UX/UI, microcopy, testing, pitch, business plan, illustrazioni, brand · lei: social & marketing",
+    tags: ['Accessibilità', 'Inclusione', 'Product Design', 'Illustrazione'],
     image: '/images/folders/folder-abilicity.png',
     stickers: [
       { src: '/images/sticker/sticker abilicity.png', link: 'https://www.abilicity.com/', style: { bottom: '-5%', right: '6%', width: '200px', transform: 'rotate(6deg)' } },
@@ -123,47 +123,57 @@ const PROJECTS = {
     accentLight: '#e8eeff',
     qrUrl: 'https://www.abilicity.com/',
     links: [
-      { label: 'Sito attuale', url: 'https://www.abilicity.com/' },
-      { label: 'Primo prototipo', url: 'https://www.figma.com/proto/jhC381DC6WyEdSeG070svr/AbiliCity?node-id=66-1881&starting-point-node-id=366%3A93' }
+      { label: 'abilicity.com', url: 'https://www.abilicity.com/' },
+      { label: 'Prototipo Figma', url: 'https://www.figma.com/proto/jhC381DC6WyEdSeG070svr/AbiliCity?node-id=66-1881&starting-point-node-id=366%3A93' },
+      { label: 'Scheda Fondazione Triulza', url: 'https://fondazionetriulza.org/prototipo/abilicity/' },
     ],
     sections: [
       {
         type: 'opening-quote',
-        quote: "«Cerchi eventi accessibili. Il sito non funziona sul telefono. Cerchi associazioni. Il numero non risponde.»",
-        citation: "Persona con disabilità motoria, Roma",
+        quote: "«Quel bar ha il gradino? L'ascensore funziona? Esiste un'associazione, un evento, un lavoro vicino a me?»",
+        citation: "Dalla ricerca — il vuoto di informazioni che AbiliCity riempie",
       },
       {
         type: 'context',
         label: '01 / Il problema',
-        title: "Informazioni sparse ovunque, accessibilità garantita da nessuna parte",
-        body: "Se sei una persona con disabilità — o ne hai una vicino — sai cosa significa cercare. Cerchi eventi accessibili su siti istituzionali che non funzionano su smartphone. Cerchi associazioni di supporto tra gruppi Facebook e passaparola. Cerchi lavoro in un mercato che finge che tu non esista. AbiliCity nasce da una semplice domanda: perché non c'è un posto dove trovare tutto?",
-        highlight: "L'accessibilità non è un'opzione. È un diritto. E noi vogliamo costruire la città digitale dove tutti possano entrare.",
-      },
-      {
-        type: 'features',
-        label: '02 / Il prodotto',
-        title: "Cosa fa AbiliCity",
-        items: [
-          { icon: '📍', name: 'Eventi vicino a te', desc: "Scopri eventi accessibili nella tua città. Filtri per tipo di disabilità, categoria, distanza." },
-          { icon: '🤝', name: 'Associazioni', desc: "Directory di associazioni e servizi con informazioni sull'accessibilità fisica e digitale di ciascuno." },
-          { icon: '💼', name: 'Lavoro inclusivo', desc: "Job board dedicata con annunci da aziende impegnate nell'inclusione lavorativa reale." },
-          { icon: '💬', name: 'Community', desc: "Spazio di confronto tra persone, famiglie e professionisti: domande, storie, risorse condivise." },
-        ],
+        title: "Un vuoto di informazioni, non un divieto",
+        body: "Per una persona con disabilità, gli spazi di crescita fuori dalla famiglia e dai contesti terapeutici sono spesso preclusi non da un divieto, ma da un vuoto di informazioni. Dalla conferenza da cui è nato il primo prototipo è emerso un bisogno ancora più profondo: non un'app di servizi, ma un catalizzatore di relazioni. AbiliCity nasce per riempire quel vuoto su tre sfere della quotidianità: mobilità, lavoro, tempo libero.",
+        highlight: "Presentato al Parlamento Europeo · Prototipo Fondazione Triulza (legacy Milano-Cortina 2026) · Co-fondatrice · UX, UI e illustrazioni",
       },
       {
         type: 'process',
-        label: '03 / La storia',
-        title: "Da un compito universitario al Parlamento Europeo",
+        label: '02 / Il processo — l\'evoluzione come metodo',
+        title: "Tre versioni, una curva di apprendimento",
         steps: [
-          { num: '01', name: '2023, Bicocca', desc: "AbiliCity nasce durante il corso di Teoria e tecnica dei nuovi media. Il progetto era un compito. Per noi era un'opportunità reale — Cate aveva quasi dieci anni di volontariato con persone con disabilità in Su la Testa." },
-          { num: '02', name: 'La svolta', desc: "Durante la presentazione in aula, Marcos Cappato — assistente parlamentare — si appassiona all'idea e propone di portarla a Bruxelles." },
-          { num: '03', name: 'Novembre 2023, Parlamento Europeo', desc: "Presentiamo AbiliCity durante una conferenza sulla disabilità. La risposta ci conferma: il progetto ha una risonanza che va oltre l'aula universitaria." },
-          { num: '04', name: 'Oggi', desc: "MVP web e mobile in sviluppo. Rete di associazioni, esperti di innovazione sociale e disability advocates sempre più ampia." },
+          { num: 'v1', name: 'Il prototipo embrionale (app nativa)', desc: "Mappa con segnalazioni utente, associazioni filtrate per orario/categoria, eventi, annunci di lavoro. Grezzo, ma arrivato fino a Bruxelles. Lezione: l'idea regge, la forma no." },
+          { num: 'v2', name: 'UI più curata, ma non ancora accessibile', desc: "Interfaccia esteticamente migliore, ma contrasti e font non conformi e zero label. Bella da vedere, inaccessibile con screen reader. Insight chiave: l'accessibilità non è un layer estetico ma strutturale — le label contano più della palette." },
+          { num: 'v3', name: 'La web-app con community (attuale)', desc: "Ripensata come web-app accessibile, fruibile da browser senza installazioni. Scelta di scope onesta: niente mappa (troppo complessa da fare bene) in favore di una community che rende l'app un catalizzatore di relazioni. Tagliare la feature più difficile è stata una decisione di design, non una rinuncia." },
         ],
       },
       {
+        type: 'design-decisions',
+        label: '03 / Le decisioni di design',
+        title: "Due scelte che raccontano chi sono",
+        items: [
+          { icon: '🤚', name: 'Un logo-mano al posto della carrozzina', what: "L'icona del progetto non è la sedia a rotelle ma una mano.", why: "La maggior parte delle disabilità è invisibile; il simbolo-carrozzina ne escluderebbe molte. Volevo un segno che accogliesse chiunque." },
+          { icon: '🎨', name: 'Un sistema di illustrazioni originali anti-pietismo', what: "Illustrazioni disegnate da me, per rappresentare la disabilità senza pietismo né stereotipi.", why: "Persone, non \"casi\": un tono visivo dignitoso e riconoscibile, coerente col messaggio." },
+          { icon: '📎', name: 'Oltre lo schermo — un touchpoint fisico', what: "Per il Parlamento Europeo: un opuscolo e un invito a forma di segnalibro riutilizzabile.", why: "Il mio unico touchpoint fisico, coerente con l'interesse per le esperienze omnichannel." },
+        ],
+      },
+      {
+        type: 'outcome',
+        label: '04 / Impatto',
+        title: "Da progetto d'aula a iniziativa reale",
+        body: "Presentato al Parlamento Europeo (conferenza \"Integr-abilità\", Bruxelles, 9 nov 2023). Selezionato come prototipo da Fondazione Triulza (legacy Olimpiadi-Paralimpiadi Milano-Cortina 2026) e dall'acceleratore iBicocca. Onesto: resta in sviluppo, ma il percorso è la prova.",
+      },
+      {
+        type: 'learning',
+        label: '05 / Cosa ho imparato',
+        quote: "\"Ho imparato che l'accessibilità si progetta dalla struttura, non si applica alla fine come una mano di vernice — e che un simbolo sbagliato può escludere prima ancora dell'interfaccia.\"",
+      },
+      {
         type: 'prototype',
-        label: '04 / Prototipo',
+        label: '06 / Prototipo',
         title: "Esplora il prototipo dell'applicazione",
         url: "https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Fproto%2FjhC381DC6WyEdSeG070svr%2FAbiliCity%3Fnode-id%3D66-1881%26starting-point-node-id%3D366%253A93",
         link: "https://www.figma.com/proto/jhC381DC6WyEdSeG070svr/AbiliCity?node-id=66-1881&starting-point-node-id=366%3A93",
@@ -171,8 +181,8 @@ const PROJECTS = {
       },
       {
         type: 'callout-quote',
-        quote: "«Crediamo in una comunità in cui ogni voce conta, ogni barriera può essere superata, e ogni incontro può generare cambiamento.»",
-        label: 'Mission AbiliCity',
+        quote: "«Come co-fondatrice ho guidato UX e UI, microcopy, testing, il pitch e il business plan, insieme al sistema illustrativo e all'identità; Camilla ha curato social media e marketing.»",
+        label: 'Il mio contributo',
       },
     ],
   },
@@ -250,12 +260,27 @@ const PROJECTS = {
         ],
       },
       {
+        type: 'design-decisions',
+        label: '05 / Le decisioni di design',
+        title: "Tre scelte, un solo principio: la decisione conta più del dato",
+        items: [
+          { icon: '👁️', name: "L'onboarding È un test di Ishihara", what: "Al primo avvio l'utente fa il test delle tavole di Ishihara: l'app rileva il suo tipo specifico di daltonismo.", why: "Non esiste \"il daltonico\" generico. L'esperienza si adatta alla vista dell'utente, non il contrario." },
+          { icon: '🥑', name: 'Dallo scanner alla risposta azionabile', what: "La fotocamera non dice \"verde/rosso\": dice \"avocado maturo\", \"outfit abbinato\".", why: "L'utente non ha bisogno del nome del colore, ha bisogno della decisione che quel colore implica." },
+          { icon: '🏷️', name: 'Omnichannel: AI + NFC sul capo fisico', what: "Tag NFC sui vestiti che collegano il capo reale alla sua scheda digitale.", why: "Il daltonismo è un problema del mondo fisico; la soluzione doveva uscire dallo schermo." },
+        ],
+      },
+      {
+        type: 'learning',
+        label: '06 / Cosa ho imparato',
+        quote: "\"Progettare per una vista diversa dalla mia mi ha costretta a non fidarmi mai del mio occhio: la soluzione giusta non era mostrare il colore, ma la decisione che il colore porta con sé.\"",
+      },
+      {
         type: 'prototype',
-        label: '05 / Prototipo',
+        label: '07 / Prototipo',
         title: "Esplora il prototipo interattivo",
         url: "https://caterinacozzoli.github.io/qualia-preview/",
         link: "https://caterinacozzoli.github.io/qualia-preview/",
-        linkLabel: "Apri prototipo",
+        linkLabel: "Provalo ↗",
         qrLink: "https://caterinacozzoli.github.io/qualia-preview/",
         githubLink: "https://github.com/caterinacozzoli/qualia",
       },
@@ -263,6 +288,99 @@ const PROJECTS = {
         type: 'callout-quote',
         quote: "«Aiutarti a decidere con fiducia — senza farti sentire una persona da correggere.»",
         label: 'Product vision Qualia',
+      },
+    ],
+  },
+
+  sandbox: {
+    id: 'sandbox',
+    title: 'Sandbox',
+    subtitle: "Quattro file: workshop rapidi, ricerca pura e un mondo voxel. Uno spazio dove sperimento senza vetrina.",
+    year: '—',
+    role: "UX Research · Concept · Metodo",
+    team: "Progetti individuali e di gruppo · Master UX/UI, Talent Garden",
+    tags: ['UX Research', 'Workshop', 'Voxel'],
+    accent: '#0b6ba8',
+    accentLight: '#e3f1fa',
+    links: [
+      { label: 'Presentazione Hestia', url: 'https://caterinacozzoli.github.io/hestia-presentation/final_presentation.html' },
+    ],
+    sections: [
+      {
+        type: 'opening-quote',
+        quote: "«Troppo controllo e l'automazione è inutile; troppa automazione e l'utente si sente espropriato di casa propria.»",
+        citation: "Hestia — il problema riformulato dal brief Gewiss",
+      },
+      {
+        type: 'context',
+        label: '01 / Hestia — brief Gewiss, 4 giorni',
+        title: "Il brief chiedeva un'app smart home. Abbiamo riformulato la domanda vera.",
+        body: "Una casa intelligente promette autonomia, ma chiede una cosa difficile: fidarsi di un'AI che agisce al posto tuo. Il brief Gewiss chiedeva un'app smart home: noi abbiamo riformulato la domanda vera — come si costruisce (e si mantiene) la fiducia tra utente e AI? Squadra di 4, in 4 giorni, su ricerca evidence-based.",
+        highlight: "Ricerca evidence-based (paper + field) · 4 giorni · Sistema a 3 gradi di fiducia",
+      },
+      {
+        type: 'design-decisions',
+        label: '',
+        title: "Un'interfaccia che cresce con la fiducia",
+        items: [
+          { icon: '🎚️', name: 'Un sistema a 3 gradi di fiducia', what: "La stessa app in 3 configurazioni — Basic (UI canonica, AI in bottom bar), Medium (barra conversazionale + sezioni manuali), High (interfaccia puramente conversazionale con AI generativa).", why: "La fiducia non è uguale per tutti; l'interfaccia deve crescere con essa. Un solo prodotto, sistemico non estetico." },
+          { icon: '🔕', name: 'Dal notification center alla checklist silenziosa', what: "Eliminate le notifiche informative in favore di una checklist di attività che Hestia svolge in background.", why: "Coerente con l'insight che la fiducia si costruisce nel silenzio, non con gli alert." },
+          { icon: '💶', name: 'Value Centre', what: "L'app traduce i dati della gestione in benefici concreti (\"hai risparmiato 10€\", \"hai guadagnato 2 aperitivi lavando a pieno carico\").", why: "Rende visibile e motivante il valore dell'automazione, con un tono umano." },
+        ],
+      },
+      {
+        type: 'learning',
+        label: '',
+        quote: "\"Con 4 giorni, la ricerca non è un lusso: è ciò che ti fa prendere le decisioni giuste in fretta. E che progettare fiducia significa lasciare sempre l'ultima parola alla persona.\"",
+      },
+      {
+        type: 'prototype',
+        label: '',
+        title: "Guarda la presentazione e prova i prototipi Hestia",
+        url: "https://caterinacozzoli.github.io/hestia-presentation/final_presentation.html",
+        link: "https://caterinacozzoli.github.io/hestia-presentation/final_presentation.html",
+        linkLabel: "Apri presentazione ↗",
+        extraLinks: [
+          { label: 'Prototipo Medium trust ↗', url: 'https://alibart2000ab-lgtm.github.io/HESTIA/home.html' },
+          { label: 'Prototipo High trust ↗', url: 'https://alibart2000ab-lgtm.github.io/Hestia-L3/wireframe/' },
+        ],
+      },
+      {
+        type: 'context',
+        label: '02 / UNICEF — Usability Evaluation',
+        title: "Quando il valore non è una UI nuova, ma un metodo rigoroso",
+        body: "Analisi euristica e test con utenti reali (circa 15), con task analysis e metriche a supporto. Non c'è una mia interfaccia — e va bene così: questa scheda dimostra il lato più rigoroso del mio lavoro, la capacità di misurare un'esperienza e trasformare i problemi in raccomandazioni prioritizzate.",
+      },
+      {
+        type: 'learning',
+        label: '',
+        quote: "\"Saper valutare un'esperienza in modo strutturato vale quanto saperla disegnare.\"",
+      },
+      {
+        type: 'context',
+        label: '03 / Sefora',
+        title: "Due decisioni valgono più di dieci schermate",
+        body: "Un progetto UX/UI su un tema delicato, che porto in portfolio per le scelte di design sensibili, non per la UI (che è datata).",
+      },
+      {
+        type: 'design-decisions',
+        label: '',
+        title: "Due decisioni piccole nell'interfaccia, grandi nel significato",
+        items: [
+          { icon: '🚪', name: 'Exit button di sicurezza', what: "Un pulsante per permettere a donne vittime di violenza di abbandonare rapidamente lo schermo.", why: "La sicurezza immediata viene prima di qualsiasi altra funzionalità." },
+          { icon: '🎨', name: 'Palette dalle fasi di guarigione di un livido', what: "I colori dell'interfaccia seguono la progressione cromatica della guarigione di un livido.", why: "Dare al percorso di uscita dalla violenza una progressione visiva di cura." },
+        ],
+      },
+      {
+        type: 'learning',
+        label: '',
+        quote: "\"Che il design, su certi temi, è prima di tutto responsabilità: una scelta di colore o un pulsante possono proteggere una persona.\"",
+      },
+      {
+        type: 'context',
+        label: '04 / Mind the Craft',
+        title: "Un mondo voxel, in arrivo",
+        body: "Non ho ancora caricato il materiale di questo progetto. Appena pronto, troverai qui cos'è, il problema, il processo e le decisioni — stessa struttura delle altre schede.",
       },
     ],
   },
@@ -497,7 +615,12 @@ function SectionPrototype({ s, accent }) {
         </div>
 
         <div className="pp-prototype-footer">
-          <div className="pp-prototype-actions">
+          <div
+            className="pp-prototype-actions"
+            {...((s.extraLinks?.length ?? 0) + (s.githubLink ? 1 : 0) >= 2
+              ? { role: 'group', 'aria-label': 'Link prototipo' }
+              : {})}
+          >
             {s.link && (
               <a
                 href={s.link}
@@ -510,6 +633,19 @@ function SectionPrototype({ s, accent }) {
                 {s.linkLabel || 'Apri prototipo su Figma'} ↗
               </a>
             )}
+            {s.extraLinks?.map((el, i) => (
+              <a
+                key={i}
+                href={el.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="pp-prototype-btn pp-prototype-btn--ghost"
+                style={{ '--btn-accent': accent }}
+                aria-label={`${el.label}, si apre in una nuova scheda`}
+              >
+                {el.label}
+              </a>
+            ))}
             {s.githubLink && (
               <a
                 href={s.githubLink}
@@ -619,6 +755,30 @@ function SectionDecisions({ s, accent, accentLight }) {
   );
 }
 
+/* Decisione singola: cosa + perché, senza confronto AS-IS/TO-BE (vedi SectionDecisions) */
+function SectionDesignDecisions({ s, accent, accentLight }) {
+  return (
+    <section className="pp-section pp-section--design-decisions">
+      <span className="pp-label">{s.label}</span>
+      <h3 className="pp-section-title">{s.title}</h3>
+      <ul className="pp-design-decisions">
+        {s.items.map((item, i) => (
+          <li key={i} className="pp-design-decision-card" style={{ borderTopColor: accent }}>
+            <div className="pp-decision-header">
+              <span className="pp-decision-icon" aria-hidden="true">{item.icon}</span>
+              <strong className="pp-decision-name" style={{ color: accent }}>{item.name}</strong>
+            </div>
+            <p className="pp-design-decision-what">{item.what}</p>
+            <div className="pp-decision-why" style={{ background: accentLight, borderLeftColor: accent }}>
+              <strong>Perché:</strong> {item.why}
+            </div>
+          </li>
+        ))}
+      </ul>
+    </section>
+  );
+}
+
 function SectionOutcome({ s, accent, accentLight }) {
   /* Hide callout if it's still a placeholder (starts with '[') */
   const showCallout = s.callout && !s.callout.trim().startsWith('[');
@@ -658,6 +818,7 @@ function renderSection(s, accent, accentLight) {
     case 'solution':      return <SectionSolution key={s.label} s={s} accent={accent} accentLight={accentLight} />;
     case 'impact':        return <SectionImpact key={s.label} s={s} accent={accent} accentLight={accentLight} />;
     case 'decisions':     return <SectionDecisions key={s.label} s={s} accent={accent} accentLight={accentLight} />;
+    case 'design-decisions': return <SectionDesignDecisions key={s.label} s={s} accent={accent} accentLight={accentLight} />;
     case 'outcome':       return <SectionOutcome key={s.label} s={s} accent={accent} accentLight={accentLight} />;
     case 'learning':      return <SectionLearning key={s.label} s={s} />;
     case 'callout-quote': return <SectionCalloutQuote key={s.label} s={s} />;
@@ -749,7 +910,7 @@ export default function ProjectPage({ projectId, onClose }) {
           <header
             className={`pp-hero${collapsed ? ' pp-hero--collapsed' : ''}`}
             style={{
-              '--folder-bg': `url('${data.image.replace('.png', '.avif')}')`,
+              '--folder-bg': data.image ? `url('${data.image.replace('.png', '.avif')}')` : 'none',
               backgroundColor: accentLight,
             }}
           >

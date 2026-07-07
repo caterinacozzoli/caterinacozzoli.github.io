@@ -289,7 +289,7 @@ export default function About({ onCarouselScroll }) {
             <span key={i} className="about-headline-line">{line}</span>
           ))}
         </h2>
-        <span className="about-count" aria-hidden="true">03</span>
+        <span className="about-count" aria-hidden="true">02</span>
         <button
           className="skip-recap-btn skip-recap-btn--banner"
           onClick={skipRecap}

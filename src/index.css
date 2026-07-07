@@ -38,6 +38,19 @@
   --accent:          #FED728;         /* bright yellow */
   --accent-light:    #FFEBA2;         /* pale yellow */
 
+  /* Decorative & Overlays */
+  --file-1:          #ff5f6d;
+  --file-2:          #ffc371;
+  --file-3:          #4facfe;
+  --file-4:          #00f2fe;
+  --file-5:          #a18cd1;
+  --overlay-white-30: rgba(255, 255, 255, 0.3);
+  --overlay-white-40: rgba(255, 255, 255, 0.4);
+  --overlay-white-50: rgba(255, 255, 255, 0.5);
+  --shadow-dark:      rgba(0, 0, 0, 0.3);
+  --shadow-light:     rgba(0, 0, 0, 0.06);
+  --shadow-light-2:   rgba(0, 0, 0, 0.04);
+
   /* Border */
   --border:          #E6E8EC;
 
@@ -67,9 +80,16 @@
   --z-nav:     100;
   --z-overlay: 200;
 
-  /* === EASING === */
-  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
-  --ease-out-expo:  cubic-bezier(0.16, 1, 0.3, 1);
+  /* === EASING (Premium Motion Profile) === */
+  --ease-entrance: cubic-bezier(0.33, 1, 0.68, 1); /* Deceleration for elements appearing */
+  --ease-exit:     cubic-bezier(0.32, 0, 0.67, 0); /* Acceleration for elements leaving */
+  --ease-hover:    cubic-bezier(0.2, 0, 0, 1);     /* Snappy UI for immediate interaction */
+  --ease-ambient:  cubic-bezier(0.4, 0, 0.2, 1);   /* Gentle float for ambient motion */
+  
+  /* === DURATIONS === */
+  --dur-fast: 150ms; /* Tooltips, buttons, hover states */
+  --dur-med:  300ms; /* Cards, panels, micro-interactions */
+  --dur-slow: 500ms; /* Page transitions, dramatic reveals */
 
   font-family: var(--font-body);
   font-size: 16px;
@@ -167,7 +187,7 @@ button {
   z-index: calc(var(--z-overlay) + 10);
   padding: var(--sp-1) var(--sp-2);
   background: var(--primary);
-  color: oklch(1.000 0.000 0);
+  color: var(--ink-on-purple);
   font-family: var(--font-body);
   font-size: 14px;
   font-weight: 600;
