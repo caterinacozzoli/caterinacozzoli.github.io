@@ -479,19 +479,63 @@
   .works-grid {
     position: static;
     display: flex;
-    flex-direction: column;
-    gap: 40px;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 16px;
     padding: 32px 24px 60px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  .works-grid::-webkit-scrollbar {
+    display: none;
   }
 
   .project-item,
   .project-item--small,
   .project-item--large {
-    position: static;
-    width: 100%;
-    transform: none;
-    top: auto;
-    left: auto;
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    flex: 0 0 80vw !important; /* Aumentato di un ulteriore 33% da 60vw */
+    min-width: 280px; 
+    scroll-snap-align: center;
+    transform: none !important;
+    margin: 0;
+  }
+  
+  .folder-card {
+    transform: scale(1.94) !important; /* 1.46 + 33% */
+    transform-origin: right bottom !important; /* Origine a destra per matchare la giustificazione */
+    margin: 40px 0 16px auto !important; /* Spinta a destra */
+  }
+  
+  .project-footer {
+    text-align: right;
+  }
+
+  .project-name {
+    font-size: 24px; /* 18px + 33% */
+    margin-top: 20px;
+  }
+  
+  .project-desc {
+    font-size: 18px; /* 14px + 33% */
+    line-height: 1.4;
+    max-width: 100%;
+    margin-left: auto; /* Allinea blocco a destra */
+  }
+  
+  .project-chips {
+    gap: 8px;
+    margin-bottom: 16px;
+    justify-content: flex-end; /* Allinea le chips a destra */
+  }
+  
+  .chip {
+    font-size: 16px; /* 12px + 33% */
+    padding: 4px 10px;
   }
 }
 

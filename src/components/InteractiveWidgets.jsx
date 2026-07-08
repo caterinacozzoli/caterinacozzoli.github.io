@@ -30,6 +30,7 @@ function RecordPlayer({ onMusicPlaying }) {
   const [activeAlbum, setActiveAlbum] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [draggingId, setDraggingId] = useState(null);
+  const [isMobile, setIsMobile] = useState(false);
   const baseRef = useRef(null);
   // Store refs for each CD
   const cdRefs = useRef({});
@@ -39,8 +40,28 @@ function RecordPlayer({ onMusicPlaying }) {
     : (lang === 'it' ? 'Avvia il giradischi' : lang === 'pt' ? 'Tocar o toca-discos' : 'Play the record player');
 
   useEffect(() => {
+    const mql = window.matchMedia('(max-width: 768px)');
+    const checkMobile = (e) => {
+      setIsMobile(e.matches);
+      if (e.matches && !activeAlbum) {
+        setActiveAlbum(ALBUMS[0]);
+      }
+    };
+    checkMobile(mql);
+    mql.addEventListener('change', checkMobile);
+    return () => mql.removeEventListener('change', checkMobile);
+  }, [activeAlbum]);
+
+  useEffect(() => {
     onMusicPlaying?.(isPlaying);
   }, [isPlaying, onMusicPlaying]);
+
+  const cycleAlbum = () => {
+    const currentIndex = activeAlbum ? ALBUMS.findIndex(a => a.id === activeAlbum.id) : -1;
+    const nextIndex = (currentIndex + 1) % ALBUMS.length;
+    setActiveAlbum(ALBUMS[nextIndex]);
+    setIsPlaying(true);
+  };
 
   const dockAlbum = (album) => {
     setActiveAlbum(album);
@@ -108,9 +129,13 @@ function RecordPlayer({ onMusicPlaying }) {
             alt=""
             className="rp-layer rp-base"
             onClick={() => {
-              if (activeAlbum) setIsPlaying(v => !v);
+              if (isMobile) {
+                cycleAlbum();
+              } else if (activeAlbum) {
+                setIsPlaying(v => !v);
+              }
             }}
-            style={{ cursor: activeAlbum ? 'pointer' : 'default', pointerEvents: 'auto' }}
+            style={{ cursor: 'pointer', pointerEvents: 'auto' }}
           />
 
           {/* If an album is docked, show it spinning on the base */}
@@ -120,6 +145,14 @@ function RecordPlayer({ onMusicPlaying }) {
               alt=""
               className={`rp-layer rp-vinile${isPlaying ? ' rp-vinile--spinning' : ''}`}
               aria-hidden="true"
+              onClick={() => {
+                if (isMobile) {
+                  cycleAlbum();
+                } else if (activeAlbum) {
+                  setIsPlaying(v => !v);
+                }
+              }}
+              style={{ cursor: 'pointer', pointerEvents: 'auto' }}
             />
           )}
 
@@ -337,8 +370,8 @@ export default function InteractiveWidgets({ onDogActive, onMusicPlaying }) {
       </div>
       <div className="interactive-widgets-section">
         <img src="/images/mappa.png" alt="" className="playful-map" aria-hidden="true" />
-        <RecordPlayer onMusicPlaying={onMusicPlaying} />
         <DogInteraction onDogActive={onDogActive} />
+        <RecordPlayer onMusicPlaying={onMusicPlaying} />
       </div>
     </section>
   );

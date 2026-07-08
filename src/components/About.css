@@ -342,33 +342,24 @@
 
 /* === RESPONSIVE CARD SIZING === */
 
-@media (max-width: 900px) {
-  .about-carousel-container {
-    padding: 32px 0 64px;
-  }
-
-  .about-carousel {
-    padding: 16px 24px 24px;
-    gap: 32px;
-  }
-
-  .polaroid-card {
-    width: clamp(200px, 45vw, 300px);
-  }
-}
-
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .about-carousel-container {
     padding: 24px 0 48px;
   }
 
   .about-carousel {
-    padding: 12px 16px 20px;
-    gap: 20px;
+    padding: 16px 24px 24px;
+    gap: 16px;
+    scroll-snap-type: x mandatory;
+  }
+
+  .about-carousel-item {
+    scroll-snap-align: center;
   }
 
   .polaroid-card {
-    width: clamp(170px, 65vw, 260px);
+    width: 45vw !important;
+    min-width: 140px;
   }
 }
 

@@ -110,7 +110,7 @@ html, body {
 
 body {
   background-color: var(--bg);
-  background-image: url('/images/textures/carta acquarello.jpg');
+  background-image: url('/images/textures/paper-texture-rotated.png');
   background-size: cover;
   background-attachment: fixed;
   background-repeat: no-repeat;

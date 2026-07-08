@@ -294,12 +294,17 @@
   .hero-punchline-wrapper {
     max-width: 100%;
     padding: 0;
-    padding-right: 24px; /* mantieni padding destro, il nome va a bordo */
+    transform: none;
+    margin: 0 auto;
+    width: 65%; /* ~250px on mobile */
+    display: block;
   }
 
   .hero-punchline-pin {
-    width: 48px;
-    top: -20px;
+    width: 36px;
+    top: -18px;
+    left: 50%;
+    transform: translateX(-50%) scaleX(-1);
   }
 
   .hero-name-container {

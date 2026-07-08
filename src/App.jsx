@@ -328,23 +328,25 @@ function AppInner() {
     setChiSonoHovered(false);
   }, []);
 
-  const avatarMode = dogActive
-    ? 'felice'
-    : musicPlaying
-      ? 'fischia'
-      : homeLock || (!activeSection && !chiSonoHovered)
+  const avatarMode = homeLock || (!activeSection && !chiSonoHovered)
+    ? 'default'
+    : activeSection === 'contatti'
       ? 'default'
-      : chiSonoHovered
-        ? 'sbatti'
-        : carouselScrolling
-          ? 'pop'
-          : activeSection === 'chi-sono'
+      : dogActive
+        ? 'felice'
+        : musicPlaying
+          ? 'fischia'
+          : chiSonoHovered
             ? 'sbatti'
-            : activeSection === 'lavori'
-              ? 'fischia'
-              : activeSection === 'workflow'
-                ? 'curiosa'
-                : 'default';
+            : carouselScrolling
+              ? 'pop'
+              : activeSection === 'chi-sono'
+                ? 'sbatti'
+                : activeSection === 'lavori'
+                  ? 'fischia'
+                  : activeSection === 'workflow'
+                    ? 'curiosa'
+                    : 'default';
 
   return (
     <>
