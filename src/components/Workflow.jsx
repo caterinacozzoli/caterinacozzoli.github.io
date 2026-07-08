@@ -3,38 +3,43 @@ import { useLang } from '../contexts/LangContext';
 import { Reorder } from 'framer-motion';
 import './Workflow.css';
 
-const BASE_ORDER = ['ascolto', 'definisco', 'esploro', 'wireframe', 'interfaccia', 'test'];
+const BASE_ORDER = ['ascolto', 'definisco', 'esploro', 'interfaccia', 'test'];
+
+const POSTIT_IMAGES = {
+  ascolto:     '/images/postit/cardpostit ascolto.png',
+  definisco:   '/images/postit/cardpostit definisco.png',
+  esploro:     '/images/postit/cardpostit esploro.png',
+  interfaccia: '/images/postit/cardpostit interfaccia.png',
+  test:        '/images/postit/cardpostit testo e itero.png',
+};
 
 const PIECES = {
   it: {
     ascolto:     { num: '01', title: 'Ascolto',        desc: 'Bombardo di "perché?". Interviste, osservazione, dati reali — anche le conversazioni vive su Reddit. Prima capisco, poi progetto.' },
     definisco:   { num: '02', title: 'Definisco',      desc: 'Trasformo il rumore in insight: HMW, priorità, la domanda giusta. Se non so cosa sto risolvendo, non disegno.' },
     esploro:     { num: '03', title: 'Esploro',        desc: 'Genero, scarto, combino. Moodboard, architettura, tante direzioni prima di sceglierne una.' },
-    wireframe:   { num: '04', title: 'Wireframe',      desc: 'Do struttura alle idee: flussi e scheletro, dove ogni schermata guadagna il suo posto.' },
-    interfaccia: { num: '05', title: 'Interfaccia',    desc: 'Metto la pelle: UI, microcopy, accessibilità. Qui il testo è design quanto il pixel.' },
-    test:        { num: '06', title: 'Testo & Itero',  desc: 'Osservo persone reali. Correggo, miglioro, ripeto. (È il mio judo: cadere, correggere, rialzarsi.)' },
+    interfaccia: { num: '04', title: 'Interfaccia',    desc: 'Metto la pelle: UI, microcopy, accessibilità. Qui il testo è design quanto il pixel.' },
+    test:        { num: '05', title: 'Testo & Itero',  desc: 'Osservo persone reali. Correggo, miglioro, ripeto. (È il mio judo: cadere, correggere, rialzarsi.)' },
   },
   en: {
     ascolto:     { num: '01', title: 'Listen',          desc: 'I ask "why?" over and over. Interviews, observation, real data — even live conversations on Reddit. Understand first, design second.' },
     definisco:   { num: '02', title: 'Define',          desc: 'I turn noise into insight: HMW, priorities, the right question. If I don\'t know what I\'m solving, I don\'t draw.' },
     esploro:     { num: '03', title: 'Explore',         desc: 'Generate, discard, combine. Moodboards, architecture, many directions before choosing one.' },
-    wireframe:   { num: '04', title: 'Wireframe',       desc: 'Give ideas structure: flows and skeleton, where every screen earns its place.' },
-    interfaccia: { num: '05', title: 'Interface',       desc: 'Add the skin: UI, microcopy, accessibility. Here text is design as much as pixels.' },
-    test:        { num: '06', title: 'Test & Iterate',  desc: 'Watch real people. Fix, improve, repeat. (This is my judo: fall, correct, rise.)' },
+    interfaccia: { num: '04', title: 'Interface',       desc: 'Add the skin: UI, microcopy, accessibility. Here text is design as much as pixels.' },
+    test:        { num: '05', title: 'Test & Iterate',  desc: 'Watch real people. Fix, improve, repeat. (This is my judo: fall, correct, rise.)' },
   },
   pt: {
     ascolto:     { num: '01', title: 'Escuto',         desc: 'Bombardeio de "porquês". Entrevistas, observação, dados reais — inclusive conversas reais no Reddit. Primeiro entendo, depois projeto.' },
     definisco:   { num: '02', title: 'Defino',         desc: 'Transformo ruído em insight: HMW, prioridades, a pergunta certa. Se não sei o que estou resolvendo, não desenho.' },
     esploro:     { num: '03', title: 'Exploro',        desc: 'Gero, descarto, combino. Moodboards, arquitetura, várias direções antes de escolher uma.' },
-    wireframe:   { num: '04', title: 'Wireframe',      desc: 'Dou estrutura às ideias: fluxos e esqueleto, onde cada tela ganha seu lugar.' },
-    interfaccia: { num: '05', title: 'Interface',      desc: 'Coloco a pele: UI, microcopy, acessibilidade. Aqui o texto é design tanto quanto o pixel.' },
-    test:        { num: '06', title: 'Testo & Itero',  desc: 'Observo pessoas reais. Corrijo, melhoro, repito. (É o meu judô: cair, corrigir, levantar.)' },
+    interfaccia: { num: '04', title: 'Interface',      desc: 'Coloco a pele: UI, microcopy, acessibilidade. Aqui o texto é design tanto quanto o pixel.' },
+    test:        { num: '05', title: 'Testo & Itero',  desc: 'Observo pessoas reais. Corrijo, melhoro, repito. (É o meu judô: cair, corrigir, levantar.)' },
   },
 };
 
 const PRESETS = {
   abilicity: {
-    order: ['ascolto', 'definisco', 'interfaccia', 'test', 'esploro', 'wireframe'],
+    order: ['ascolto', 'definisco', 'interfaccia', 'test', 'esploro'],
     label: { it: 'AbiliCity', en: 'AbiliCity', pt: 'AbiliCity' },
     caption: {
       it: 'AbiliCity → tre versioni: ogni giro di test ha cambiato l\'ordine e riaperto l\'ascolto.',
@@ -43,7 +48,7 @@ const PRESETS = {
     },
   },
   hestia: {
-    order: ['ascolto', 'definisco', 'wireframe', 'interfaccia', 'esploro', 'test'],
+    order: ['ascolto', 'definisco', 'interfaccia', 'esploro', 'test'],
     label: { it: 'Hestia · 4 giorni', en: 'Hestia · 4 days', pt: 'Hestia · 4 dias' },
     caption: {
       it: 'Hestia → 4 giorni: niente tempo per esplorare a lungo, la ricerca ha compresso tutto il resto.',
@@ -52,7 +57,7 @@ const PRESETS = {
     },
   },
   qualia: {
-    order: ['esploro', 'ascolto', 'wireframe', 'interfaccia', 'test', 'definisco'],
+    order: ['esploro', 'ascolto', 'interfaccia', 'test', 'definisco'],
     label: { it: 'Qualia', en: 'Qualia', pt: 'Qualia' },
     caption: {
       it: 'Qualia → sono partita dallo strumento (AI) e ho lasciato che la ricerca lo mettesse a fuoco.',
@@ -62,8 +67,14 @@ const PRESETS = {
   },
 };
 
+const ARIA_TITLE = {
+  it: 'Il mio metodo non è una linea retta.',
+  en: 'My process is not a straight line.',
+  pt: 'Meu processo não é uma linha reta.',
+};
+
 const TITLE = {
-  it: 'Il mio metodo non\nè una linea retta.',
+  it: <>Il mio metodo non{'\n'}<span className="custom-accent-e">e</span> una linea retta.</>,
   en: 'My process is not\na straight line.',
   pt: 'Meu processo não é\numa linha reta.',
 };
@@ -280,7 +291,7 @@ export default function Workflow() {
         onReorder={setOrder} 
         as="ol" 
         className="workflow-steps workflow-steps--puzzle" 
-        aria-label={TITLE[lang] ?? TITLE.it}
+        aria-label={ARIA_TITLE[lang] ?? ARIA_TITLE.it}
       >
         {order.map((id, i) => {
           const step = pieces[id];
@@ -290,22 +301,27 @@ export default function Workflow() {
               key={id}
               as="li"
               ref={setTileRef(id)}
-              className="workflow-step workflow-step--puzzle"
+              className="workflow-step workflow-step--postit"
               tabIndex={rovingId === id ? 0 : -1}
               drag={dragEnabled ? "x" : false}
               dragConstraints={{ top: -50, left: -50, right: 50, bottom: 50 }}
               dragElastic={0.2}
+              initial={{ rotate: (i % 2 === 0 ? 1 : -1) * (1.5 + i * 0.5) }}
               whileDrag={{
-                scale: 1.1,
-                boxShadow: "0px 10px 20px rgba(0,0,0,0.2)",
+                scale: 1.08,
+                rotate: (i % 2 === 0 ? -3 : 3),
                 cursor: "grabbing"
               }}
               onFocus={() => setRovingId(id)}
               onKeyDown={handleTileKeyDown(id)}
               aria-label={`${step.title} — posizione ${i + 1} di ${order.length}`}
             >
-              <h3 className="step-title">{step.title}</h3>
-              <p className="step-desc">{step.desc}</p>
+              <img
+                src={POSTIT_IMAGES[id]}
+                alt={`${step.title} — ${step.desc}`}
+                className="postit-img"
+                draggable={false}
+              />
               <div className="sr-only">
                 <button
                   type="button"

@@ -106,9 +106,15 @@ export default function Hero() {
     rotateValue.set(rotateValue.get() + info.delta.x * 0.15);
   }, [pinDetached, rotateValue]);
 
-  const handlePaperPanEnd = useCallback(() => {
+  const handlePaperPanEnd = useCallback((e, info) => {
     if (pinDetached) return;
-    animate(rotateValue, 15, { type: 'spring', stiffness: 150, damping: 10 });
+    const velocity = info.velocity.x * 0.05;
+    animate(rotateValue, 15, { 
+      type: 'spring', 
+      stiffness: 120, 
+      damping: 6, 
+      velocity: velocity 
+    });
   }, [pinDetached, rotateValue]);
 
   const detachPin = useCallback((direction = 1) => {
@@ -209,7 +215,7 @@ export default function Hero() {
             alt={tr.hero.description.replace(/\n/g, ' ')}
             className="hero-punchline-img framer-motion-drag" 
             draggable="false"
-            style={{ rotate: rotateValue, transformOrigin: 'calc(50% + 6px) -15px' }}
+            style={{ rotate: rotateValue, transformOrigin: 'calc(50% + 6px) -18px' }}
           />
         </motion.div>
       </motion.div>

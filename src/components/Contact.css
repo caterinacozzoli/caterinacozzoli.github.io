@@ -23,8 +23,9 @@
 }
 
 .contact-sub {
-  font-size: clamp(16px, 1.4vw, 20px);
-  font-weight: 300;
+  font-size: clamp(24px, 2vw, 32px); /* Più grande come richiesto */
+  font-weight: 600; /* Semi-bold */
+  margin-top: -8px; /* Poco più alto (avvicinato al titolo) */
   color: rgba(255,255,255,0.60);
   max-width: 48ch;
   line-height: 1.6;

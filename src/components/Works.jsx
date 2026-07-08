@@ -49,8 +49,8 @@ const PROJECTS = [
       { src: '/images/sticker/sticker parlameneto.png', link: 'https://psicologia.unimib.it/it/news/abilicity-lapplicazione-tutti-nata-bicocca-e-sbarcata-al-parlamento-europeo', style: { bottom: '32%', left: '16%', width: '27%', transform: 'rotate(-5deg)' } },
     ],
     size: 'small',
-    top: 312,
-    left: 'calc(72% - 24px)',
+    top: 292,
+    left: 'calc(72% + 36px)',
     tilt: 2,
   },
   {
@@ -236,16 +236,16 @@ export default function Works({ onOpenProject }) {
                       {p.title}
                       <span aria-hidden="true"> →</span>
                     </h3>
+                    <ul className="project-chips" aria-label="Categorie">
+                      {p.tags.slice(0, 4).map(tag => (
+                        <li key={tag} className="chip">{tag}</li>
+                      ))}
+                    </ul>
                     {p.description && (
                       <p className="project-desc">
                         {p.description[lang] ?? p.description.it}
                       </p>
                     )}
-                    <ul className="project-chips" aria-label="Categorie">
-                      {p.tags.map(tag => (
-                        <li key={tag} className="chip">{tag}</li>
-                      ))}
-                    </ul>
                   </footer>
                 </article>
               </li>

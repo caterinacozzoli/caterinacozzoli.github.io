@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "entries": {
+    "f4d00d57ab066e7c88b9d3dc60e58aa5c8b49d080a63416ecb5ef8ec1d058c8d": {
+      "planId": "f4d00d57ab066e7c88b9d3dc60e58aa5c8b49d080a63416ecb5ef8ec1d058c8d",
+      "ownerWorkspaceId": "b86864bf-78c6-40d0-8ea0-712fd4ff77e7",
+      "sourceType": "brain",
+      "brainSourcePath": "/Users/cate/.gemini/antigravity/brain/ce2d360b-a36d-4832-a911-bb2eb9538176/implementation_plan.md",
+      "mirrorPath": "brain_f4d00d57ab066e7c88b9d3dc60e58aa5c8b49d080a63416ecb5ef8ec1d058c8d.md",
+      "topic": "Implementazione Scaffale e Giradischi 3D",
+      "createdAt": "2026-07-08T00:51:55.902Z",
+      "updatedAt": "2026-07-08T00:51:56.454Z",
+      "status": "active"
+    },
+    "b64407f65259669ed7ee05990214cb1220c0ed151a3276a1889df3db1a6dae46": {
+      "planId": "b64407f65259669ed7ee05990214cb1220c0ed151a3276a1889df3db1a6dae46",
+      "ownerWorkspaceId": "b86864bf-78c6-40d0-8ea0-712fd4ff77e7",
+      "sourceType": "brain",
+      "brainSourcePath": "/Users/cate/.gemini/antigravity/brain/35a5bee3-8048-4fb2-be61-c6159a65f627/implementation_plan.md",
+      "mirrorPath": "brain_b64407f65259669ed7ee05990214cb1220c0ed151a3276a1889df3db1a6dae46.md",
+      "topic": "Impeccable: Layout & Delight Pass",
+      "createdAt": "2026-07-08T01:54:26.516Z",
+      "updatedAt": "2026-07-08T01:54:26.969Z",
+      "status": "active"
+    }
+  }
+}

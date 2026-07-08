@@ -23,6 +23,8 @@ const AVATAR = {
   sottoCentro:   '/images/avatar/avatar-caterina-sotto-centro.png',
   inBassoADestra:'/images/avatar/avatar-caterina-in-basso-a-destra.png',
   pop:           '/images/avatar/avatar-caterina-popcorn.png',
+  curiosa:       '/images/avatar/avatar-caterina-curiosa.png',
+  felice:        '/images/avatar/avatar-caterina-felice.png',
 };
 
 /* === LOADING: 3 fasi, avatar stop-motion === */
@@ -295,6 +297,8 @@ function AppInner() {
   const [homeLock, setHomeLock] = useState(false);
   const [introComplete, setIntroComplete] = useState(false);
   const [carouselScrolling, setCarouselScrolling] = useState(false);
+  const [dogActive, setDogActive] = useState(false);
+  const [musicPlaying, setMusicPlaying] = useState(false);
   const [openProject, setOpenProject] = useState(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const handleMenuToggle = useCallback(() => setMenuOpen(o => !o), []);
@@ -303,6 +307,8 @@ function AppInner() {
   const handleOpenProject = useCallback((id) => setOpenProject(id), []);
   const handleCloseProject = useCallback(() => setOpenProject(null), []);
   const handleCarouselScroll = useCallback((active) => setCarouselScrolling(active), []);
+  const handleDogActive = useCallback((active) => setDogActive(active), []);
+  const handleMusicPlaying = useCallback((active) => setMusicPlaying(active), []);
 
   // Rilascia homeLock appena scrollY < 50
   useEffect(() => {
@@ -322,19 +328,23 @@ function AppInner() {
     setChiSonoHovered(false);
   }, []);
 
-  const avatarMode = homeLock || (!activeSection && !chiSonoHovered)
-    ? 'default'
-    : chiSonoHovered
-      ? 'sbatti'
-      : carouselScrolling
-        ? 'pop'
-        : activeSection === 'chi-sono'
-          ? 'sbatti'
-          : activeSection === 'lavori'
-            ? 'fischia'
-            : activeSection === 'workflow'
-              ? 'frontale'
-              : 'default';
+  const avatarMode = dogActive
+    ? 'felice'
+    : musicPlaying
+      ? 'fischia'
+      : homeLock || (!activeSection && !chiSonoHovered)
+      ? 'default'
+      : chiSonoHovered
+        ? 'sbatti'
+        : carouselScrolling
+          ? 'pop'
+          : activeSection === 'chi-sono'
+            ? 'sbatti'
+            : activeSection === 'lavori'
+              ? 'fischia'
+              : activeSection === 'workflow'
+                ? 'curiosa'
+                : 'default';
 
   return (
     <>
@@ -364,7 +374,7 @@ function AppInner() {
         <Works onOpenProject={handleOpenProject} />
         <About onCarouselScroll={handleCarouselScroll} />
         <Workflow />
-        <InteractiveWidgets />
+        <InteractiveWidgets onDogActive={handleDogActive} onMusicPlaying={handleMusicPlaying} />
         <Contact />
       </main>
 

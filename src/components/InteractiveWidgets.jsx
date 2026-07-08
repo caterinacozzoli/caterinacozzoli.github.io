@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useLang } from '../contexts/LangContext';
 import './InteractiveWidgets.css';
@@ -25,7 +25,7 @@ const ALBUMS = [
   { id: 'steviewonder', artist: 'Stevie Wonder', album: '/images/vinili/Album/stevie wonder.png', cd: '/images/vinili/CD/steviewonder 1.png', spotify: '7guDJrEfX3qb6FEbdPA5qi' },
 ];
 
-function RecordPlayer() {
+function RecordPlayer({ onMusicPlaying }) {
   const { lang } = useLang();
   const [activeAlbum, setActiveAlbum] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -37,6 +37,10 @@ function RecordPlayer() {
   const toggleLabel = isPlaying
     ? (lang === 'it' ? 'Metti in pausa il giradischi' : lang === 'pt' ? 'Pausar o toca-discos' : 'Pause the record player')
     : (lang === 'it' ? 'Avvia il giradischi' : lang === 'pt' ? 'Tocar o toca-discos' : 'Play the record player');
+
+  useEffect(() => {
+    onMusicPlaying?.(isPlaying);
+  }, [isPlaying, onMusicPlaying]);
 
   const dockAlbum = (album) => {
     setActiveAlbum(album);
@@ -61,152 +65,254 @@ function RecordPlayer() {
 
   return (
     <div className="record-player-container">
-      {/* Albums Grid (Crates) — a sinistra del giradischi */}
-      <div className="rp-crates">
-        {ALBUMS.map((album) => (
-          <div key={album.id} className="rp-crate-item">
-            {/* The draggable CD. If it's the active one, hide it from the crate (it's on the player) */}
-            <motion.img
-              ref={(el) => { cdRefs.current[album.id] = el; }}
-              src={album.cd}
-              alt=""
-              className="rp-crate-cd"
-              style={{ opacity: activeAlbum?.id === album.id ? 0 : 1 }}
-              drag={activeAlbum?.id !== album.id}
-              dragMomentum={false}
-              dragElastic={0.15}
-              dragSnapToOrigin
-              whileDrag={{ scale: 1.1, zIndex: 100 }}
-              onDragStart={() => setDraggingId(album.id)}
-              onDragEnd={handleDragEnd(album)}
-              onClick={() => dockAlbum(album)}
-              role="button"
-              tabIndex={activeAlbum?.id === album.id ? -1 : 0}
-              aria-label={lang === 'it' ? `Suona ${album.artist}` : lang === 'pt' ? `Tocar ${album.artist}` : `Play ${album.artist}`}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); dockAlbum(album); }
-              }}
-            />
-            {/* The Album Cover */}
-            <img src={album.album} alt={album.artist} className="rp-crate-cover" />
-          </div>
-        ))}
+      {/* Scaffale Sinistro */}
+      <div className="rp-shelf-container shelf-left">
+        <img src="/images/cane/scaffale.png" className="rp-shelf-bg" alt="" aria-hidden="true" />
+        <div className="rp-shelf">
+          {ALBUMS.slice(0, 3).map((album) => (
+            <div key={album.id} className="rp-shelf-item">
+              <motion.img
+                ref={(el) => { cdRefs.current[album.id] = el; }}
+                src={album.cd}
+                alt=""
+                className="rp-shelf-cd"
+                style={{ opacity: activeAlbum?.id === album.id ? 0 : 1 }}
+                drag={activeAlbum?.id !== album.id}
+                dragMomentum={false}
+                dragElastic={0.15}
+                dragSnapToOrigin
+                whileDrag={{ scale: 1.1, scaleX: -1.2, zIndex: 100 }}
+                onDragStart={() => setDraggingId(album.id)}
+                onDragEnd={handleDragEnd(album)}
+                onClick={() => dockAlbum(album)}
+                role="button"
+                tabIndex={activeAlbum?.id === album.id ? -1 : 0}
+                aria-label={lang === 'it' ? `Suona ${album.artist}` : lang === 'pt' ? `Tocar ${album.artist}` : `Play ${album.artist}`}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); dockAlbum(album); }
+                }}
+              />
+              <img src={album.album} alt={album.artist} className="rp-shelf-cover" />
+            </div>
+          ))}
+        </div>
       </div>
 
-      <div className="record-player">
-        <img 
-          ref={baseRef} 
-          src="/images/giradischi/base.png" 
-          alt="" 
-          className="rp-layer rp-base" 
-          onClick={() => {
-            if (activeAlbum) setIsPlaying(v => !v);
-          }}
-          style={{ cursor: activeAlbum ? 'pointer' : 'default', pointerEvents: 'auto' }}
-        />
-
-        {/* If an album is docked, show it spinning on the base */}
-        {activeAlbum && (
+      {/* Tavolo in prospettiva — stessa meccanica di drag/dock/spin, solo inclinato */}
+      <div className="rp-table">
+        <img src="/images/cane/tavolo.png" alt="" className="rp-table-bg" />
+        <div className="record-player">
           <img
-            src={activeAlbum.cd}
+            ref={baseRef}
+            src="/images/giradischi/base.png"
             alt=""
-            className={`rp-layer rp-vinile${isPlaying ? ' rp-vinile--spinning' : ''}`}
-            aria-hidden="true"
+            className="rp-layer rp-base"
+            onClick={() => {
+              if (activeAlbum) setIsPlaying(v => !v);
+            }}
+            style={{ cursor: activeAlbum ? 'pointer' : 'default', pointerEvents: 'auto' }}
           />
-        )}
 
-        <motion.img
-          src="/images/giradischi/braccio.png"
-          alt=""
-          className={`rp-layer rp-braccio ${activeAlbum ? 'rp-braccio-interactive' : ''}`}
-          initial={{ rotate: -25 }}
-          animate={{ rotate: isPlaying ? 0 : -25 }}
-          transition={{ type: 'spring', stiffness: 100, damping: 20 }}
-          drag={!!activeAlbum}
-          dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
-          dragElastic={0}
-          onDragEnd={(e, info) => {
-            if (!activeAlbum) return;
-            if (info.offset.x < -10) setIsPlaying(true); // Dragged towards center
-            else if (info.offset.x > 10) setIsPlaying(false); // Dragged away from center
-            else setIsPlaying(v => !v); // Just a small click/tap
-          }}
-          onClick={() => {
-            if (activeAlbum) setIsPlaying(v => !v);
-          }}
-          role={activeAlbum ? "button" : undefined}
-          aria-label={toggleLabel}
-          aria-pressed={isPlaying}
-          tabIndex={activeAlbum ? 0 : -1}
-          onKeyDown={(e) => {
-            if (!activeAlbum) return;
-            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setIsPlaying(v => !v); }
-          }}
-        />
+          {/* If an album is docked, show it spinning on the base */}
+          {activeAlbum && (
+            <img
+              src={activeAlbum.cd}
+              alt=""
+              className={`rp-layer rp-vinile${isPlaying ? ' rp-vinile--spinning' : ''}`}
+              aria-hidden="true"
+            />
+          )}
+
+          <motion.img
+            src="/images/giradischi/braccio.png"
+            alt=""
+            className={`rp-layer rp-braccio ${activeAlbum ? 'rp-braccio-interactive' : ''}`}
+            initial={{ rotate: -25 }}
+            animate={{ rotate: isPlaying ? 0 : -25 }}
+            transition={{ type: 'spring', stiffness: 100, damping: 20 }}
+            drag={!!activeAlbum}
+            dragConstraints={{ left: 0, right: 0, top: 0, bottom: 0 }}
+            dragElastic={0}
+            onDragEnd={(e, info) => {
+              if (!activeAlbum) return;
+              if (info.offset.x < -10) setIsPlaying(true); // Dragged towards center
+              else if (info.offset.x > 10) setIsPlaying(false); // Dragged away from center
+              else setIsPlaying(v => !v); // Just a small click/tap
+            }}
+            onClick={() => {
+              if (activeAlbum) setIsPlaying(v => !v);
+            }}
+            role={activeAlbum ? "button" : undefined}
+            aria-label={toggleLabel}
+            aria-pressed={isPlaying}
+            tabIndex={activeAlbum ? 0 : -1}
+            onKeyDown={(e) => {
+              if (!activeAlbum) return;
+              if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setIsPlaying(v => !v); }
+            }}
+          />
+        </div>
+        {/* Rettangolo azzurro frontale richiesto */}
+        <div className="giradischi-frontale-azzurro"></div>
+      </div>
+
+      {/* Scaffale Destro */}
+      <div className="rp-shelf-container shelf-right">
+        <img src="/images/cane/scaffale.png" className="rp-shelf-bg" alt="" aria-hidden="true" />
+        <div className="rp-shelf">
+          {ALBUMS.slice(3, 6).map((album) => (
+            <div key={album.id} className="rp-shelf-item">
+              <motion.img
+                ref={(el) => { cdRefs.current[album.id] = el; }}
+                src={album.cd}
+                alt=""
+                className="rp-shelf-cd"
+                style={{ opacity: activeAlbum?.id === album.id ? 0 : 1 }}
+                drag={activeAlbum?.id !== album.id}
+                dragMomentum={false}
+                dragElastic={0.15}
+                dragSnapToOrigin
+                whileDrag={{ scale: 1.1, scaleX: -1.2, zIndex: 100 }}
+                onDragStart={() => setDraggingId(album.id)}
+                onDragEnd={handleDragEnd(album)}
+                onClick={() => dockAlbum(album)}
+                role="button"
+                tabIndex={activeAlbum?.id === album.id ? -1 : 0}
+                aria-label={lang === 'it' ? `Suona ${album.artist}` : lang === 'pt' ? `Tocar ${album.artist}` : `Play ${album.artist}`}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); dockAlbum(album); }
+                }}
+              />
+              <img src={album.album} alt={album.artist} className="rp-shelf-cover" />
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
 }
 
-function DogInteraction() {
+function DogInteraction({ onDogActive }) {
   const { lang } = useLang();
-  const [isActive, setIsActive] = useState(false);
+  const [dogState, setDogState] = useState('idle'); // 'idle', 'hover', 'attention', 'begging'
+  const [isDragging, setIsDragging] = useState(false);
   const containerRef = useRef(null);
 
+  useEffect(() => {
+    onDogActive?.(dogState !== 'idle');
+  }, [dogState, onDogActive]);
+
   const label = lang === 'it' ? 'Dai un premio al cane' : lang === 'pt' ? 'Dê um agrado ao cachorro' : 'Give the dog a treat';
+
+  const handleDragStart = () => {
+    setIsDragging(true);
+    setDogState('attention');
+  };
+
+  const handleDrag = (e, info) => {
+    if (!containerRef.current) return;
+    const dogRect = containerRef.current.getBoundingClientRect();
+    const scrollX = window.scrollX || document.documentElement.scrollLeft;
+    const scrollY = window.scrollY || document.documentElement.scrollTop;
+    
+    const isOverDog = 
+      info.point.x >= (dogRect.left + scrollX - 50) && 
+      info.point.x <= (dogRect.right + scrollX + 50) && 
+      info.point.y >= (dogRect.top + scrollY - 50) && 
+      info.point.y <= (dogRect.bottom + scrollY + 50);
+
+    const velocityMag = Math.sqrt(info.velocity.x ** 2 + info.velocity.y ** 2);
+
+    if (isOverDog) {
+      setDogState('begging');
+    } else if (velocityMag > 400) {
+      setDogState('excited');
+    } else {
+      setDogState('attention');
+    }
+  };
+
+  const handleDragEnd = () => {
+    setIsDragging(false);
+    setDogState('idle');
+  };
+
+  const handleInteractionStart = () => {
+    if (!isDragging && dogState === 'idle') setDogState('hover');
+  };
+
+  const handleInteractionEnd = () => {
+    if (!isDragging && dogState === 'hover') setDogState('idle');
+  };
+
+  let dogSrc = "/images/cane/stato1cane.png";
+  let showTail = true;
+  let tailClass = 'cane-coda--base';
+
+  if (dogState === 'hover') {
+    dogSrc = "/images/cane/stato2cane.png";
+    showTail = true;
+    tailClass = 'cane-coda--veloce';
+  } else if (dogState === 'attention') {
+    dogSrc = "/images/cane/caneforntale.png";
+    showTail = false;
+  } else if (dogState === 'excited') {
+    dogSrc = "/images/cane/stato2cane.png";
+    showTail = true;
+    tailClass = 'cane-coda--iperveloce';
+  } else if (dogState === 'begging') {
+    dogSrc = "/images/cane/canecane zampa.png";
+    showTail = false;
+  }
 
   return (
     <div className="cane-wrapper">
       <div
-        className={`cane-container ${isActive ? 'attivo' : ''}`}
+        className={`cane-container ${dogState === 'hover' ? 'hover' : ''}`}
         ref={containerRef}
         role="button"
         tabIndex={0}
-        aria-pressed={isActive}
         aria-label={label}
-        onMouseEnter={() => setIsActive(true)}
-        onMouseLeave={() => setIsActive(false)}
-        onFocus={() => setIsActive(true)}
-        onBlur={() => setIsActive(false)}
-        onClick={() => setIsActive(v => !v)}
+        style={{ pointerEvents: isDragging ? 'none' : 'auto' }}
+        onMouseEnter={handleInteractionStart}
+        onMouseLeave={handleInteractionEnd}
+        onFocus={handleInteractionStart}
+        onBlur={handleInteractionEnd}
+        onClick={() => setDogState(v => v === 'idle' ? 'hover' : 'idle')}
         onKeyDown={(e) => {
           if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
-            setIsActive(v => !v);
+            setDogState(v => v === 'idle' ? 'hover' : 'idle');
           }
         }}
       >
-        <img src="/images/cane/stato1cane.png" alt="" className="cane-corpo cane-corpo-spalle" />
-        <img src="/images/cane/stato2cane.png" alt="" className="cane-corpo cane-corpo-girato" />
-        <img
-          src="/images/cane/coda.png"
-          alt=""
-          className={`cane-coda${isActive ? ' cane-coda--veloce' : ' cane-coda--base'}`}
-        />
+        <img src={dogSrc} alt="" className="cane-corpo cane-corpo-spalle" />
+        {showTail && (
+          <img
+            src="/images/cane/coda.png"
+            alt=""
+            className={`cane-coda ${tailClass}`}
+          />
+        )}
       </div>
 
       <div className="premietto-container">
-        <motion.div
+        <motion.img
+          src="/images/cane/premietto cane.png"
+          alt="Premietto"
           className="premietto"
           role="button"
           tabIndex={0}
           aria-label={label}
           drag
-          dragConstraints={{ top: -100, left: -250, right: 100, bottom: 250 }}
+          dragSnapToOrigin
           dragElastic={0.2}
-          whileDrag={{ scale: 1.2 }}
-          onDragStart={() => setIsActive(true)}
-          onDragEnd={() => setIsActive(false)}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-              e.preventDefault();
-              setIsActive(v => !v);
-            }
-          }}
+          whileDrag={{ scale: 1.2, scaleX: -1.2, rotate: 79 }}
+          style={{ scaleX: -1, rotate: 79 }}
+          onDragStart={handleDragStart}
+          onDrag={handleDrag}
+          onDragEnd={handleDragEnd}
         />
-        <span className="premietto-hint" aria-hidden="true">
-          {lang === 'it' ? 'Trascina!' : lang === 'pt' ? 'Arraste!' : 'Drag me!'}
-        </span>
       </div>
     </div>
   );
@@ -218,7 +324,7 @@ const BANNER_LABEL = {
   pt: <>Minhas companheiras<br />de trabalho</>
 };
 
-export default function InteractiveWidgets() {
+export default function InteractiveWidgets({ onDogActive, onMusicPlaying }) {
   const { lang } = useLang();
 
   return (
@@ -230,8 +336,9 @@ export default function InteractiveWidgets() {
         <span className="playful-banner-num" aria-hidden="true">03.2</span>
       </div>
       <div className="interactive-widgets-section">
-        <RecordPlayer />
-        <DogInteraction />
+        <img src="/images/mappa.png" alt="" className="playful-map" aria-hidden="true" />
+        <RecordPlayer onMusicPlaying={onMusicPlaying} />
+        <DogInteraction onDogActive={onDogActive} />
       </div>
     </section>
   );

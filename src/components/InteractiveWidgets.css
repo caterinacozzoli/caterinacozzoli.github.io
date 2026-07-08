@@ -1,16 +1,16 @@
 .interactive-widgets {
-  padding: 0 52px 96px;
+  padding: 48px 52px 84px; /* Spazio sotto aumentato di 20px (64 + 20) */
 }
 
 /* Gutter allineato a Workflow/Works agli stessi breakpoint */
 @media (max-width: 1024px) {
   .interactive-widgets {
-    padding: 0 40px 80px;
+    padding: 40px 40px 56px;
   }
 }
 @media (max-width: 768px) {
   .interactive-widgets {
-    padding: 0 24px 64px;
+    padding: 32px 24px 48px;
   }
 }
 
@@ -104,9 +104,47 @@
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  gap: 32px;
+  gap: 120px; /* Aumentato per spostare gli scaffali più esterni (prima 32px) */
   margin-top: 48px;
-  width: 100%;
+  width: max-content; /* Blocca le posizioni relative basandosi sul contenuto */
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  transform-origin: top center;
+}
+
+.playful-map {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -240px); /* Spostata in alto sul "muro" */
+  width: 320px; /* Più piccola del tavolo (445px) */
+  z-index: -1;
+  opacity: 1; /* Non più trasparente */
+  pointer-events: none;
+  border-radius: 4px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15); /* Effetto quadro/poster appeso */
+}
+
+@media (max-width: 1200px) {
+  .interactive-widgets-section {
+    transform: scale(0.8);
+    margin-bottom: -80px; /* riduce lo spazio vuoto lasciato dallo scale */
+  }
+}
+
+@media (max-width: 900px) {
+  .interactive-widgets-section {
+    transform: scale(0.6);
+    margin-bottom: -180px;
+  }
+}
+
+@media (max-width: 600px) {
+  .interactive-widgets-section {
+    transform: scale(0.45);
+    margin-bottom: -260px;
+  }
 }
 
 /* ===================================================
@@ -122,14 +160,60 @@
   order: 3;
 }
 
+.rp-table {
+  perspective: 1200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-self: center;
+  position: relative;
+  width: 445px; /* un quarto più piccolo rispetto a prima */
+  height: 312px;
+  grid-column: 2;
+  grid-row: 1;
+  margin-top: 300px;
+}
+
+.rp-table-bg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 130%;
+  max-width: 800px;
+  height: auto;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.giradischi-frontale-azzurro {
+  position: absolute;
+  width: 201px; /* accorciato di altri 8px per lato rispetto a 217px */
+  height: 20px; /* alzato di 4px rispetto a 16px */
+  background-color: #0077cc; /* azzurro più scuro */
+  border-radius: 8px; /* angoli smussati */
+  z-index: 2;
+  top: 50%;
+  left: 50%;
+  /* Il giradischi ora è a -189px. Offset relativo: +112px (abbassato di 4px) */
+  transform: translate(-50%, calc(-189px + 112px)); 
+}
+
+
+
 .record-player {
   position: relative;
-  width: 328px;
-  height: 328px;
+  width: 249px;
+  height: 249px;
   margin-left: 0;
-  justify-self: center;
+  margin-top: -189px; /* abbassato di 20px (-209 + 20) */
   user-select: none;
   -webkit-tap-highlight-color: transparent;
+  transform: rotateX(72deg); /* ancora più inclinato */
+  transform-style: preserve-3d;
+  transition: transform 0.5s ease;
+  border-radius: 50%;
+  z-index: 1;
 }
 
 .rp-layer {
@@ -152,6 +236,7 @@
   animation: rp-spin 2s linear infinite;
   animation-play-state: paused;
   pointer-events: none; /* Ora si interagisce col braccio, non col disco */
+  transform: translateZ(1px); /* Ridotto per non farlo fluttuare data l'inclinazione elevata */
 }
 
 .rp-vinile:focus-visible {
@@ -184,47 +269,90 @@
   font-weight: 600;
 }
 
-.rp-crates {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 32px;
-  margin-top: 0;
+.rp-shelf-container {
+  position: relative;
   width: 100%;
   max-width: 416px;
+  align-self: start;
+  margin-top: 28px; /* Alzato di 4px rispetto a 32px */
+}
+
+.shelf-left {
+  grid-column: 1;
+  grid-row: 1;
   justify-self: start;
 }
 
-.rp-crate-item {
+.shelf-right {
+  grid-column: 3;
+  grid-row: 1;
+  justify-self: end;
+}
+
+.rp-shelf-bg {
+  position: absolute;
+  top: 100px; /* Alzato di altri 4px rispetto a 104px */
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% + 40px);
+  height: auto;
+  z-index: 0;
+}
+
+.rp-shelf {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 12px;
+  margin-top: -4px; /* Alzati di 4px */
+  width: 100%;
+  perspective: 1000px;
+  position: relative;
+  z-index: 1;
+}
+
+.rp-shelf-item {
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 8px;
+  width: 110px;
+  flex-shrink: 0;
+  transform-style: preserve-3d;
 }
 
-.rp-crate-cover {
+/* Nello scaffale sinistro, i CD escono verso destra */
+.shelf-left .rp-shelf-cd {
+  left: auto;
+  right: -30%;
+}
+
+.rp-shelf-cover {
   width: 100%;
   aspect-ratio: 1;
   object-fit: cover;
-  border-radius: 2px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  border-radius: var(--r-xs, 2px);
+  box-shadow: 0 4px 12px var(--shadow-medium, rgba(0, 0, 0, 0.3));
+  position: relative;
   z-index: 2;
   pointer-events: none;
 }
 
-.rp-crate-cd {
+.rp-shelf-cd {
   position: absolute;
   top: 5%;
-  right: -25%; /* Spunta a destra dall'album */
+  left: -30%; /* Fa uscire il CD dal lato sinistro invece che destro */
   width: 90%;
   aspect-ratio: 1;
   object-fit: contain;
   cursor: grab;
   z-index: 1;
   transition: opacity 0.3s ease;
+  filter: drop-shadow(2px 4px 6px rgba(0, 0, 0, 0.2));
 }
 
-.rp-crate-cd:active {
+.rp-shelf-cd:active {
   cursor: grabbing;
 }
 
@@ -250,6 +378,7 @@
   /* Tweak transform origin based on where the arm hinges */
   /* Assuming top right for a standard turntable, or top left depending on the image */
   transform-origin: 85% 15%;
+  transform: translateZ(2px); /* Abbassato per seguire il vinile */
 }
 
 .rp-braccio-interactive {
@@ -274,10 +403,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: relative;
-  margin-left: 0;
   transform: none;
   justify-self: end;
+  grid-column: 3;
+  grid-row: 1;
 }
 
 .cane-container {
@@ -286,7 +415,7 @@
   height: 316px;
   margin: 0 auto;
   cursor: pointer;
-  /* background-color rimosso: se serve, si può rimettere nero o gestire l'img */
+  transform: translate(-71px, 190px) scale(1.333); /* spostato a destra di 100px (-171 + 100) */
 }
 
 /* Stile comune per le due immagini del corpo */
@@ -306,39 +435,26 @@
   opacity: 1;
 }
 
-.cane-corpo-girato {
-  z-index: 3;
-  opacity: 0;
-}
-
-.cane-container.attivo .cane-corpo-spalle {
-  opacity: 0;
-}
-
-.cane-container.attivo .cane-corpo-girato {
-  opacity: 1;
-}
-
 .cane-container:focus-visible {
   outline: 3px solid var(--primary);
   outline-offset: 4px;
-  border-radius: 16px;
+  border-radius: var(--r-2xl, 16px);
 }
 
 /* Posizionamento e gestione della coda */
 .cane-coda {
   position: absolute;
   width: 100px;
-  bottom: 14px;
-  right: 0;
+  bottom: 18px;
+  right: -8px;
   transform-origin: 0% 100%;
   z-index: 10;
   transition: all 0.3s ease-in-out;
 }
 
-.cane-container.attivo .cane-coda {
-  right: -16px;
-  bottom: 18px;
+.cane-container.hover .cane-coda {
+  right: -24px; /* spostato altri 5px a destra (da -19 a -24) */
+  bottom: 22px;
 }
 
 .cane-coda--base {
@@ -347,6 +463,10 @@
 
 .cane-coda--veloce {
   animation: coda-veloce 0.25s infinite alternate ease-in-out;
+}
+
+.cane-coda--iperveloce {
+  animation: coda-veloce 0.12s infinite alternate ease-in-out;
 }
 
 /* Nessuno spostamento posizionale su hover per la coda originale */
@@ -370,27 +490,20 @@
 
 .premietto-container {
   position: absolute;
-  top: -40px;
-  right: 0;
+  top: calc(50% + 95px); /* alzato di 6px (101 - 6) */
+  left: calc(50% - 194px); /* spostato a sinistra di altri 40px (-154 - 40) */
+  transform: translateY(-50%);
   width: 100px;
   height: 100px;
-  pointer-events: none; /* Let drag events pass through to the treat itself */
+  pointer-events: none;
 }
 
 .premietto {
-  width: 16px; /* 8px è molto piccolo da cliccare, aumentato visivamente, hitbox più ampia */
-  height: 16px;
-  background-color: #8b5a2b; /* Colore biscottino */
-  border-radius: 50%;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-  cursor: grab;
+  width: 54px; /* ridotto di altri 2px (56 - 2) */
+  height: auto;
   pointer-events: auto;
   position: relative;
   z-index: 20;
-}
-
-.premietto:active {
-  cursor: grabbing;
 }
 
 .premietto:focus-visible {
@@ -398,19 +511,6 @@
   outline-offset: 4px;
 }
 
-.premietto-hint {
-  position: absolute;
-  top: -24px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-family: var(--font-body);
-  font-weight: 600;
-  font-size: 14px;
-  color: var(--primary);
-  white-space: nowrap;
-  pointer-events: none;
-  opacity: 0.7;
-}
 
 /* ===================================================
    RESPONSIVE

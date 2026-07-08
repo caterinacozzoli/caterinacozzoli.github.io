@@ -1,6 +1,6 @@
 .works {
-  /* 8pt grid: 224px top (28×8), 52px sides, 128px bottom (16×8) */
-  padding: 224px 52px 128px;
+  /* Spaziatura normalizzata: 160px top, 96px bottom per ritmo coerente */
+  padding: 160px 52px 96px;
   position: relative;
   background: rgba(254, 215, 40, 0.07);
   overflow: hidden;
@@ -14,7 +14,7 @@
   justify-content: space-between;
   position: relative;
   overflow: hidden;
-  margin: -56px -52px 64px;
+  margin: -64px -52px 64px;
   padding: 48px 52px 32px;
   min-height: 176px; /* 22×8px grid */
   background: #FED728;
@@ -73,7 +73,7 @@
   background-size: cover;
   background-position: center;
   background-blend-mode: multiply;
-  border-radius: 24px;
+  border-radius: var(--r-2xl, 16px); /* Aderente al design system */
   padding: 80px;
   /* clip solo a desktop: evita che il footer del 3° progetto venga tagliato a tablet */
   overflow: visible;
@@ -346,15 +346,15 @@
   font-weight: 700;
   font-size: clamp(22px, 2vw, 30px);
   color: #212529;
-  margin-bottom: 6px;
+  margin-bottom: 0; /* ridotto a 0 per alzare chips e testo */
 }
 
 .project-desc {
   font-family: var(--font-body);
-  font-size: 15px;
+  font-size: 19px; /* aumentato di 4px */
   font-weight: 400;
   color: #212529;
-  opacity: 0.65;
+  opacity: 0.85; /* più opaco quindi più scuro */
   line-height: 1.5;
   margin-bottom: 12px;
   max-width: 34ch;
@@ -377,16 +377,18 @@
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
+  margin-bottom: 14px; /* ridotto di 2px per avvicinare la descrizione */
 }
 
 .chip {
-  font-size: 11px;
-  font-weight: 600;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
   letter-spacing: 0.04em;
   padding: 4px 12px;
   border-radius: var(--r-pill);
-  background: var(--primary);
-  color: var(--ink-on-purple);
+  background: #333333; /* Grigio scuro richiesto */
+  color: #ffffff; /* Testo chiaro leggibile */
   cursor: pointer;
 }
 

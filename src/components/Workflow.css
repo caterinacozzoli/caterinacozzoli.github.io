@@ -31,6 +31,22 @@
   white-space: pre-wrap;
 }
 
+.custom-accent-e {
+  position: relative;
+  display: inline-block;
+}
+
+.custom-accent-e::after {
+  content: '';
+  position: absolute;
+  top: -0.1em;
+  left: 50%;
+  width: 40px;
+  height: 20px;
+  background-color: currentColor;
+  transform: translateX(-50%) rotate(-30deg);
+}
+
 .workflow-header-right {
   display: flex;
   flex-direction: column;
@@ -68,6 +84,7 @@
 .workflow-steps {
   list-style: none;
   display: flex;
+  flex-wrap: nowrap;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
@@ -76,12 +93,14 @@
   background-size: cover;
   background-position: center;
   background-blend-mode: multiply;
-  border-radius: 24px;
-  padding: clamp(24px, 4vw, 40px) clamp(24px, 4vw, 32px);
-  box-shadow: 0 2px 12px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.04);
-  gap: clamp(16px, 2vw, 24px);
+  border-radius: var(--r-3xl, 24px); /* Tokenized radius */
+  padding: clamp(32px, 5vw, 56px) clamp(28px, 4vw, 48px);
+  box-shadow: 0 2px 12px var(--shadow-light, rgba(0,0,0,0.06)), 0 1px 3px var(--shadow-light-2, rgba(0,0,0,0.04));
+  gap: clamp(20px, 3vw, 36px);
   position: relative;
   scrollbar-width: none;
+  align-items: center;
+  justify-content: center;
 }
 
 .workflow-steps::-webkit-scrollbar {
@@ -128,14 +147,14 @@
   background: transparent;
   color: var(--primary);
   padding: 8px 16px;
-  border-radius: 40px;
+  border-radius: var(--r-pill, 40px); /* Tokenized radius */
   transition: background var(--dur-fast) var(--ease-hover), color var(--dur-fast) var(--ease-hover);
 }
 
 .workflow-chip:hover,
 .workflow-chip:focus-visible {
   background: var(--primary);
-  color: #fff;
+  color: var(--bg, #fff); /* Tokenized color */
   outline: none;
 }
 
@@ -146,7 +165,7 @@
 
 .workflow-chip--reset {
   border-color: var(--accent);
-  color: #7a5b0f;
+  color: var(--accent-dark, #7a5b0f); /* Tokenized color */
 }
 
 .workflow-chip--reset:hover,
@@ -162,27 +181,38 @@
   margin-top: 16px;
 }
 
-.workflow-step--puzzle {
-  flex: 0 0 clamp(240px, 30vw, 280px);
+.workflow-step--postit {
+  flex: 0 0 clamp(200px, 20vw, 240px);
   scroll-snap-align: start;
   cursor: grab;
-  border-radius: 16px;
-  padding: 24px;
-  background: rgba(255,255,255,0.75);
-  transition: box-shadow var(--dur-fast) var(--ease-hover), transform var(--dur-fast) var(--ease-hover), background var(--dur-fast) var(--ease-hover);
+  border-radius: 0;
+  padding: 0;
+  background: transparent;
+  transition: transform var(--dur-fast) var(--ease-hover), filter var(--dur-fast) var(--ease-hover);
+  transform-origin: center center;
 }
 
-.workflow-step--puzzle:active {
+.workflow-step--postit * {
+  cursor: inherit;
+}
+
+.workflow-step--postit:active,
+.workflow-step--postit:active * {
   cursor: grabbing;
 }
 
-.workflow-step--puzzle:hover {
-  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+.workflow-step--postit:focus-visible {
+  outline: 3px solid var(--primary);
+  outline-offset: 6px;
+  border-radius: var(--r-sm, 4px); /* Tokenized radius */
 }
 
-.workflow-step--puzzle:focus-visible {
-  outline: 3px solid var(--primary);
-  outline-offset: 3px;
+.postit-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  user-select: none;
+  cursor: inherit;
 }
 
 .workflow-step-controls {
@@ -198,18 +228,18 @@
   line-height: 1;
   cursor: pointer;
   border: 1.5px solid var(--primary-light);
-  background: #fff;
+  background: var(--bg, #fff); /* Tokenized color */
   color: var(--primary);
   width: 34px;
   height: 34px;
-  border-radius: 10px;
+  border-radius: var(--r-lg, 10px); /* Tokenized radius */
   transition: background var(--dur-fast) var(--ease-hover), color var(--dur-fast) var(--ease-hover);
 }
 
 .workflow-mv:hover:not(:disabled),
 .workflow-mv:focus-visible {
   background: var(--primary);
-  color: #fff;
+  color: var(--bg, #fff); /* Tokenized color */
   outline: none;
 }
 
@@ -224,7 +254,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .workflow-step--puzzle {
+  .workflow-step--postit {
     transition: none !important;
   }
 }
@@ -274,21 +304,16 @@
   }
 
   .workflow-header {
-    /* structural only */
     margin: -88px -40px 48px;
   }
 
   .workflow-steps {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 32px 24px;
-    padding: 32px 24px;
+    padding: 28px 24px;
+    gap: 20px;
   }
 
-
-
-  .step-desc {
-    max-width: 100%;
-    font-size: clamp(12px, 1.2vw, 14px);
+  .workflow-step--postit {
+    flex: 0 0 clamp(160px, 24vw, 200px);
   }
 }
 
@@ -300,35 +325,16 @@
   }
 
   .workflow-header {
-    /* structural only */
     margin: -80px -24px 40px;
   }
 
   .workflow-steps {
-    grid-template-columns: 1fr;
-    gap: 40px;
+    padding: 24px 16px;
+    gap: 16px;
   }
 
-
-
-  .workflow-step {
-    padding: 0 0 0 64px;
-    position: relative;
-    min-height: 48px;
-  }
-
-  .step-num {
-    position: absolute;
-    left: 0;
-    top: -4px;
-    font-size: 36px;
-    margin-bottom: 0;
-    padding-right: 0;
-    background: transparent;
-  }
-
-  .step-desc {
-    max-width: 100%;
+  .workflow-step--postit {
+    flex: 0 0 clamp(150px, 40vw, 190px);
   }
 }
 
@@ -444,7 +450,7 @@
   width: 100%;
   position: relative;
   overflow: hidden;
-  margin-bottom: 80px;
+  margin-bottom: 0; /* Ridotto spazio sotto 03.1 */
   /* Maschera per sfumare i bordi e nascondere la transizione */
   mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
   -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
@@ -512,9 +518,9 @@
   font-weight: 700;
   font-size: 24px;
   color: var(--primary);
-  background: rgba(255,255,255,0.6);
-  border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  background: rgba(var(--bg-rgb, 255, 255, 255), 0.6);
+  border-radius: var(--r-2xl, 16px);
+  box-shadow: 0 4px 12px var(--shadow-light, rgba(0,0,0,0.05));
 }
 
 .workflow-tool-name {
