@@ -407,6 +407,8 @@
   justify-self: end;
   grid-column: 3;
   grid-row: 1;
+  position: relative;
+  z-index: 50;
 }
 
 .cane-container {
