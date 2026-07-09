@@ -18,7 +18,7 @@
      Contrasts pending a11y review (running). */
 
   /* Core */
-  --bg:              #f5f3ee;          /* carta acquarello base tone */
+  --bg:              #fcfbfa;          /* panna / bianco caldo */
   --bg-surface:      #E6E8EC;         /* light gray surface / cards */
   --bg-pill:         #212529;         /* nav pill — dark charcoal */
 
@@ -110,11 +110,6 @@ html, body {
 
 body {
   background-color: var(--bg);
-  background-image: url('/images/textures/paper-texture-rotated.png');
-  background-size: cover;
-  background-attachment: fixed;
-  background-repeat: no-repeat;
-  background-position: center;
   color: var(--ink);
 }
 

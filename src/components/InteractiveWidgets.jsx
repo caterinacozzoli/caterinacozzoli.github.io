@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useLang } from '../contexts/LangContext';
 import './InteractiveWidgets.css';
 
@@ -17,12 +17,12 @@ const INTRO = {
 /* Vinile placeholder da trascinare sul base — al "dock" parte lo spin.
    Drag è solo un potenziamento mouse: Enter/Spazio sul vinile fa lo stesso. */
 const ALBUMS = [
-  { id: 'claranunes', artist: 'Clara Nunes', album: '/images/vinili/Album/claranunes.png', cd: '/images/vinili/CD/claranunes 1.png', spotify: '3hetMzMBJCMPMKshNdLsfH' },
-  { id: 'ettajames', artist: 'Etta James', album: '/images/vinili/Album/ettajames.png', cd: '/images/vinili/CD/ettajames 1.png', spotify: '0iC994dXGDsFIlFMljzhMY' },
-  { id: 'lavoglialapazzia', artist: 'La Voglia La Pazzia', album: '/images/vinili/Album/lavoglialapazzia.png', cd: '/images/vinili/CD/lavoglia la pazzia 1.png', spotify: '1HlFhkKGVJOGyaxW3Hb7Vv' },
-  { id: 'marisamonte', artist: 'Marisa Monte', album: '/images/vinili/Album/marisamonte.png', cd: '/images/vinili/CD/marisamonte 1.png', spotify: '1DFr97A9HnbV3SKp7iqclR' },
-  { id: 'redhot', artist: 'Red Hot Chili Peppers', album: '/images/vinili/Album/redhot.png', cd: '/images/vinili/CD/redhot 1.png', spotify: '0L8ExT028jH3ddEcZwqJJ5' },
-  { id: 'steviewonder', artist: 'Stevie Wonder', album: '/images/vinili/Album/stevie wonder.png', cd: '/images/vinili/CD/steviewonder 1.png', spotify: '7guDJrEfX3qb6FEbdPA5qi' },
+  { id: 'claranunes', artist: 'Clara Nunes', album: '/images/vinili/Album/claranunes.png', cd: '/images/vinili/CD/claranunes 1.png', audio: '/songs/Clara Nunes - O Mar Serenou.mp3' },
+  { id: 'ettajames', artist: 'Etta James', album: '/images/vinili/Album/ettajames.png', cd: '/images/vinili/CD/ettajames 1.png', audio: '/songs/Erykah Badu - Didn\'t Cha Know.mp3' },
+  { id: 'lavoglialapazzia', artist: 'La Voglia La Pazzia', album: '/images/vinili/Album/lavoglialapazzia.png', cd: '/images/vinili/CD/lavoglia la pazzia 1.png', audio: '/songs/Ornella Vanoni - La voglia, la pazzia.mp3' },
+  { id: 'marisamonte', artist: 'Marisa Monte', album: '/images/vinili/Album/marisamonte.png', cd: '/images/vinili/CD/marisamonte 1.png', audio: '/songs/Marisa Monte - Ainda Bem [Pmt01TGsGGA].mp3' },
+  { id: 'redhot', artist: 'Red Hot Chili Peppers', album: '/images/vinili/Album/redhot.png', cd: '/images/vinili/CD/redhot 1.png', audio: '/songs/Red Hot Chili Peppers - Otherside [Official Music Video] [HD UPGRADE].mp3' },
+  { id: 'steviewonder', artist: 'Stevie Wonder', album: '/images/vinili/Album/stevie wonder.png', cd: '/images/vinili/CD/steviewonder 1.png', audio: '/songs/Superstition.mp3' },
 ];
 
 function RecordPlayer({ onMusicPlaying }) {
@@ -34,6 +34,7 @@ function RecordPlayer({ onMusicPlaying }) {
   const baseRef = useRef(null);
   // Store refs for each CD
   const cdRefs = useRef({});
+  const audioRef = useRef(null);
 
   const toggleLabel = isPlaying
     ? (lang === 'it' ? 'Metti in pausa il giradischi' : lang === 'pt' ? 'Pausar o toca-discos' : 'Pause the record player')
@@ -55,6 +56,27 @@ function RecordPlayer({ onMusicPlaying }) {
   useEffect(() => {
     onMusicPlaying?.(isPlaying);
   }, [isPlaying, onMusicPlaying]);
+
+  useEffect(() => {
+    if (audioRef.current && activeAlbum) {
+      audioRef.current.load(); // Forza il caricamento del nuovo file audio quando cambia l'album
+    }
+  }, [activeAlbum]);
+
+  useEffect(() => {
+    if (audioRef.current) {
+      if (isPlaying) {
+        const playPromise = audioRef.current.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(error => {
+            console.error("Autoplay prevent block or load error:", error);
+          });
+        }
+      } else {
+        audioRef.current.pause();
+      }
+    }
+  }, [isPlaying, activeAlbum]);
 
   const cycleAlbum = () => {
     const currentIndex = activeAlbum ? ALBUMS.findIndex(a => a.id === activeAlbum.id) : -1;
@@ -86,6 +108,13 @@ function RecordPlayer({ onMusicPlaying }) {
 
   return (
     <div className="record-player-container">
+      {/* Elemento Audio Nascosto */}
+      <audio 
+        ref={audioRef} 
+        src={activeAlbum?.audio} 
+        loop 
+      />
+
       {/* Scaffale Sinistro */}
       <div className="rp-shelf-container shelf-left">
         <img src="/images/cane/scaffale.png" className="rp-shelf-bg" alt="" aria-hidden="true" />
@@ -184,6 +213,19 @@ function RecordPlayer({ onMusicPlaying }) {
               if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setIsPlaying(v => !v); }
             }}
           />
+          <AnimatePresence>
+            {activeAlbum && (
+              <motion.div
+                className="rp-braccio-hint"
+                initial={{ opacity: 0, x: 10 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: 10 }}
+                aria-hidden="true"
+              >
+                clicca qua per {isPlaying ? 'stoppare' : 'ascoltare'} ↙
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
         {/* Rettangolo azzurro frontale richiesto */}
         <div className="giradischi-frontale-azzurro"></div>

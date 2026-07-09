@@ -272,9 +272,9 @@
 .rp-shelf-container {
   position: relative;
   width: 100%;
-  max-width: 422px; /* Aumentati di 6px (prima 416px) */
+  max-width: 380px; /* Ridotti */
   align-self: start;
-  margin-top: 32px; /* Abbassati di 4px (prima 28px) */
+  margin-top: 32px;
 }
 
 .shelf-left {
@@ -291,7 +291,7 @@
 
 .rp-shelf-bg {
   position: absolute;
-  top: 100px; /* Alzato di altri 4px rispetto a 104px */
+  top: 90px; /* Scalato per adattarsi */
   left: 50%;
   transform: translateX(-50%);
   width: calc(100% + 40px);
@@ -317,7 +317,7 @@
   flex-direction: column;
   align-items: center;
   gap: 8px;
-  width: 110px;
+  width: 98px; /* Ridotti */
   flex-shrink: 0;
   transform-style: preserve-3d;
 }
@@ -393,6 +393,19 @@
   outline: 3px solid var(--primary);
   outline-offset: 4px;
   border-radius: 50%;
+}
+
+.rp-braccio-hint {
+  position: absolute;
+  top: 30px;
+  right: -50px; /* Spostato a destra per stare vicino al braccio */
+  font-family: 'Gochi Hand', cursive;
+  font-size: 16px;
+  color: #212529;
+  transform: rotate(-10deg);
+  pointer-events: none;
+  z-index: 100;
+  white-space: nowrap;
 }
 
 /* ===================================================
@@ -492,8 +505,8 @@
 
 .premietto-container {
   position: absolute;
-  top: calc(50% + 95px); /* alzato di 6px (101 - 6) */
-  left: calc(50% - 194px); /* spostato a sinistra di altri 40px (-154 - 40) */
+  top: calc(50% + 220px); /* Spostato in basso per appoggiarsi sul tavolo */
+  left: calc(50% - 460px); /* Spostato a sinistra sul tavolo vicino al giradischi */
   transform: translateY(-50%);
   width: 100px;
   height: 100px;

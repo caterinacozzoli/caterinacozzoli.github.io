@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>LinkedIn Cover — Final</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;600;700;800&family=Gochi+Hand&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: 'Chunko';
+      src: url('public/fonts/Chunko-Bold.otf') format('opentype');
+      font-weight: 700;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #e9ecef;
+      margin: 0; 
+      padding: 40px;
+      font-family: sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .outer-container {
+      width: 100%;
+      max-width: 1584px;
+      aspect-ratio: 1584 / 396;
+      position: relative;
+      background: #FED728;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      border: 1px solid #ccc;
+    }
+
+    .linkedin-banner {
+      width: 1584px;
+      height: 396px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform-origin: top left;
+      background: #FED728;
+      overflow: hidden;
+    }
+
+
+
+    .banner-content {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    /* ── BASE HERO CONTAINER ── */
+    .hero-container {
+      position: absolute;
+      right: 102px; 
+      bottom: 24px;
+      width: 320px;
+      height: 320px;
+      z-index: 10;
+    }
+
+    .avatar {
+      position: absolute;
+      left: 82px;
+      top: 49px;
+      width: 300px;
+      height: auto;
+      filter: drop-shadow(4px 4px 0 rgba(33,37,41,0.5));
+      z-index: 8;
+    }
+
+    .nuvola-wrap {
+      position: absolute;
+      left: -331px; 
+      top: -66px; 
+      width: 566px; 
+      z-index: 12;
+    }
+
+    .nuvola-img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transform: scaleY(-1);
+    }
+
+    .nuvola-text {
+      position: absolute;
+      left: 31px;
+      top: 94px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-bottom: 25px; 
+      font-family: 'Gochi Hand', cursive;
+      font-size: 34px; 
+      font-weight: 400;
+      line-height: 1.2;
+      color: #212529;
+      text-align: center;
+      transform: translate(14px, -4px) rotate(-2deg);
+    }
+
+    .hero-role {
+      position: absolute;
+      top: 40px;
+      left: 40px; 
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-end;
+      color: #212529;
+      z-index: 11;
+      white-space: nowrap;
+    }
+
+    .role-title {
+      font-family: 'Chunko', sans-serif;
+      font-size: 76px; 
+      font-weight: 400;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transform: scaleX(1.1);
+      transform-origin: left bottom;
+      line-height: 0.85;
+      margin: 0;
+      padding: 0;
+    }
+
+    .role-subtitle {
+      font-family: 'Onest', sans-serif;
+      font-size: 22px; 
+      font-weight: 600;
+      color: #212529;
+      margin: 0;
+      padding: 0;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* ── Cane "Zampa" gigante ── */
+    .cane-extra {
+      position: absolute;
+      left: -143px; 
+      top: 170px; 
+      width: 360px; 
+      z-index: 7;
+      filter: drop-shadow(4px 4px 0 rgba(33,37,41,0.5));
+    }
+
+  </style>
+</head>
+<body>
+  <button id="toggle-panel-btn" style="position:fixed; top:20px; left:20px; z-index:10000; padding:10px 15px; background:#FED728; color:#212529; border:none; border-radius:5px; font-weight:bold; cursor:pointer; box-shadow:0 2px 6px rgba(0,0,0,0.3);">Nascondi Strumenti</button>
+  <div id="coords-panel" style="position:fixed; top:70px; left:20px; background:rgba(0,0,0,0.85); color:white; padding:15px; font-family:monospace; font-size:12px; border-radius:8px; z-index:9999; box-shadow:0 4px 12px rgba(0,0,0,0.3); line-height:1.4; width: 380px; max-height: 85vh; overflow-y: auto;">
+    <b style="color:#FED728; font-size:14px;">PLAYGROUND INTERATTIVO</b><br><br>
+    <b>1. TRASCINA</b> qualsiasi elemento col mouse.<br>
+    <b>2. RIDIMENSIONA</b> usando questi slider:<br><br>
+    
+    <label>Cane (Larghezza): <span id="val-cane">360px</span></label>
+    <input type="range" id="size-cane" min="100" max="800" value="360" style="width:100%; margin-bottom:8px;">
+    
+    <label>Avatar (Larghezza): <span id="val-avatar">300px</span></label>
+    <input type="range" id="size-avatar" min="100" max="600" value="300" style="width:100%; margin-bottom:8px;">
+    
+    <label>Nuvola (Larghezza): <span id="val-nuvola">566px</span></label>
+    <input type="range" id="size-nuvola" min="200" max="900" value="566" style="width:100%; margin-bottom:8px;">
+    
+    <label>Testo Nuvola (Font): <span id="val-testonuvola">34px</span></label>
+    <input type="range" id="size-testonuvola" min="10" max="80" value="34" style="width:100%; margin-bottom:8px;">
+    
+    <label>Testo Nuvola (Modifica testo e a capo):</label>
+    <textarea id="edit-nuvola-text" style="width:100%; height:50px; background:#333; color:#fff; border:1px solid #555; margin-bottom:8px; font-family:sans-serif; padding:4px;">Progetto design inclusivo
+& AI-driven per prodotti digitali
+a prova di futuro.</textarea>
+
+    <label>Titolo Ruolo (Font): <span id="val-titoloruolo">76px</span></label>
+    <input type="range" id="size-titoloruolo" min="20" max="120" value="76" style="width:100%; margin-bottom:8px;">
+
+    <hr style="border-color:#444; margin: 12px 0;">
+    <div id="coords-content">Le coordinate appariranno qui quando sposti qualcosa.</div>
+  </div>
+
+  <div class="outer-container" id="bannerOuter">
+    <div class="linkedin-banner" id="bannerInner">
+      <div class="banner-content">
+        <!-- Cane gigante -->
+        <img class="cane-extra" src="public/images/cane/canecane zampa.png" alt="Cane Zampa">
+
+        <!-- Ruolo posizionato a 20px dall'ingombro della foto -->
+        <div class="hero-role">
+          <div class="role-title">UX/UI Designer</div>
+        </div>
+
+        <div class="hero-container">
+          <!-- Avatar -->
+          <img class="avatar" src="public/images/avatar/avatar-caterina-default.png" alt="Avatar">
+          
+          <!-- Nuvola -->
+          <div class="nuvola-wrap">
+            <img class="nuvola-img" src="public/images/nuvola.png" alt="">
+            <div class="nuvola-text">Progetto design inclusivo<br>&amp; AI-driven per prodotti digitali<br>a prova di futuro.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const outer = document.getElementById('bannerOuter');
+    const inner = document.getElementById('bannerInner');
+    function scaleBanner() {
+      const scale = outer.clientWidth / 1584;
+      inner.style.transform = `scale(${scale})`;
+    }
+    window.addEventListener('resize', scaleBanner);
+    scaleBanner(); 
+
+    // --- UI LOGIC ---
+    document.getElementById('toggle-panel-btn').addEventListener('click', function() {
+      const panel = document.getElementById('coords-panel');
+      if (panel.style.display === 'none') {
+        panel.style.display = 'block';
+        this.innerText = 'Nascondi Strumenti';
+      } else {
+        panel.style.display = 'none';
+        this.innerText = 'Apri Strumenti';
+      }
+    });
+
+    function setupSlider(id, targetSelector, cssProp, valueId) {
+      const slider = document.getElementById(id);
+      const target = document.querySelector(targetSelector);
+      const display = document.getElementById(valueId);
+      if (!slider || !target) return;
+      slider.addEventListener('input', function(e) {
+        target.style[cssProp] = e.target.value + 'px';
+        display.innerText = e.target.value + 'px';
+      });
+    }
+    
+    setupSlider('size-cane', '.cane-extra', 'width', 'val-cane');
+    setupSlider('size-avatar', '.avatar', 'width', 'val-avatar');
+    setupSlider('size-nuvola', '.nuvola-wrap', 'width', 'val-nuvola');
+    setupSlider('size-testonuvola', '.nuvola-text', 'fontSize', 'val-testonuvola');
+    setupSlider('size-titoloruolo', '.role-title', 'fontSize', 'val-titoloruolo');
+
+    document.getElementById('edit-nuvola-text').addEventListener('input', function(e) {
+      document.querySelector('.nuvola-text').innerHTML = e.target.value.replace(/\n/g, '<br>');
+    });
+
+    // --- DRAG LOGIC ---
+    function makeDraggable(el, name) {
+      if (!el) return;
+      el.dataset.name = name;
+      let isDragging = false;
+      let startX, startY, initialLeft, initialTop;
+
+      el.style.cursor = 'grab';
+
+      el.addEventListener('mousedown', function(e) {
+        e.stopPropagation();
+        isDragging = true;
+        startX = e.clientX;
+        startY = e.clientY;
+        
+        initialLeft = el.offsetLeft;
+        initialTop = el.offsetTop;
+        
+        el.style.left = initialLeft + 'px';
+        el.style.top = initialTop + 'px';
+        el.style.right = 'auto';
+        el.style.bottom = 'auto';
+        
+        el.style.cursor = 'grabbing';
+        e.preventDefault();
+      });
+
+      window.addEventListener('mousemove', function(e) {
+        if (!isDragging) return;
+        const scale = outer.clientWidth / 1584;
+        const dx = (e.clientX - startX) / scale;
+        const dy = (e.clientY - startY) / scale;
+        
+        el.style.left = (initialLeft + dx) + 'px';
+        el.style.top = (initialTop + dy) + 'px';
+        
+        updateCoordinates();
+      });
+
+      window.addEventListener('mouseup', function(e) {
+        if (isDragging) {
+          isDragging = false;
+          el.style.cursor = 'grab';
+        }
+      });
+    }
+
+    const draggables = [
+      { el: document.querySelector('.cane-extra'), name: 'Cane' },
+      { el: document.querySelector('.hero-container'), name: 'Gruppo Avatar+Nuvola' },
+      { el: document.querySelector('.nuvola-text'), name: 'Testo Nuvola' },
+      { el: document.querySelector('.hero-role'), name: 'Titoli Ruolo' }
+    ];
+
+    draggables.forEach(item => {
+      makeDraggable(item.el, item.name);
+    });
+
+    function updateCoordinates() {
+      let html = '<div style="margin-bottom:8px; font-weight:bold; color:#FED728;">COPIA E INCOLLA IN CHAT:</div>';
+      draggables.forEach(item => {
+        if (!item.el) return;
+        const l = item.el.style.left ? Math.round(parseFloat(item.el.style.left)) + 'px' : 'default';
+        const t = item.el.style.top ? Math.round(parseFloat(item.el.style.top)) + 'px' : 'default';
+        html += `<div style="margin-bottom:4px;"><b>${item.name}</b>:<br>left: ${l}; top: ${t};</div>`;
+      });
+      document.getElementById('coords-content').innerHTML = html;
+    }
+
+  </script>
+</body>
+</html>

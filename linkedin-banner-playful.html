@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>LinkedIn Cover Variations — Playful Pop</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;600;700&family=Gochi+Hand&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: 'Chunko';
+      src: url('public/fonts/Chunko-Bold.otf') format('opentype');
+      font-weight: 700;
+    }
+
+    body {
+      background: #e9ecef;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+      gap: 60px;
+      align-items: center;
+      font-family: 'Onest', sans-serif;
+    }
+
+    h1 {
+      font-family: 'Chunko', sans-serif;
+      font-size: 48px;
+      color: #212529;
+      margin-bottom: 20px;
+    }
+
+    .wrapper {
+      position: relative;
+    }
+
+    /* LinkedIn Profile Picture Overlay Simulation */
+    .profile-pic-sim {
+      position: absolute;
+      bottom: 24px;
+      left: 40px;
+      width: 160px;
+      height: 160px;
+      background: #ccc;
+      border: 4px solid white;
+      border-radius: 50%;
+      z-index: 100;
+      opacity: 0.8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      color: #666;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      pointer-events: none;
+    }
+
+    .banner {
+      width: 1584px;
+      height: 396px;
+      position: relative;
+      overflow: hidden;
+      background: #f5f3ee;
+      transform: scale(0.65);
+      transform-origin: top center;
+      margin-bottom: -130px; /* Adjust for scaling */
+      border: 4px solid #212529;
+    }
+
+    /* Neo-brutalist Utilities */
+    .neo-box {
+      border: 4px solid #212529;
+      box-shadow: 6px 6px 0 #212529;
+      background: white;
+    }
+    
+    .neo-yellow { background: #FED728; }
+    .neo-purple { background: #8942FE; color: white; }
+    .neo-cyan { background: #00E5FF; }
+
+    .title {
+      font-family: 'Chunko', sans-serif;
+      font-size: 64px;
+      line-height: 1;
+      text-transform: uppercase;
+      color: #212529;
+    }
+
+    .copy {
+      font-size: 20px;
+      font-weight: 600;
+      line-height: 1.4;
+      color: #212529;
+    }
+
+    .avatar { position: absolute; z-index: 20; }
+    .cane { position: absolute; z-index: 15; }
+
+    /* =========================================
+       Variant 1: La Card Inclinata
+       ========================================= */
+    .v1 { background: #e0dced url('public/images/textures/carta acquarello.jpg'); }
+    .v1 .card {
+      position: absolute;
+      right: 60px;
+      top: 40px;
+      width: 800px;
+      padding: 40px;
+      transform: rotate(-2deg);
+      z-index: 10;
+    }
+    .v1 .avatar { right: 80px; bottom: 0; width: 280px; }
+    .v1 .cane { right: 30px; bottom: 0; width: 150px; }
+
+    /* =========================================
+       Variant 2: Neo-Brutalist Grid
+       ========================================= */
+    .v2 { background: #FED728; }
+    .v2 .grid {
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: 1000px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      border-left: 4px solid #212529;
+    }
+    .v2 .cell { border-bottom: 4px solid #212529; border-right: 4px solid #212529; padding: 30px; display: flex; align-items: center; }
+    .v2 .cell:nth-child(1) { background: #8942FE; color: white; }
+    .v2 .cell:nth-child(2) { background: white; }
+    .v2 .cell:nth-child(3) { background: white; border-bottom: none; }
+    .v2 .cell:nth-child(4) { background: #f5f3ee; border-bottom: none; position: relative; overflow: hidden; }
+    .v2 .avatar { right: 100px; bottom: -20px; width: 260px; }
+    .v2 .cane { right: 20px; bottom: -10px; width: 140px; }
+
+    /* =========================================
+       Variant 3: Fumetto Pop
+       ========================================= */
+    .v3 { background: #8942FE; }
+    .v3 .bubble {
+      position: absolute;
+      right: 400px;
+      top: 50px;
+      width: 600px;
+      padding: 40px;
+      border-radius: 50%;
+      text-align: center;
+      transform: rotate(3deg);
+    }
+    .v3 .bubble::after {
+      content: '';
+      position: absolute;
+      bottom: -40px;
+      right: 100px;
+      width: 0; 
+      height: 0; 
+      border-left: 20px solid transparent;
+      border-right: 20px solid transparent;
+      border-top: 40px solid #212529;
+      transform: rotate(-20deg);
+    }
+    .v3 .avatar { right: 100px; bottom: -10px; width: 300px; filter: drop-shadow(4px 4px 0 #212529); }
+    .v3 .cane { right: -20px; bottom: -10px; width: 180px; filter: drop-shadow(4px 4px 0 #212529); }
+
+    /* =========================================
+       Variant 4: Post-it Overlap
+       ========================================= */
+    .v4 { background: #FED728; }
+    .v4 .postit1 { position: absolute; right: 500px; top: 60px; width: 400px; padding: 30px; transform: rotate(-5deg); z-index: 5; }
+    .v4 .postit2 { position: absolute; right: 350px; top: 120px; width: 450px; padding: 40px; transform: rotate(4deg); z-index: 6; }
+    .v4 .avatar { right: 60px; bottom: -10px; width: 320px; z-index: 20; filter: drop-shadow(6px 6px 0 #212529); }
+    .v4 .cane { right: 340px; bottom: -10px; width: 160px; z-index: 15; }
+
+    /* =========================================
+       Variant 5: Window OS
+       ========================================= */
+    .v5 { background: #008080; /* Classic windows teal */ }
+    .v5 .window {
+      position: absolute;
+      right: 200px;
+      top: 50px;
+      width: 700px;
+      background: #c0c0c0;
+      border: 4px solid #212529;
+      box-shadow: 6px 6px 0 #212529;
+    }
+    .v5 .titlebar { background: #000080; color: white; padding: 8px 12px; font-weight: bold; border-bottom: 4px solid #212529; font-family: monospace; font-size: 18px;}
+    .v5 .win-content { padding: 40px; background: white; }
+    .v5 .avatar { right: 80px; bottom: -10px; width: 260px; z-index: 30; }
+    .v5 .cane { right: 400px; top: -50px; width: 140px; z-index: 5; }
+
+    /* =========================================
+       Variant 6: Ticket
+       ========================================= */
+    .v6 { background: #f5f3ee; }
+    .v6 .ticket {
+      position: absolute;
+      right: 60px;
+      top: 30px;
+      bottom: 30px;
+      width: 900px;
+      background: #FED728;
+      border: 4px dashed #212529;
+      box-shadow: 8px 8px 0 #8942FE;
+      display: flex;
+      padding: 40px;
+    }
+    .v6 .ticket-left { flex: 1; border-right: 4px dashed #212529; padding-right: 30px; }
+    .v6 .ticket-right { width: 280px; position: relative; }
+    .v6 .avatar { right: -40px; bottom: -40px; width: 280px; }
+    .v6 .cane { right: 180px; bottom: -40px; width: 140px; }
+
+    /* =========================================
+       Variant 7: Marquee
+       ========================================= */
+    .v7 { background: repeating-linear-gradient(45deg, #FED728, #FED728 40px, #212529 40px, #212529 80px); }
+    .v7 .box {
+      position: absolute;
+      right: 40px;
+      top: 40px;
+      bottom: 40px;
+      width: 1000px;
+      padding: 40px;
+      display: flex;
+      align-items: center;
+      gap: 40px;
+    }
+    .v7 .avatar { position: static; width: 240px; filter: drop-shadow(6px 6px 0 #212529); }
+    .v7 .cane { position: absolute; right: 280px; bottom: 0; width: 140px; }
+    
+    /* =========================================
+       Variant 8: Asimmetria Totale
+       ========================================= */
+    .v8 { background: #f5f3ee; }
+    .v8 .giant-text {
+      position: absolute;
+      right: 500px;
+      top: 20px;
+      font-size: 140px;
+      color: #8942FE;
+      font-family: 'Chunko', sans-serif;
+      transform: rotate(-2deg);
+      text-shadow: 4px 4px 0 #212529;
+    }
+    .v8 .black-box {
+      position: absolute;
+      right: 300px;
+      bottom: 60px;
+      width: 500px;
+      padding: 20px;
+      background: #212529;
+      color: white;
+      transform: rotate(3deg);
+    }
+    .v8 .avatar { right: 40px; bottom: 0; width: 280px; }
+    .v8 .cane { right: 650px; bottom: 180px; width: 120px; z-index: 30; }
+
+    /* =========================================
+       Variant 9: Sticker Bomb
+       ========================================= */
+    .v9 { background: url('public/images/textures/carta acquarello.jpg'); background-size: cover; }
+    .v9 .polaroid {
+      position: absolute;
+      right: 80px;
+      bottom: 30px;
+      width: 280px;
+      height: 320px;
+      padding: 16px 16px 60px 16px;
+      background: white;
+      transform: rotate(4deg);
+      border: 2px solid #212529;
+      box-shadow: 4px 4px 12px rgba(0,0,0,0.2);
+    }
+    .v9 .avatar { position: static; width: 100%; height: 100%; object-fit: cover; border: 2px solid #212529; }
+    .v9 .cane { position: absolute; right: 340px; bottom: 40px; width: 180px; transform: rotate(-5deg); filter: drop-shadow(4px 4px 0 #212529); }
+    .v9 .sticker1 { position: absolute; right: 580px; top: 60px; padding: 20px; border-radius: 50%; width: 260px; height: 260px; display: flex; align-items: center; justify-content: center; text-align: center; transform: rotate(-8deg); }
+    .v9 .sticker2 { position: absolute; right: 400px; top: 180px; padding: 20px; width: 300px; transform: rotate(5deg); }
+
+    /* =========================================
+       Variant 10: The Stamp
+       ========================================= */
+    .v10 { background: #FED728; }
+    .v10 .stamp {
+      position: absolute;
+      right: 480px;
+      top: -40px;
+      width: 260px;
+      height: 260px;
+      border: 8px solid #8942FE;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #8942FE;
+      font-family: 'Chunko', sans-serif;
+      font-size: 32px;
+      text-align: center;
+      transform: rotate(15deg);
+      opacity: 0.8;
+    }
+    .v10 .stair-text { position: absolute; right: 280px; top: 140px; width: 500px; }
+    .v10 .step1 { background: white; padding: 10px 20px; display: inline-block; margin-bottom: -4px; border: 4px solid #212529; }
+    .v10 .step2 { background: #8942FE; color: white; padding: 10px 20px; display: inline-block; margin-left: 40px; border: 4px solid #212529; }
+    .v10 .avatar { right: 20px; bottom: 0; width: 280px; filter: drop-shadow(-4px 4px 0 #212529); }
+    .v10 .cane { right: 780px; bottom: 20px; width: 160px; }
+
+  </style>
+</head>
+<body>
+
+  <h1>LinkedIn Banner Variations (Playful Pop)</h1>
+
+  <!-- Variant 1 -->
+  <div class="wrapper">
+    <div class="profile-pic-sim">Foto Profilo</div>
+    <div class="banner v1">
+      <div class="neo-box neo-yellow card">
+        <div class="title">Caterina Cozzoli</div>
+        <div style="font-size: 24px; color: #8942FE; font-weight: bold; margin-bottom: 20px;">UX/UI Designer</div>
+        <div class="copy">1. "Design accessibile e umano.<br>Soluzioni guidate dall'AI, pensate per tutti."</div>
+      </div>
+      <img class="avatar" src="public/images/avatar/avatar-caterina-default.png" alt="Avatar">
+      <img class="cane" src="public/images/cane/stato1cane.png" alt="Cane">
+    </div>
+  </div>
+
+  <!-- Variant 2 -->
+  <div class="wrapper">
+    <div class="profile-pic-sim">Foto Profilo</div>
+    <div class="banner v2">
+      <div class="grid">
+        <div class="cell title" style="font-size: 54px;">Caterina<br>Cozzoli</div>
+        <div class="cell" style="font-size: 24px; font-weight: bold;">UX/UI<br>Designer</div>
+        <div class="cell copy" style="font-size: 28px;">2. "Progetto esperienze senza barriere. Intelligenza Artificiale dal volto umano."</div>
+        <div class="cell">
+          <img class="avatar" src="public/images/avatar/avatar-caterina-frontale.png" alt="Avatar">
+          <img class="cane" src="public/images/cane/caneforntale.png" alt="Cane">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Variant 3 -->
+  <div class="wrapper">
+    <div class="profile-pic-sim">Foto Profilo</div>
+    <div class="banner v3">
+      <div class="neo-box bubble">
+        <div class="title" style="font-size: 48px; margin-bottom: 10px;">Caterina Cozzoli</div>
+        <div class="copy" style="font-size: 26px;">3. "UX/UI Design: unisco creatività, accessibilità e il meglio dell'AI."</div>
+      </div>
+      <img class="avatar" src="public/images/avatar/avatar-caterina-fischia.png" alt="Avatar">
+      <img class="cane" src="public/images/cane/stato2cane.png" alt="Cane">
+    </div>
+  </div>
+
+  <!-- Variant 4 -->
+  <div class="wrapper">
+    <div class="profile-pic-sim">Foto Profilo</div>
+    <div class="banner v4">
+      <div class="neo-box neo-purple postit1 title" style="font-size: 54px;">Caterina Cozzoli<br><span style="font-size: 24px; font-family:'Onest'">UX/UI DESIGNER</span></div>
+      <div class="neo-box postit2 copy" style="font-size: 28px;">4. "Design inclusivo & AI-driven per prodotti digitali a prova di futuro."</div>
+      <img class="avatar" src="public/images/avatar/avatar-caterina-default.png" alt="Avatar">
+      <img class="cane" src="public/images/cane/stato1xcon coda.png" alt="Cane">
+    </div>
+  </div>
+
+  <!-- Variant 5 -->
+  <div class="wrapper">
+    <div class="profile-pic-sim">Foto Profilo</div>
+    <div class="banner v5">
+      <div class="window">
+        <div class="titlebar">caterina_cozzoli.exe - UX/UI Designer</div>
+        <div class="win-content">
+          <div class="title" style="font-size: 48px; margin-bottom: 20px;">Caterina Cozzoli</div>
+          <div class="copy" style="font-size: 26px;">5. "L'AI incontra l'empatia: progetto interfacce accessibili e human-centered."</div>
+        </div>
+      </div>
+      <img class="avatar" src="public/images/avatar/avatar-caterina-curiosa.png" alt="Avatar">
+      <img class="cane" src="public/images/cane/stato1cane.png" alt="Cane">
+    </div>
+  </div>
+
+  <!-- Variant 6 -->
+  <div class="wrapper">
+    <div class="profile-pic-sim">Foto Profilo</div>
+    <div class="banner v6">
+      <div class="ticket">
+        <div class="ticket-left">
+          <div class="title" style="font-size: 72px;">Caterina<br>Cozzoli</div>
+          <div style="font-size: 24px; color: #8942FE; font-weight: bold; margin: 20px 0;">UX/UI DESIGNER</div>
+          <div class="copy" style="font-size: 24px;">6. "Creare valore per tutti: UX accessibile potenziata dall'AI."</div>
+        </div>
+        <div class="ticket-right">
+          <img class="avatar" src="public/images/avatar/avatar-caterina-default.png" alt="Avatar">
+          <img class="cane" src="public/images/cane/caneforntale.png" alt="Cane">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Variant 7 -->
+  <div class="wrapper">
+    <div class="profile-pic-sim">Foto Profilo</div>
+    <div class="banner v7">
+      <div class="neo-box box">
+        <div style="flex: 1;">
+          <div class="title" style="font-size: 54px;">Caterina Cozzoli</div>
+          <div style="font-size: 24px; color: #8942FE; font-weight: bold; margin-bottom: 20px;">UX/UI DESIGNER</div>
+          <div class="copy" style="font-size: 28px;">7. "Human-first, AI-powered. Design digitale senza confini."</div>
+        </div>
+        <img class="avatar" src="public/images/avatar/avatar-caterina-felice.png" alt="Avatar">
+        <img class="cane" src="public/images/cane/stato2concoda.png" alt="Cane">
+      </div>
+    </div>
+  </div>
+
+  <!-- Variant 8 -->
+  <div class="wrapper">
+    <div class="profile-pic-sim">Foto Profilo</div>
+    <div class="banner v8">
+      <div class="giant-text">UX/UI</div>
+      <div class="title" style="position: absolute; right: 300px; top: 160px; font-size: 64px;">Caterina Cozzoli</div>
+      <div class="neo-box black-box copy" style="font-size: 22px;">8. "Trasformo la complessità dell'AI in esperienze utente semplici e accessibili."</div>
+      <img class="avatar" src="public/images/avatar/avatar-caterina-default.png" alt="Avatar">
+      <img class="cane" src="public/images/cane/stato1cane.png" alt="Cane">
+    </div>
+  </div>
+
+  <!-- Variant 9 -->
+  <div class="wrapper">
+    <div class="profile-pic-sim">Foto Profilo</div>
+    <div class="banner v9">
+      <div class="neo-box neo-yellow sticker1 title" style="font-size: 42px;">Caterina<br>Cozzoli</div>
+      <div class="neo-box neo-purple sticker2 copy" style="font-size: 24px;">9. "Missione: rendere il web accessibile usando l'AI."</div>
+      <div class="polaroid">
+        <img class="avatar" src="public/images/avatar/avatar-caterina-default.png" alt="Avatar">
+      </div>
+      <img class="cane" src="public/images/cane/stato2cane.png" alt="Cane">
+    </div>
+  </div>
+
+  <!-- Variant 10 -->
+  <div class="wrapper">
+    <div class="profile-pic-sim">Foto Profilo</div>
+    <div class="banner v10">
+      <div class="stamp">AI &<br>ACCESSIBILITY</div>
+      <div class="stair-text">
+        <div class="title step1" style="font-size: 48px;">Caterina Cozzoli</div><br>
+        <div class="step2 copy" style="font-size: 22px;">10. "Design etico, accessibilità e AI: i tre pilastri delle mie interfacce."</div>
+      </div>
+      <img class="avatar" src="public/images/avatar/avatar-caterina-frontale.png" alt="Avatar">
+      <img class="cane" src="public/images/cane/stato1cane.png" alt="Cane">
+    </div>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>LinkedIn Cover — Caterina Cozzoli</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Onest:wght@300;400;500;600;700&family=Gochi+Hand&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: 'Chunko';
+      src: url('public/fonts/Chunko-Bold.otf') format('opentype');
+      font-weight: 700;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      width: 1584px;
+      height: 396px;
+      overflow: hidden;
+      background: #f5f3ee;
+    }
+
+    .banner {
+      width: 1584px;
+      height: 396px;
+      position: relative;
+      overflow: hidden;
+      background-color: rgba(254, 215, 40, 0.11);
+      background-image: url('public/images/textures/carta acquarello.jpg');
+      background-size: cover;
+      background-position: center;
+    }
+
+    /* Watercolor blobs — very subtle, atmospheric */
+    .wc-blob {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    /* Gold — top-left, barely there */
+    .wc-blob--gold {
+      width: 500px;
+      height: 380px;
+      top: -90px;
+      left: -60px;
+      background: rgba(254, 215, 40, 0.07);
+      filter: url(#watercolor-sm);
+      z-index: 1;
+    }
+
+    /* Lavender — right-bottom, soft anchor */
+    .wc-blob--lavender {
+      width: 700px;
+      height: 520px;
+      bottom: -180px;
+      right: -60px;
+      background: rgba(137, 66, 254, 0.09);
+      filter: url(#watercolor);
+      z-index: 1;
+    }
+
+    /* Profile safe zone visualization (just mental note, invisible in final)
+       LinkedIn profile pic is roughly 150px to 200px radius at bottom left. */
+
+    /* ── RIGHT CONTENT (Avoid bottom-left) ── */
+    .content {
+      position: absolute;
+      left: 420px; /* Shifted right to avoid profile picture */
+      top: 0;
+      bottom: 0;
+      width: 700px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-left: 20px;
+      z-index: 10;
+    }
+
+    /* Name */
+    .hero-name {
+      font-family: 'Chunko', sans-serif;
+      font-weight: 700;
+      font-size: 84px;
+      line-height: 0.88;
+      color: #212529;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      user-select: none;
+      margin-bottom: 8px;
+    }
+
+    /* Role */
+    .hero-role {
+      font-family: 'Onest', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #8942FE;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .hero-role img {
+      width: 24px;
+      height: 24px;
+    }
+
+    /* Catchphrase */
+    .hero-phrase {
+      font-family: 'Onest', sans-serif;
+      font-size: 22px;
+      font-weight: 500;
+      line-height: 1.4;
+      color: #3a3e44;
+      letter-spacing: 0.01em;
+      max-width: 500px;
+    }
+
+    .hero-phrase strong {
+      color: #8942FE;
+      font-weight: 700;
+    }
+
+    .hero-phrase .highlight-ai {
+      color: #FED728;
+      font-weight: 700;
+      background: #212529;
+      padding: 0 6px;
+      border-radius: 4px;
+    }
+
+    /* ── RIGHT SIDE — Characters ── */
+    .characters-zone {
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: 500px;
+      z-index: 10;
+    }
+
+    /* Avatar halo */
+    .avatar-halo {
+      position: absolute;
+      top: 50%;
+      right: 80px;
+      transform: translateY(-50%);
+      width: 380px;
+      height: 380px;
+      background: radial-gradient(circle,
+        rgba(137, 66, 254, 0.12) 0%,
+        rgba(254, 215, 40, 0.06) 50%,
+        transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 7;
+    }
+
+    /* Avatar */
+    .avatar {
+      position: absolute;
+      bottom: -10px;
+      right: 180px;
+      width: 280px;
+      height: auto;
+      filter: drop-shadow(0 16px 30px rgba(33,37,41,0.12));
+      z-index: 8;
+    }
+
+    /* Dog */
+    .dog {
+      position: absolute;
+      bottom: -10px;
+      right: 40px;
+      width: 200px;
+      height: auto;
+      filter: drop-shadow(0 12px 24px rgba(33,37,41,0.1));
+      z-index: 9;
+    }
+
+    /* ── DECORATIVE ── */
+    .accent-dot {
+      position: absolute;
+      left: 380px;
+      top: 50px;
+      width: 8px;
+      height: 8px;
+      background: #FED728;
+      border-radius: 50%;
+      z-index: 10;
+      box-shadow: 0 0 0 3px rgba(254,215,40,0.22);
+    }
+
+    .dot-field {
+      position: absolute;
+      top: 0;
+      left: 100px; /* Moved slightly to left side where profile pic isn't */
+      width: 200px;
+      height: 396px;
+      pointer-events: none;
+      z-index: 8;
+      opacity: 0.7;
+    }
+  </style>
+</head>
+<body>
+  <div class="banner">
+
+    <!-- SVG watercolor filters -->
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+      <defs>
+        <filter id="watercolor" x="-60%" y="-60%" width="220%" height="220%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.008 0.012" numOctaves="6" seed="8" result="noise"/>
+          <feDisplacementMap in="SourceGraphic" in2="noise" scale="90" xChannelSelector="R" yChannelSelector="G" result="displaced"/>
+          <feGaussianBlur in="displaced" stdDeviation="18"/>
+        </filter>
+        <filter id="watercolor-sm" x="-40%" y="-40%" width="180%" height="180%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.014" numOctaves="5" seed="3" result="noise"/>
+          <feDisplacementMap in="SourceGraphic" in2="noise" scale="60" xChannelSelector="R" yChannelSelector="G" result="disp"/>
+          <feGaussianBlur in="disp" stdDeviation="14"/>
+        </filter>
+      </defs>
+    </svg>
+
+    <!-- BG: carta acquarello via .banner, blobs via CSS -->
+    <div class="wc-blob wc-blob--gold"     aria-hidden="true"></div>
+    <div class="wc-blob wc-blob--lavender" aria-hidden="true"></div>
+
+    <!-- Decorative -->
+    <div class="accent-dot" aria-hidden="true"></div>
+
+    <svg class="dot-field" viewBox="0 0 200 396" aria-hidden="true">
+      <circle cx="24"  cy="44"  r="2.2" fill="#8942FE" opacity="0.22"/>
+      <circle cx="72"  cy="28"  r="1.6" fill="#FED728" opacity="0.55"/>
+      <circle cx="130" cy="60"  r="1.8" fill="#8942FE" opacity="0.16"/>
+      <circle cx="178" cy="38"  r="1.4" fill="#212529" opacity="0.14"/>
+      <circle cx="44"  cy="200" r="1.6" fill="#FED728" opacity="0.4"/>
+    </svg>
+
+    <!-- Center/Right Content -->
+    <div class="content">
+      <div class="hero-name" aria-label="Caterina Cozzoli">
+        Caterina Cozzoli
+      </div>
+      <div class="hero-role">
+        UX/UI Designer
+        <img src="public/images/accessibility-icon.png" alt="Accessibility" style="width: 18px; height: 18px;">
+      </div>
+      <div class="hero-phrase">
+        Progetto esperienze digitali <strong>accessibili</strong> e human-centered, potenziate da soluzioni <span class="highlight-ai">AI-driven</span>.
+      </div>
+    </div>
+
+    <!-- Avatar & Dog on the right -->
+    <div class="characters-zone" aria-hidden="true">
+      <div class="avatar-halo"></div>
+      <img class="avatar" src="public/images/avatar/avatar-caterina-default.png" alt="Caterina Cozzoli">
+      <img class="dog" src="public/images/cane/stato1cane.png" alt="Cane">
+    </div>
+
+  </div>
+</body>
+</html>

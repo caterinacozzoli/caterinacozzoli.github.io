@@ -1,0 +1,532 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>CV — Stile Portfolio (Caterina Cozzoli)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  @font-face {
+    font-family: 'Chunko';
+    src: url('../public/fonts/Chunko-Bold.otf') format('opentype');
+    font-weight: 700; font-style: normal; font-display: swap;
+  }
+  
+  :root {
+    --bg: #f5f3ee; 
+    --bg-surface: #E6E8EC; 
+    --ink: #212529; 
+    --ink-muted: #6b6f75;
+    --primary: #7a35ee; 
+    --primary-light: #D4CDFF; 
+    --primary-button: #6d2bd6;
+    --accent: #FED728; 
+    --accent-light: #FFEBA2;
+    --border: #E6E8EC;
+    
+    --font-display: 'Chunko', sans-serif; 
+    --font-body: 'Onest', system-ui, sans-serif;
+
+    --carta-bg: url('../public/images/textures/carta\ acquarello.jpg');
+  }
+
+  * { box-sizing: border-box; }
+  
+  body { 
+    margin: 0; 
+    background: #2c2740; 
+    font-family: var(--font-body);
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    gap: 50px; 
+    padding: 20px 20px 100px;
+    color: var(--ink);
+  }
+
+  /* Control Panel */
+  .controls {
+    background: #fff;
+    padding: 20px 30px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    position: sticky;
+    top: 20px;
+    z-index: 100;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    font-family: var(--font-body);
+  }
+  .controls select {
+    padding: 10px 16px;
+    font-family: var(--font-body);
+    font-size: 15px;
+    border: 2px solid var(--primary-light);
+    border-radius: 8px;
+    outline: none;
+    cursor: pointer;
+    font-weight: 500;
+  }
+  .controls select:focus {
+    border-color: var(--primary);
+  }
+  .controls label {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--ink);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .frame-label {
+    color: #cfc8e6; 
+    font-size: 15px; 
+    font-weight: 700; 
+    letter-spacing: .06em;
+    text-transform: uppercase; 
+    align-self: flex-start; 
+    margin-left: calc(50% - 620px);
+    margin-bottom: -30px;
+    font-family: var(--font-display);
+  }
+  
+  /* Fallback limit per viewport piccole */
+  @media (max-width: 1300px) {
+    .frame-label {
+      margin-left: 0;
+      align-self: center;
+    }
+  }
+
+  /* ── pagina A4 @150dpi: 1240x1754 ── */
+  .page {
+    position: relative; width: 1240px; height: 1754px; overflow: hidden; background: var(--bg);
+    display: flex; box-shadow: 0 16px 44px rgba(0,0,0,.4); color: var(--ink);
+    background-image: var(--carta-bg);
+    background-size: cover;
+    background-blend-mode: multiply;
+  }
+  /* La pagina ATS può essere più lunga e non ha limiti di altezza rigidi per preview (anche se A4 è standard) */
+  .page.v-ats { height: auto; min-height: 1754px; }
+
+  .sidebar { width: 35%; padding: 72px 44px; display: flex; flex-direction: column; gap: 46px; position: relative; z-index: 2; }
+  .main { width: 65%; padding: 72px 56px; display: flex; flex-direction: column; gap: 46px; position: relative; z-index: 2; }
+
+  .avatar-container {
+    width: 220px; height: 220px; 
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: -10px;
+  }
+  
+  .avatar-img {
+    width: 100%;
+    height: auto;
+    position: relative;
+    z-index: 2;
+    transition: transform 0.3s ease;
+  }
+
+  .avatar-bg-blob {
+    position: absolute;
+    inset: 0;
+    background: var(--primary-light);
+    border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+    z-index: 1;
+  }
+
+  .sb-name { font-family: var(--font-display); font-weight: 700; font-size: 46px; line-height: 1.05; text-transform: uppercase; margin: 0; letter-spacing: -0.02em; text-wrap: balance;}
+  .sb-role { font-size: 20px; font-weight: 600; color: var(--primary-button); margin: 10px 0 0; }
+  .sb-loc { font-size: 15px; color: var(--ink-muted); margin: 5px 0 0; }
+
+  .sb-block h3, .main-block h3 { 
+    font-family: var(--font-display); font-weight: 700; font-size: 22px;
+    letter-spacing: .02em; text-transform: uppercase; color: var(--primary-button); margin: 0 0 16px;
+    padding-bottom: 8px; border-bottom: 3px solid var(--primary-light);
+  }
+
+  .sb-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+  .sb-list li { font-size: 15px; color: var(--ink); line-height: 1.55; }
+  .sb-contacts { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; font-size: 14.5px; color: var(--ink-muted); font-weight: 500; }
+
+  .tag-row { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tag { font-size: 13.5px; font-weight: 600; color: var(--primary-button); background: var(--primary-light); border-radius: 999px; padding: 6px 14px; }
+  
+  .tools-row { display: flex; flex-wrap: wrap; gap: 12px; }
+  .tool-item { 
+    display: flex; flex-direction: column; align-items: center; gap: 6px; 
+    background: #fff; padding: 10px; border-radius: 12px;
+    box-shadow: 0 4px 12px var(--shadow-light);
+    border: 1px solid var(--border);
+    width: 72px;
+  }
+  .tool-icon { width: 32px; height: 32px; object-fit: contain; }
+  .tool-name { font-size: 10px; font-weight: 700; color: var(--ink); text-transform: uppercase; text-align: center; }
+
+  .profile-box { padding: 24px 28px; border-radius: 16px; background: rgba(122, 53, 238, 0.06); border-left: 5px solid var(--primary-button); margin-top: 8px;}
+  .profile-text { font-size: 17.5px; line-height: 1.65; color: #212529; margin: 0; font-weight: 500; }
+  .exp-item { display: flex; flex-direction: column; gap: 4px; position: relative; }
+  .exp-item .role { font-weight: 700; font-size: 18px; color: var(--ink); }
+  .exp-item .org { font-size: 15px; color: var(--primary-button); font-weight: 600; }
+  .exp-item .period { font-size: 13.5px; color: var(--ink-muted); font-weight: 500;}
+  .exp-item .desc { font-size: 15px; color: #3a3f45; line-height: 1.6; margin-top: 6px; }
+
+  .timeline { border-left: 3px solid var(--primary-light); padding-left: 26px; display: flex; flex-direction: column; gap: 32px; }
+  .timeline .exp-item::before { content: ""; position: absolute; left: -34px; top: 4px; width: 14px; height: 14px; border-radius: 50%; background: var(--primary); border: 3px solid #fff; box-shadow: 0 0 0 2px var(--primary-light); }
+
+  .proj-item { border-left: 4px solid var(--primary-light); padding-left: 20px; }
+  .proj-item .name { font-weight: 700; font-size: 17px; color: var(--ink); }
+  .proj-item .role-tag { font-size: 13px; color: var(--ink); background: var(--accent); padding: 2px 8px; border-radius: 4px; font-weight: 700; margin-left: 10px; text-transform: uppercase;}
+  .proj-item .desc { font-size: 15px; color: #3a3f45; line-height: 1.6; margin-top: 6px; }
+
+  /* =========================================
+     VARIANTS (Estetiche)
+     ========================================= */
+
+  /* V1: Lavanda & Carta (Brand style) */
+  .v-brand .sidebar { background: rgba(212, 205, 255, 0.4); backdrop-filter: blur(10px); }
+  .v-brand .main { background: transparent; }
+
+  /* V2: Playful Pop */
+  .v-pop { background-image: none; background-color: var(--bg); }
+  .v-pop .sidebar { background: #fff; border-right: 4px solid var(--ink); }
+  .v-pop .sb-block h3, .v-pop .main-block h3 { color: var(--ink); border-bottom: 4px solid var(--accent); }
+  .v-pop .sb-role { color: var(--ink); background: var(--accent); display: inline-block; padding: 4px 12px; transform: rotate(-2deg); margin-top: 14px; }
+  .v-pop .profile-box { background: #fff; border: 3px solid var(--ink); box-shadow: 5px 5px 0 var(--accent); border-radius: 16px; }
+  .v-pop .avatar-img { transform: scale(1.1) rotate(5deg); }
+  .v-pop .avatar-bg-blob { background: var(--accent); border: 3px solid var(--ink); }
+  .v-pop .timeline { border-left-color: var(--ink); }
+  .v-pop .timeline .exp-item::before { background: var(--accent); border-color: var(--ink); box-shadow: 4px 4px 0 var(--ink); width: 16px; height: 16px; left: -36px; }
+  .v-pop .tag { background: #fff; border: 2px solid var(--ink); color: var(--ink); box-shadow: 2px 2px 0 var(--ink); }
+  .v-pop .tool-item { border: 2px solid var(--ink); box-shadow: 3px 3px 0 var(--ink); }
+  .v-pop .proj-item { border-left: 4px solid var(--ink); }
+
+  /* V7: Playful Pop (Header Orizzontale) */
+  .v-pop-header { display: block; padding: 40px; }
+  .v-pop-header .sidebar { width: 100%; border-right: none; border-bottom: 4px solid var(--ink); display: flex; flex-wrap: wrap; gap: 30px; padding: 20px; align-items: flex-start; justify-content: space-between; }
+  .v-pop-header .avatar-container { width: 160px; height: 160px; margin: 0; }
+  .v-pop-header .sidebar > div:nth-child(2) { flex: 1; min-width: 320px; }
+  .v-pop-header .sb-block { flex: 1; min-width: 160px; }
+  .v-pop-header .main { width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 50px; padding: 40px 20px; }
+  .v-pop-header .main-block:nth-child(2) { grid-row: span 2; } /* Esperienza in colonna lunga */
+
+  /* V8: Playful Pop (Bento Grid) */
+  .v-pop-bento { flex-direction: column; padding: 40px; gap: 24px; background-color: var(--primary-light); background-image: none; height: auto; }
+  .v-pop-bento .sidebar { width: 100%; padding: 0; border: none; background: transparent; display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+  .v-pop-bento .main { width: 100%; padding: 0; border: none; background: transparent; display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-top: 0; }
+  
+  .v-pop-bento .sidebar > div, .v-pop-bento .main > div { 
+    background: #fff; border: 4px solid var(--ink); border-radius: 20px; padding: 32px; box-shadow: 6px 6px 0 var(--ink);
+  }
+  .v-pop-bento .sidebar .avatar-container { background: transparent; border: none; box-shadow: none; padding: 0; display: flex; justify-content: center; }
+  .v-pop-bento .sidebar > div:nth-child(2) { grid-column: span 2; display: flex; flex-direction: column; justify-content: center; background: var(--accent); }
+  .v-pop-bento .main > div:nth-child(2) { grid-column: span 2; } /* Esperienza su tutta la larghezza */
+  .v-pop-bento .sb-block h3, .v-pop-bento .main-block h3 { border-bottom: none; margin-bottom: 20px; }
+  .v-pop-bento .sidebar > div:last-child { grid-column: span 2; } /* Attività un po' più larga */
+
+  /* V3: Dark Mode */
+  .v-dark { background-color: #1a1a1a; color: #fff; background-blend-mode: overlay; }
+  .v-dark .sidebar { background: rgba(0,0,0,0.3); }
+  .v-dark .ink { color: #fff; }
+  .v-dark .sb-name, .v-dark .exp-item .role, .v-dark .proj-item .name { color: #fff; }
+  .v-dark .sb-role, .v-dark .sb-block h3, .v-dark .main-block h3 { color: var(--primary-light); border-bottom-color: rgba(255,255,255,0.1); }
+  .v-dark .profile-box { background: rgba(255,255,255,0.06); border-left-color: var(--primary-light); }
+  .v-dark .profile-text, .v-dark .exp-item .desc, .v-dark .proj-item .desc, .v-dark .sb-list li { color: #d0d0d0; font-weight: 400; }
+  .v-dark .ink-muted { color: #999; }
+  .v-dark .tag { background: rgba(255,255,255,0.1); color: #fff; }
+  .v-dark .tool-item { background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.1); }
+  .v-dark .tool-name { color: #fff; }
+  .v-dark .timeline { border-left-color: rgba(255,255,255,0.1); }
+  .v-dark .timeline .exp-item::before { background: var(--primary-light); border-color: #1a1a1a; box-shadow: 0 0 0 2px rgba(255,255,255,0.2); }
+  .v-dark .proj-item { border-left-color: rgba(255,255,255,0.2); }
+
+  /* V4: Minimalist Light */
+  .v-minimal { background-image: none; background-color: #fff; }
+  .v-minimal .sidebar { border-right: 1px solid var(--border); padding-right: 60px; }
+  .v-minimal .sb-name { font-family: var(--font-body); font-weight: 800; letter-spacing: -0.04em; }
+  .v-minimal .sb-block h3, .v-minimal .main-block h3 { font-family: var(--font-body); font-size: 16px; letter-spacing: 0.1em; color: var(--ink-muted); border-bottom: 1px solid var(--border); padding-bottom: 12px; }
+  .v-minimal .profile-box { background: var(--bg-surface); border-left: none; padding: 20px 24px; border-radius: 12px; }
+  .v-minimal .avatar-bg-blob { display: none; }
+  .v-minimal .timeline .exp-item::before { background: var(--ink); border-color: #fff; box-shadow: none; }
+  .v-minimal .timeline { border-left: 2px solid var(--border); }
+  .v-minimal .tag { background: var(--bg-surface); color: var(--ink); font-weight: 500; }
+  .v-minimal .tool-item { box-shadow: none; background: var(--bg-surface); border: none; }
+
+  /* V5: Accent Giallo & Lavanda */
+  .v-accent .sidebar { background: var(--primary); color: #fff; }
+  .v-accent .sb-name { color: #fff; }
+  .v-accent .sb-role { color: var(--accent); }
+  .v-accent .sb-loc, .v-accent .sb-contacts { color: rgba(255,255,255,0.8); }
+  .v-accent .sb-block h3 { color: var(--accent); border-bottom-color: rgba(255,255,255,0.2); }
+  .v-accent .sb-list li { color: #fff; }
+  .v-accent .tag { background: rgba(255,255,255,0.15); color: #fff; }
+  .v-accent .tool-item { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); }
+  .v-accent .tool-name { color: #fff; }
+  .v-accent .main-block h3 { color: var(--primary); border-bottom-color: var(--primary-light); }
+  .v-accent .profile-box { background: #fff; border-left: 5px solid var(--accent); box-shadow: 0 4px 16px rgba(0,0,0,0.05); }
+  .v-accent .avatar-bg-blob { background: var(--accent); }
+
+  /* V6: ATS Friendly (1 Colonna, NO Immagini grafiche complesse) */
+  .v-ats { 
+    background-image: none; 
+    background-color: #fff; 
+    flex-direction: column; 
+    padding: 60px 80px; 
+    box-sizing: border-box;
+  }
+  .v-ats .sidebar { width: 100%; padding: 0; background: none; flex-direction: column; gap: 24px; border: none; }
+  .v-ats .main { width: 100%; padding: 0; gap: 32px; border: none; margin-top: 32px; }
+  .v-ats .avatar-container { display: none; /* ATS doesn't read images well */ }
+  .v-ats .sb-name { font-family: 'Arial', sans-serif; font-size: 36px; letter-spacing: 0; border-bottom: 2px solid var(--ink); padding-bottom: 10px; text-transform: uppercase;}
+  .v-ats .sb-role { font-family: 'Arial', sans-serif; color: var(--ink); margin-top: 16px; font-size: 20px;}
+  .v-ats .sb-loc, .v-ats .sb-contacts { display: inline-flex; flex-wrap: wrap; gap: 12px; margin-top: 4px; font-family: 'Arial', sans-serif; color: var(--ink);}
+  .v-ats .sb-contacts li { display: inline-block; border-right: 1px solid var(--border); padding-right: 12px; }
+  .v-ats .sb-contacts li:last-child { border-right: none; }
+  
+  .v-ats .sb-block h3, .v-ats .main-block h3 { 
+    font-family: 'Arial', sans-serif; font-size: 18px; color: var(--ink); 
+    border-bottom: 1px solid var(--ink); padding-bottom: 8px; letter-spacing: 0.05em; 
+  }
+  .v-ats .profile-box { background: none; border: none; padding: 0; box-shadow: none; margin: 0; }
+  .v-ats .profile-text, .v-ats .exp-item .desc, .v-ats .proj-item .desc, .v-ats .sb-list li { 
+    font-family: 'Arial', sans-serif; font-size: 14.5px; line-height: 1.6; color: #111; font-weight: normal;
+  }
+  .v-ats .exp-item .role, .v-ats .proj-item .name { font-family: 'Arial', sans-serif; font-size: 16px; font-weight: bold; color: var(--ink); }
+  .v-ats .exp-item .org { font-family: 'Arial', sans-serif; color: var(--ink); font-weight: normal; font-style: italic; }
+  
+  /* Reset timeline per ATS */
+  .v-ats .timeline { border-left: none; padding-left: 0; gap: 24px; }
+  .v-ats .timeline .exp-item::before { display: none; }
+  .v-ats .proj-item { border-left: none; padding-left: 0; margin-bottom: 16px; }
+  .v-ats .proj-item .role-tag { display: none; } /* O renderizzato come testo semplice */
+  
+  /* Strumenti e Tag come liste semplici */
+  .v-ats .tag-row { display: block; }
+  .v-ats .tag { display: inline; background: none; border: none; padding: 0; color: var(--ink); font-family: 'Arial', sans-serif; font-size: 14.5px; font-weight: normal;}
+  .v-ats .tag::after { content: ", "; }
+  .v-ats .tag:last-child::after { content: ""; }
+
+  .v-ats .tools-row { display: block; }
+  .v-ats .tool-item { display: inline; background: none; border: none; padding: 0; box-shadow: none; width: auto; }
+  .v-ats .tool-icon { display: none; }
+  .v-ats .tool-name { font-size: 14.5px; font-weight: normal; text-transform: none; font-family: 'Arial', sans-serif; color: var(--ink); }
+  .v-ats .tool-item::after { content: ", "; font-family: 'Arial', sans-serif;}
+  .v-ats .tool-item:last-child::after { content: ""; }
+
+</style>
+</head>
+<body>
+<div class="controls">
+  <div>
+    <label for="copySelect">Variante Copy:</label>
+    <select id="copySelect"></select>
+  </div>
+</div>
+
+<div id="root" style="display:flex; flex-direction:column; gap:60px; align-items:center;"></div>
+
+<script>
+const DATA = {
+  name: "Caterina Maria Cozzoli",
+  role: "Junior UX/UI Designer",
+  loc: "Milano, IT",
+  contacts: ["caterinacozzoli@gmail.com", "linkedin.com/in/caterina-cozzoli", "caterinacozzoli.github.io"],
+  skills: ["User research", "Usability testing", "Accessibilità (WCAG 2.1 AA)", "Information architecture", "Wireframing", "Prototipazione rapida", "UI design", "Design system", "Inclusive design", "Interaction design", "Microcopy", "Insight-driven design"],
+  tools: [
+    { name: "Figma", icon: "../public/images/logos/logo-figma.png" },
+    { name: "Antigravity", icon: "../public/images/logos/logo-antigravity.png" },
+    { name: "Canva", icon: "../public/images/logos/logo-canva.png" },
+    { name: "Gemini", icon: "../public/images/logos/logo-gemini.png" },
+    { name: "Claude", icon: "../public/images/logos/logo-claude.png" },
+    { name: "Suite Adobe", icon: "../public/images/logos/logo-adobe.png" }
+  ],
+  langs: ["Italiano — madrelingua", "Portoghese — madrelingua", "Inglese — C1", "Spagnolo — B1"],
+  education: [
+    { role: "Master Full-Time UX/UI Design for Digital Products", org: "Talent Garden", period: "borsa di studio vinta con design challenge" },
+    { role: "Magistrale in Teoria e Tecnologia della Comunicazione", org: "Università Bicocca", period: "in corso" },
+    { role: "Laurea in Scienze Psicosociali della Comunicazione", org: "Università Bicocca", period: "2025" },
+  ],
+  recognitions: ["Parlamento Europeo (AbiliCity, 2023)", "Fondazione Triulza (legacy Milano-Cortina 2026)", "Acceleratore iBicocca", "Borsa di studio Talent Garden"],
+  experience: [
+    { role: "Mediatrice culturale", org: "Cooperativa Crinali", period: "2025 — oggi", desc: "Ascolto attivo e mediazione in contesti multiculturali." },
+    { role: "Volontaria a supporto di persone con disabilità", org: "“Su la testa!”", period: "2017 — oggi", desc: "Quasi 10 anni di volontariato: empatia e adattamento come pratica quotidiana." },
+    { role: "Cameriera", org: "esperienza pluriennale", period: "", desc: "Ascolto attivo, gestione dello stress, lavoro in team sotto pressione." },
+  ],
+  projects: [
+    { name: "<a href='https://www.figma.com/proto/jhC381DC6WyEdSeG070svr/AbiliCity?node-id=66-1881&starting-point-node-id=366%3A93' target='_blank' style='color:inherit;text-decoration:underline;'>AbiliCity</a>", tag: "co-fondatrice", desc: "Web-app accessibile per l'autonomia delle persone con disabilità. UX/UI, microcopy, illustrazioni.<br>🏆 <strong>Presentato al Parlamento Europeo</strong> (Nov 2023).<br>📰 Oggetto di un <strong>articolo accademico Unimib</strong>." },
+    { name: "<a href='https://caterinacozzoli.github.io/qualia-preview/' target='_blank' style='color:inherit;text-decoration:underline;'>Qualia</a>", tag: "project work", desc: "App per persone daltoniche, AI driven: onboarding con test Ishihara, scanner colori live. <br>🔬 <strong>Ricerca:</strong> analisi di 10 articoli scientifici su CVD, 5 interviste in profondità e ~280 commenti Reddit." },
+    { name: "<a href='https://www.figma.com/proto/72QyZ6zBlCHX6Hdlef9N6T/Libraccio-scolastica?node-id=3698-44057&starting-point-node-id=3698%3A44057' target='_blank' style='color:inherit;text-decoration:underline;'>Libraccio</a>", tag: "cliente reale", desc: "Redesign UX/UI per ottimizzare l'acquisto scolastico. <br>🔍 <strong>Validazione:</strong> analisi insight da Reddit e paper, validata con <strong>100 feedback reali</strong> tramite test utenti." },
+    { name: "Hestia", tag: "workshop", desc: "App smart home sulla fiducia utente-AI: ricerca evidence-based, sistema a 3 gradi di fiducia." },
+  ],
+  activities: ["Judo", "Coro", "Teatro", "Volontariato", "Danza Polinesiana"]
+};
+
+/* Le 9 Varianti di Copy per il Profilo */
+const COPIES = [
+  { id: "storytelling_ai", label: "★ Storytelling & AI First (Novità)", text: "Il mio percorso nel design inizia dallo studio delle persone: grazie alle mie radici nelle scienze psicosociali della comunicazione, ho imparato ad ascoltare ciò che gli utenti non dicono. Oggi applico questa sensibilità alla tecnologia, progettando esperienze digitali accessibili e inclusive (WCAG 2.1 AA). Credo in un design etico in cui l'Intelligenza Artificiale non sostituisce l'intuizione umana, ma la potenzia, diventando la mia principale alleata strategica per velocizzare la ricerca e la sintesi. Dalle aule universitarie fino ai tavoli del Parlamento Europeo con AbiliCity, il mio obiettivo è uno solo: trasformare la complessità in interfacce semplici, belle e alla portata di tutti." },
+  { id: "originale", label: "1. Originale", text: "UX/UI designer con radici nelle scienze psicosociali della comunicazione. Progetto esperienze accessibili e inclusive (WCAG), dalla user research alla UI, usando l'AI come alleata di ricerca e sintesi. Dal riconoscimento istituzionale (AbiliCity → Parlamento Europeo) al redesign su cliente reale." },
+  { id: "sintetico", label: "2. Sintetico (HR friendly)", text: "Junior UX/UI Designer specializzata in accessibilità (WCAG 2.1 AA) e user research. Background in scienze psicosociali. Ottimizzo i processi di design con l'ausilio dell'AI, portando valore da concept a prodotto finito su brief reali." },
+  { id: "business", label: "3. Orientato al Business", text: "Trasformo insight di ricerca in interfacce utente efficaci e conversion-oriented. Con un approccio inclusivo e accessibile, progetto soluzioni digitali che generano valore per gli utenti e per il business, validandole attraverso test e iterazioni." },
+  { id: "storytelling", label: "4. Storytelling (Breve)", text: "Ho iniziato studiando come comunicano le persone, e oggi applico quelle stesse dinamiche alla tecnologia. Disegno interfacce digitali che parlano a tutti, mettendo l'accessibilità e l'empatia al primo posto, supportata da strumenti AI per un flusso di lavoro all'avanguardia." },
+  { id: "analitico", label: "5. Analitico / Data-Driven", text: "UX/UI Designer con approccio analitico e incentrato sulla ricerca. Focus su metodologie evidence-based per definire l'architettura dell'informazione, condurre usability testing e strutturare UI system scalabili e WCAG compliant." },
+  { id: "innovativo", label: "6. Innovativo / AI-First (Breve)", text: "Esploro l'intersezione tra human-centered design e intelligenza artificiale. Sfrutto l'AI come partner strategico per velocizzare prototipazione e ricerca, garantendo al contempo etica, inclusività e alta accessibilità dei prodotti digitali." },
+  { id: "entusiasta", label: "7. Entusiasta / Creativo", text: "Ciao! Sono Caterina, una UX/UI Designer appassionata di design accessibile. Amo trasformare le sfide complesse in interfacce intuitive, semplici e bellissime, mettendo sempre l'essere umano al centro di ogni pixel che progetto." },
+  { id: "essenziale", label: "8. Essenziale (Bullet points)", text: "• Background: Scienze Psicosociali<br>• Focus: Accessibilità (WCAG), Inclusive Design<br>• Metodo: User Research integrata con AI<br>• Goal: Interfacce semplici, etiche e intuitive." },
+  { id: "elevator_pitch", label: "9. Headline d'impatto (Punchy)", text: "Ciao! Faccio design inclusivo & AI-driven per prodotti digitali a prova di futuro." }
+];
+
+/* Le 8 Varianti Estetiche */
+const VARIANTS = [
+  { class: "v-ats", label: "Estetica 6 — ATS Friendly (1 Colonna, Testo Pulito per i Software CV)" },
+  { class: "v-brand", label: "Estetica 1 — Portfolio Brand (Lavanda & Carta)" },
+  { class: "v-pop", label: "Estetica 2 — Playful Pop (Layout Classico Sidebar)" },
+  { class: "v-pop v-pop-header", label: "Estetica 7 — Playful Pop (Layout Header Orizzontale)" },
+  { class: "v-pop v-pop-bento", label: "Estetica 8 — Playful Pop (Layout Bento Grid)" },
+  { class: "v-dark", label: "Estetica 3 — Dark Mode (Scuri & Neon, Sovrapposizioni)" },
+  { class: "v-minimal", label: "Estetica 4 — Minimalist Light (Bianco, Pulito, Strutturato)" },
+  { class: "v-accent", label: "Estetica 5 — Bold Accent (Sidebar Piena, Alto Contrasto)" },
+];
+
+function el(html){ const t = document.createElement('template'); t.innerHTML = html.trim(); return t.content.firstElementChild; }
+
+function renderPage(v, copyText){
+  // Se è ATS friendly, renderizziamo tutto sequenzialmente in modo lineare e togliamo l'avatar e abbellimenti pesanti
+  const isATS = v.class === 'v-ats';
+  
+  const page = el(`
+    <div class="page ${v.class}">
+      <div class="sidebar">
+        <div class="avatar-container">
+          <div class="avatar-bg-blob"></div>
+          <img src="../public/images/avatar/avatar-caterina-default.png" class="avatar-img" alt="Avatar Caterina" onerror="this.src='/images/avatar/avatar-caterina-default.png'" />
+        </div>
+        <div>
+          <h1 class="sb-name">${DATA.name}</h1>
+          <p class="sb-role">${DATA.role}</p>
+          <ul class="sb-contacts" style="${isATS ? 'margin-top:12px' : ''}">
+            <li>${DATA.loc}</li>
+            ${DATA.contacts.map(c => `<li>${c}</li>`).join('')}
+          </ul>
+        </div>
+        
+        ${isATS ? '' : `
+        <div class="sb-block">
+          <h3>Strumenti</h3>
+          <div class="tools-row">
+            ${DATA.tools.map(t => `
+              <div class="tool-item">
+                <img src="${t.icon}" alt="${t.name}" class="tool-icon" onerror="this.style.display='none'" />
+                <span class="tool-name">${t.name}</span>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+        <div class="sb-block">
+          <h3>Lingue</h3>
+          <ul class="sb-list">${DATA.langs.map(l => `<li>${l}</li>`).join('')}</ul>
+        </div>
+        <div class="sb-block">
+          <h3>Attività & Interessi</h3>
+          <div class="tag-row">${DATA.activities.map(a => `<span class="tag">${a}</span>`).join('')}</div>
+        </div>
+        `}
+      </div>
+
+      <div class="main">
+        <div class="main-block">
+          <h3>Profilo</h3>
+          <div class="profile-box">
+            <p class="profile-text">${copyText}</p>
+          </div>
+        </div>
+        <div class="main-block">
+          <h3>Esperienza</h3>
+          <div class="timeline">
+            ${DATA.experience.map(e => `
+              <div class="exp-item">
+                <span class="role">${e.role} ${isATS ? ` - <span class="org">${e.org}</span>` : ''}</span>
+                ${isATS ? '' : `<span class="org">${e.org}</span>`}
+                <span class="period">${e.period}</span>
+                <p class="desc">${e.desc}</p>
+              </div>`).join('')}
+          </div>
+        </div>
+        <div class="main-block">
+          <h3>Progetti & Workshop</h3>
+          <div style="display:flex;flex-direction:column;gap:20px">
+            ${DATA.projects.map(p => `
+              <div class="proj-item">
+                <div><span class="name">${p.name}</span>${p.tag ? `<span class="role-tag">${p.tag}</span>` : ''}${isATS && p.tag ? ` <em>(${p.tag})</em>` : ''}</div>
+                <p class="desc">${p.desc}</p>
+              </div>`).join('')}
+          </div>
+        </div>
+        
+        <div class="main-block">
+          <h3>Formazione & Riconoscimenti</h3>
+          <ul class="sb-list">
+            ${DATA.education.map(e => `<li><strong>${e.role}</strong><br><span style="opacity:0.8">${e.org} — ${e.period}</span></li>`).join('')}
+            ${isATS ? DATA.recognitions.map(r => `<li>${r}</li>`).join('') : ''}
+          </ul>
+        </div>
+
+        <div class="main-block">
+          <h3>Competenze</h3>
+          <div class="tag-row">${DATA.skills.map(s => `<span class="tag">${s}</span>`).join('')}</div>
+        </div>
+
+        ${isATS ? `
+        <div class="main-block">
+          <h3>Strumenti</h3>
+          <div class="tools-row">
+            ${DATA.tools.map(t => `<div class="tool-item"><span class="tool-name">${t.name}</span></div>`).join('')}
+          </div>
+        </div>
+        <div class="main-block">
+          <h3>Lingue</h3>
+          <ul class="sb-list">${DATA.langs.map(l => `<li>${l}</li>`).join('')}</ul>
+        </div>
+        <div class="main-block">
+          <h3>Attività & Interessi</h3>
+          <div class="tag-row">${DATA.activities.map(a => `<span class="tag">${a}</span>`).join('')}</div>
+        </div>
+        ` : ''}
+      </div>
+    </div>
+  `);
+  return page;
+}
+
+const root = document.getElementById('root');
+const copySelect = document.getElementById('copySelect');
+
+// Populate select
+COPIES.forEach((c, idx) => {
+  const opt = document.createElement('option');
+  opt.value = idx;
+  opt.textContent = c.label;
+  copySelect.appendChild(opt);
+});
+
+function renderAll() {
+  root.innerHTML = '';
+  const selectedCopy = COPIES[copySelect.value].text;
+  
+  VARIANTS.forEach(v => {
+    const label = document.createElement('p');
+    label.className = 'frame-label';
+    label.textContent = v.label;
+    root.appendChild(label);
+    root.appendChild(renderPage(v, selectedCopy));
+  });
+}
+
+copySelect.addEventListener('change', renderAll);
+renderAll();
+
+</script>
+</body>
+</html>

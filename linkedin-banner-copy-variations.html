@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>LinkedIn Cover — Role Variations</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;600;700;800&family=Gochi+Hand&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: 'Chunko';
+      src: url('public/fonts/Chunko-Bold.otf') format('opentype');
+      font-weight: 700;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #e9ecef;
+      margin: 0; 
+      padding: 40px;
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      gap: 80px;
+      align-items: center;
+    }
+
+    h1 {
+      font-family: 'Chunko', sans-serif;
+      color: #212529;
+      font-size: 32px;
+      text-align: center;
+    }
+
+    .outer-container {
+      width: 100%;
+      max-width: 1584px;
+      aspect-ratio: 1584 / 396;
+      position: relative;
+      background: #FED728;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      border: 1px solid #ccc;
+    }
+
+    .linkedin-banner {
+      width: 1584px;
+      height: 396px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform-origin: top left;
+      background: #FED728;
+      overflow: hidden;
+    }
+
+    .profile-pic-placeholder {
+      position: absolute;
+      bottom: -60px; 
+      left: 60px;
+      width: 260px; 
+      height: 260px;
+      background: rgba(0, 0, 0, 0.2); 
+      border: 6px solid #FFF;
+      border-radius: 50%;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #333;
+      font-size: 20px;
+      pointer-events: none;
+    }
+
+    .banner-content {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    /* ── BASE HERO CONTAINER ── */
+    .hero-container {
+      position: absolute;
+      right: 100px; 
+      bottom: 20px;
+      width: 320px;
+      height: 320px;
+      z-index: 10;
+    }
+
+    .avatar {
+      position: absolute;
+      bottom: 50px;
+      right: 0;
+      width: 300px;
+      height: auto;
+      filter: drop-shadow(4px 4px 0 rgba(33,37,41,0.5));
+      z-index: 8;
+    }
+
+    .nuvola-wrap {
+      position: absolute;
+      left: -120px; 
+      bottom: 0px; 
+      width: 310px;
+      z-index: 12;
+    }
+
+    .nuvola-img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .nuvola-text {
+      position: absolute;
+      top: 15%;
+      left: calc(6% - 8px); 
+      right: calc(22% - 8px); 
+      bottom: 12%;
+      display: flex;
+      align-items: flex-end; 
+      justify-content: center;
+      padding-bottom: 25px; 
+      font-family: 'Gochi Hand', cursive;
+      font-size: 18px;
+      font-weight: 400;
+      line-height: 1.2;
+      color: #212529;
+      text-align: center;
+      transform: translate(14px, 4px) rotate(-2deg); 
+    }
+
+    /* ── Ruolo ── */
+    .hero-role {
+      position: absolute;
+      bottom: 40px;
+      left: 340px; 
+      display: flex; /* Changed to flex to handle multi-line */
+      flex-direction: column;
+      justify-content: flex-end;
+      color: #212529;
+      font-family: 'Chunko', sans-serif;
+      font-size: 66px; /* Huge by default */
+      line-height: 0.85; /* Tight line height for Chunko multi-line */
+      font-weight: 400;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      z-index: 11;
+      max-width: 750px; /* Prevent it from overlapping the dog/avatar */
+      white-space: normal; 
+    }
+    
+    /* Riduzione font automatica se il testo è su due righe o lungo */
+    .role-medium { font-size: 52px; }
+    .role-small { font-size: 38px; }
+
+    /* ── Cane "Zampa" gigante ── */
+    .cane-extra {
+      position: absolute;
+      bottom: -200px; 
+      right: -60px; 
+      width: 360px; 
+      z-index: 7;
+      filter: drop-shadow(4px 4px 0 rgba(33,37,41,0.5));
+      transform: scaleX(-1);
+    }
+
+  </style>
+</head>
+<body>
+  
+  <h1>Varianti del "Titolo Lavorativo" (Copy Nuvola Fissato)</h1>
+
+  <!-- Copy 1 -->
+  <div class="outer-container banner-scale">
+    <div class="linkedin-banner banner-inner">
+      <div class="banner-content">
+        <img class="cane-extra" src="public/images/cane/canecane zampa.png" alt="Cane">
+        <div class="hero-role">UX/UI Designer</div>
+        <div class="hero-container">
+          <img class="avatar" src="public/images/avatar/avatar-caterina-default.png" alt="Avatar">
+          <div class="nuvola-wrap">
+            <img class="nuvola-img" src="public/images/nuvola.png" alt="">
+            <div class="nuvola-text">Ciao! Faccio design inclusivo &<br>AI-driven per prodotti digitali a prova di futuro.</div>
+          </div>
+        </div>
+      </div>
+      <div class="profile-pic-placeholder">Copy 1</div>
+    </div>
+  </div>
+
+  <!-- Copy 2 -->
+  <div class="outer-container banner-scale">
+    <div class="linkedin-banner banner-inner">
+      <div class="banner-content">
+        <img class="cane-extra" src="public/images/cane/canecane zampa.png" alt="Cane">
+        <div class="hero-role">Junior UX/UI Designer</div>
+        <div class="hero-container">
+          <img class="avatar" src="public/images/avatar/avatar-caterina-default.png" alt="Avatar">
+          <div class="nuvola-wrap">
+            <img class="nuvola-img" src="public/images/nuvola.png" alt="">
+            <div class="nuvola-text">Ciao! Faccio design inclusivo &<br>AI-driven per prodotti digitali a prova di futuro.</div>
+          </div>
+        </div>
+      </div>
+      <div class="profile-pic-placeholder">Copy 2</div>
+    </div>
+  </div>
+
+  <!-- Copy 3 -->
+  <div class="outer-container banner-scale">
+    <div class="linkedin-banner banner-inner">
+      <div class="banner-content">
+        <img class="cane-extra" src="public/images/cane/canecane zampa.png" alt="Cane">
+        <!-- Slightly smaller for long text -->
+        <div class="hero-role role-medium">Inclusive UX/UI<br>Designer</div>
+        <div class="hero-container">
+          <img class="avatar" src="public/images/avatar/avatar-caterina-default.png" alt="Avatar">
+          <div class="nuvola-wrap">
+            <img class="nuvola-img" src="public/images/nuvola.png" alt="">
+            <div class="nuvola-text">Ciao! Faccio design inclusivo &<br>AI-driven per prodotti digitali a prova di futuro.</div>
+          </div>
+        </div>
+      </div>
+      <div class="profile-pic-placeholder">Copy 3</div>
+    </div>
+  </div>
+
+  <!-- Copy 4 -->
+  <div class="outer-container banner-scale">
+    <div class="linkedin-banner banner-inner">
+      <div class="banner-content">
+        <img class="cane-extra" src="public/images/cane/canecane zampa.png" alt="Cane">
+        <div class="hero-role role-medium">UX Researcher<br>& UI Designer</div>
+        <div class="hero-container">
+          <img class="avatar" src="public/images/avatar/avatar-caterina-default.png" alt="Avatar">
+          <div class="nuvola-wrap">
+            <img class="nuvola-img" src="public/images/nuvola.png" alt="">
+            <div class="nuvola-text">Ciao! Faccio design inclusivo &<br>AI-driven per prodotti digitali a prova di futuro.</div>
+          </div>
+        </div>
+      </div>
+      <div class="profile-pic-placeholder">Copy 4</div>
+    </div>
+  </div>
+
+  <!-- Copy 5 -->
+  <div class="outer-container banner-scale">
+    <div class="linkedin-banner banner-inner">
+      <div class="banner-content">
+        <img class="cane-extra" src="public/images/cane/canecane zampa.png" alt="Cane">
+        <div class="hero-role role-medium">Interaction<br>Designer</div>
+        <div class="hero-container">
+          <img class="avatar" src="public/images/avatar/avatar-caterina-default.png" alt="Avatar">
+          <div class="nuvola-wrap">
+            <img class="nuvola-img" src="public/images/nuvola.png" alt="">
+            <div class="nuvola-text">Ciao! Faccio design inclusivo &<br>AI-driven per prodotti digitali a prova di futuro.</div>
+          </div>
+        </div>
+      </div>
+      <div class="profile-pic-placeholder">Copy 5</div>
+    </div>
+  </div>
+
+  <!-- Copy 6 -->
+  <div class="outer-container banner-scale">
+    <div class="linkedin-banner banner-inner">
+      <div class="banner-content">
+        <img class="cane-extra" src="public/images/cane/canecane zampa.png" alt="Cane">
+        <div class="hero-role role-small">UX/UI Designer<br>User‑Centered Experiences</div>
+        <div class="hero-container">
+          <img class="avatar" src="public/images/avatar/avatar-caterina-default.png" alt="Avatar">
+          <div class="nuvola-wrap">
+            <img class="nuvola-img" src="public/images/nuvola.png" alt="">
+            <div class="nuvola-text">Ciao! Faccio design inclusivo &<br>AI-driven per prodotti digitali a prova di futuro.</div>
+          </div>
+        </div>
+      </div>
+      <div class="profile-pic-placeholder">Copy 6</div>
+    </div>
+  </div>
+
+  <!-- Copy 7 -->
+  <div class="outer-container banner-scale">
+    <div class="linkedin-banner banner-inner">
+      <div class="banner-content">
+        <img class="cane-extra" src="public/images/cane/canecane zampa.png" alt="Cane">
+        <div class="hero-role role-small">Junior UX/UI Design<br>Inclusive Experiences</div>
+        <div class="hero-container">
+          <img class="avatar" src="public/images/avatar/avatar-caterina-default.png" alt="Avatar">
+          <div class="nuvola-wrap">
+            <img class="nuvola-img" src="public/images/nuvola.png" alt="">
+            <div class="nuvola-text">Ciao! Faccio design inclusivo &<br>AI-driven per prodotti digitali a prova di futuro.</div>
+          </div>
+        </div>
+      </div>
+      <div class="profile-pic-placeholder">Copy 7</div>
+    </div>
+  </div>
+
+  <!-- Copy 8 -->
+  <div class="outer-container banner-scale">
+    <div class="linkedin-banner banner-inner">
+      <div class="banner-content">
+        <img class="cane-extra" src="public/images/cane/canecane zampa.png" alt="Cane">
+        <div class="hero-role role-small">UX Research<br>& Interaction Design</div>
+        <div class="hero-container">
+          <img class="avatar" src="public/images/avatar/avatar-caterina-default.png" alt="Avatar">
+          <div class="nuvola-wrap">
+            <img class="nuvola-img" src="public/images/nuvola.png" alt="">
+            <div class="nuvola-text">Ciao! Faccio design inclusivo &<br>AI-driven per prodotti digitali a prova di futuro.</div>
+          </div>
+        </div>
+      </div>
+      <div class="profile-pic-placeholder">Copy 8</div>
+    </div>
+  </div>
+
+  <script>
+    function scaleBanners() {
+      const outers = document.querySelectorAll('.banner-scale');
+      const inners = document.querySelectorAll('.banner-inner');
+      outers.forEach((outer, index) => {
+        const scale = outer.clientWidth / 1584;
+        inners[index].style.transform = `scale(${scale})`;
+      });
+    }
+    window.addEventListener('resize', scaleBanners);
+    scaleBanners(); 
+  </script>
+</body>
+</html>

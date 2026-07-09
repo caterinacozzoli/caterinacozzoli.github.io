@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>LinkedIn Banner - EN</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;600;700;800&family=Gochi+Hand&display=swap" rel="stylesheet">
+  <style>
+    @font-face {
+      font-family: 'Chunko';
+      src: url('public/fonts/Chunko-Bold.otf') format('opentype');
+      font-weight: 700;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    @page {
+      size: 1584px 396px;
+      margin: 0;
+    }
+    
+    body {
+      background: #FED728;
+      margin: 0; 
+      padding: 0;
+      font-family: sans-serif;
+      width: 1584px;
+      height: 396px;
+      overflow: hidden;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    .linkedin-banner {
+      width: 1584px;
+      height: 396px;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background: #FED728;
+      overflow: hidden;
+    }
+
+    .hero-container {
+      position: absolute;
+      left: 1180px;
+      top: 83px;
+      width: 320px;
+      height: 320px;
+      z-index: 10;
+    }
+
+    .avatar {
+      position: absolute;
+      left: 82px;
+      top: 49px;
+      width: 300px;
+      height: auto;
+      filter: drop-shadow(4px 4px 0 rgba(33,37,41,0.5));
+      z-index: 8;
+    }
+
+    .nuvola-wrap {
+      position: absolute;
+      left: -331px; 
+      top: -66px; 
+      width: 566px; 
+      z-index: 12;
+    }
+
+    .nuvola-img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transform: scaleY(-1);
+    }
+
+    .nuvola-text {
+      position: absolute;
+      left: 31px;
+      top: 94px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding-bottom: 25px; 
+      font-family: 'Gochi Hand', cursive;
+      font-size: 34px; 
+      font-weight: 400;
+      line-height: 1.2;
+      color: #212529;
+      text-align: center;
+      transform: translate(14px, -4px) rotate(-2deg);
+    }
+
+    .hero-role {
+      position: absolute;
+      top: 40px;
+      left: 40px; 
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-end;
+      color: #212529;
+      z-index: 11;
+      white-space: nowrap;
+    }
+
+    .role-title {
+      font-family: 'Chunko', sans-serif;
+      font-size: 76px; 
+      font-weight: 400;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      transform: scaleX(1.1);
+      transform-origin: left bottom;
+      line-height: 0.85;
+      margin: 0;
+      padding: 0;
+    }
+
+    .cane-extra {
+      position: absolute;
+      left: -130px; 
+      top: 206px; 
+      width: 360px; 
+      z-index: 7;
+      filter: drop-shadow(4px 4px 0 rgba(33,37,41,0.5));
+    }
+  </style>
+</head>
+<body>
+  <div class="linkedin-banner">
+    <img class="cane-extra" src="public/images/cane/canecane zampa.png" alt="Cane Zampa">
+    <div class="hero-role">
+      <div class="role-title">UX/UI Designer</div>
+    </div>
+    <div class="hero-container">
+      <img class="avatar" src="public/images/avatar/avatar-caterina-default.png" alt="Avatar">
+      <div class="nuvola-wrap">
+        <img class="nuvola-img" src="public/images/nuvola.png" alt="">
+        <div class="nuvola-text">I do inclusive and<br>AI-driven design for<br>future-proof digital products.</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
